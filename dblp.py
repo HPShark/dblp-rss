@@ -1,5 +1,6 @@
 import requests
 import json
+import datetime
 from xml.etree import ElementTree as ET
 
 
@@ -48,7 +49,8 @@ def generate_rss_feed(json_data):
         elif type(authors_list) == dict:
             author.text = authors_list['text']
         date = ET.SubElement(item, 'pubDate')
-        date.text = entry['info']['year']
+        d = datetime.datetime(int(entry['info']['year']), 1, 1)
+        date.text = d.strftime("%a, %d %b %Y %H:%M:%S %z")
         link = ET.SubElement(item, 'link')
         link.text = entry['info']['url']
         description = ET.SubElement(item, 'description')
@@ -59,7 +61,7 @@ def generate_rss_feed(json_data):
 
 
 def dblp_rss():
-    return generate_rss_feed(get_json_from_dblp('dns', 500))
+    return generate_rss_feed(get_json_from_dblp('dns', 100))
 
 
 if __name__ == '__main__':
