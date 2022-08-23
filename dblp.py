@@ -52,14 +52,14 @@ def generate_rss_feed(json_data):
         link = ET.SubElement(item, 'link')
         link.text = entry['info']['url']
         description = ET.SubElement(item, 'description')
-        description.text = '\n'.join(f"{key}: {val}" for key, val in entry['info'].items() if key != 'authors')
+        description.text = '\n'.join(f"{key}: {val}" for key, val in entry['info'].items() if key in ['venue', 'year', 'ee'])
 
     ET.indent(rss)
-    return ET.tostring(rss, method='xml')
+    return ET.tostring(rss, method='xml', encoding="unicode")
 
 
 def dblp_rss():
-    return generate_rss_feed(get_json_from_dblp('dns', 100))
+    return generate_rss_feed(get_json_from_dblp('dns', 500))
 
 
 if __name__ == '__main__':
