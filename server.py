@@ -3,7 +3,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from dblp import dblp_rss
 
-hostName = os.environ['VIRTUAL_HOST']
+hostName = 'localhost'
 serverPort = 80
 
 
