@@ -54,6 +54,7 @@ def generate_rss_feed(json_data):
         description = ET.SubElement(item, 'description')
         description.text = '\n'.join(f"{key}: {val}" for key, val in entry['info'].items() if key != 'authors')
 
+    ET.indent(rss)
     return ET.tostring(rss, method='xml')
 
 
