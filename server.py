@@ -13,7 +13,7 @@ class RSSServer(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/rss+xml")
             self.end_headers()
-            self.wfile.write(dblp_rss())
+            self.wfile.write(bytes(dblp_rss(), "utf-8"))
         else:
             self.send_response(404)
 
