@@ -1,9 +1,10 @@
+import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from dblp import dblp_rss
 
-hostName = 'localhost'
-serverPort = 8080
+hostName = os.environ['VIRTUAL_HOST']
+serverPort = 80
 
 
 class RSSServer(BaseHTTPRequestHandler):
