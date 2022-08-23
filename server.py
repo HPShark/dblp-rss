@@ -3,7 +3,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from dblp import dblp_rss
 
-hostName = 'localhost'
+hostName = '0.0.0.0'
 serverPort = 80
 
 
