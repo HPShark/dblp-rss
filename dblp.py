@@ -43,7 +43,7 @@ def generate_rss_feed(json_data):
         title = ET.SubElement(item, 'title')
         title.text = entry['info']['title']
         author = ET.SubElement(item, 'dc:creator')
-        authors_list = entry['info']['authors']['author']
+        authors_list = entry['info']['authors']['author'] if 'authors' in entry['info'] else "NULL"
         if type(authors_list) == list:
             author.text = ' | '.join(a['text'] for a in authors_list)
         elif type(authors_list) == dict:
@@ -61,7 +61,7 @@ def generate_rss_feed(json_data):
 
 
 def dblp_rss():
-    return generate_rss_feed(get_json_from_dblp('dns', 100))
+    return generate_rss_feed(get_json_from_dblp('dns', 500))
 
 
 if __name__ == '__main__':
