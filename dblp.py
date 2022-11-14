@@ -3,6 +3,12 @@ import json
 import datetime
 from xml.etree import ElementTree as ET
 
+###########################################
+# Which keywords must be queried and how many articles must be pulled
+KEYWORD = "dns"
+NB_ENTRIES = 500
+#################################################
+
 
 def get_json_from_dblp(keyword: str, nb_entries: int):
     BASE_URL = "https://dblp.org/search/publ/api"
@@ -54,14 +60,15 @@ def generate_rss_feed(json_data):
         link = ET.SubElement(item, 'link')
         link.text = entry['info']['url']
         description = ET.SubElement(item, 'description')
-        description.text = '\n'.join(f"{key}: {val}" for key, val in entry['info'].items() if key in ['venue', 'year', 'ee'])
+        description.text = '\n'.join(
+            f"{key}: {val}" for key, val in entry['info'].items() if key in ['venue', 'year', 'ee'])
 
     ET.indent(rss)
     return ET.tostring(rss, method='xml', encoding="unicode")
 
 
 def dblp_rss():
-    return generate_rss_feed(get_json_from_dblp('dns', 500))
+    return generate_rss_feed(get_json_from_dblp(KEYWORD, NB_ENTRIES))
 
 
 if __name__ == '__main__':

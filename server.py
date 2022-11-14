@@ -18,7 +18,6 @@ class RSSServer(BaseHTTPRequestHandler):
             self.send_response(404)
 
 
-
 if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), RSSServer)
     print("Server started http://%s:%s" % (hostName, serverPort))
