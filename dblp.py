@@ -4,8 +4,7 @@ import datetime
 from xml.etree import ElementTree as ET
 
 ###########################################
-# Which keywords must be queried and how many articles must be pulled
-KEYWORD = "dns"
+# How many articles must be pulled
 NB_ENTRIES = 500
 #################################################
 
@@ -67,8 +66,8 @@ def generate_rss_feed(json_data):
     return ET.tostring(rss, method='xml', encoding="unicode")
 
 
-def dblp_rss():
-    return generate_rss_feed(get_json_from_dblp(KEYWORD, NB_ENTRIES))
+def dblp_rss(keyword):
+    return generate_rss_feed(get_json_from_dblp(keyword, NB_ENTRIES))
 
 
 if __name__ == '__main__':

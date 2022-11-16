@@ -11,7 +11,7 @@ This is a quick and dirty solution. Use at your own risks.
 - Receives the list of references
 - Builds an RSS feed from those results
 - Serves the feed with a minimalist HTTP server, listening on all local addresses, port 80
-- The feed can be recovered at `http://localhost:80/dblp`
+- The feed can be recovered at `http://localhost:80/dblp/<keyword>`
 
 So, to run it, you need to :
 - Get the code
@@ -20,8 +20,8 @@ So, to run it, you need to :
 - Configure your RSS client to pull the feed from this webserver
 
 # Configuration
-By default, the code queries for the keyword `dns`, and pulls the top 500 results.
-Those parameters can be changed in the global variables in the beginning of file `dblp.py`
+By default, the code pulls the top 500 results.
+This can be changed in the global variable in the beginning of file `dblp.py`
 
 By default, the server runs on `0.0.0.0`, port `80`. This can be changed in the global variables in the beginning of 
 file `server.py`

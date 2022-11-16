@@ -9,11 +9,12 @@ serverPort = 80
 
 class RSSServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/dblp':
+        if self.path.startswith('/dblp/'):
+            keyword = self.path.split('/')[-1]
             self.send_response(200)
             self.send_header("Content-type", "application/rss+xml")
             self.end_headers()
-            self.wfile.write(bytes(dblp_rss(), "utf-8"))
+            self.wfile.write(bytes(dblp_rss(keyword), "utf-8"))
         else:
             self.send_response(404)
 
