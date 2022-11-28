@@ -17,10 +17,15 @@ def get_json_from_dblp(keyword: str, nb_entries: int):
                   "c": 0}
 
     res = requests.get(BASE_URL, params=parameters)
-    return json.loads(res.content)
+    if res.status_code == 200:
+        return json.loads(res.content)
+    else:
+        raise ValueError(f"Error {res.status_code} when fetching DBLP for keyword {keyword}")
 
 
 def generate_rss_feed(json_data):
+    """ Formats the json result from DBLP to a valid RSS file. Only works with a valid answer from DBLP """
+
     rss = ET.Element('rss',
                      attrib={
                          "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
@@ -71,4 +76,4 @@ def dblp_rss(keyword):
 
 
 if __name__ == '__main__':
-    print(dblp_rss())
+    print(dblp_rss("whois"))
