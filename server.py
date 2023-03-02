@@ -1,9 +1,8 @@
-import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from dblp import dblp_rss
 
-hostName = '0.0.0.0'
+hostName = '127.0.0.1'
 serverPort = 8080
 
 
@@ -26,8 +25,9 @@ class RSSServer(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    print(f"Starting the server http://{hostName}:{serverPort}...")
     webServer = HTTPServer((hostName, serverPort), RSSServer)
-    print("Server started http://%s:%s" % (hostName, serverPort))
+    print(f"Server started http://{hostName}:{serverPort}")
 
     try:
         webServer.serve_forever()
