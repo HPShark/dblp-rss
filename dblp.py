@@ -18,7 +18,11 @@ def get_json_from_dblp(keyword: str, nb_entries: int):
 
     res = requests.get(BASE_URL, params=parameters)
     if res.status_code == 200:
-        return json.loads(res.content)
+        try:
+            jd = json.loads(res.content)
+            return jd
+        except json.decoder.JSONDecodeError as e:
+            raise ValueError(f"Error {e} when parsing the JSON entry from DBLP")
     else:
         raise ValueError(f"Error {res.status_code} when fetching DBLP for keyword {keyword}")
 
