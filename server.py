@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from dblp import dblp_rss
 
-hostName = '127.0.0.1'
+hostName = '0.0.0.0'
 serverPort = 8080
 
 
