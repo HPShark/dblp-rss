@@ -7,7 +7,6 @@ from urllib.parse import quote, unquote
 # How many articles must be pulled
 NB_ENTRIES = 500
 
-
 def get_json_from_dblp(keyword: str, nb_entries: int):
     BASE_URL = "https://dblp.org/search/publ/api"
 
@@ -40,6 +39,17 @@ def get_json_from_dblp(keyword: str, nb_entries: int):
     else:
         raise ValueError(f"Error {res.status_code} when fetching DBLP for keyword {keyword}")
 
+def sort_hits_by_volume_and_number(hits):
+    def parse_int(value, default=0):
+        try:
+            return int(value)
+        except (ValueError, TypeError):
+            return default
+
+    # 使用稳定排序方法
+    hits.sort(key=lambda x: parse_int(x['info'].get('number', 0)), reverse=True)
+    hits.sort(key=lambda x: parse_int(x['info'].get('volume', 0)), reverse=True)
+    return hits
 
 def generate_rss_feed(json_data):
     """Formats the json result from DBLP to a valid RSS file."""
@@ -73,8 +83,11 @@ def generate_rss_feed(json_data):
     hits = json_data['result']['hits'].get('hit', [])
     print(f"DEBUG: Parsed hits: {hits}")  # 调试信息，输出 hits 内容
 
+    # 按 volume 和 number 排序
+    sorted_hits = sort_hits_by_volume_and_number(hits)
+
     # 遍历每个条目并生成 RSS item
-    for entry in hits:
+    for entry in sorted_hits:
         print(f"DEBUG: Processing entry: {entry}")  # 调试信息，输出当前条目内容
         item = ET.SubElement(channel, 'item')
         title = ET.SubElement(item, 'title')
@@ -107,11 +120,9 @@ def generate_rss_feed(json_data):
     ET.indent(rss)
     return ET.tostring(rss, method='xml', encoding="unicode")
 
-
 def dblp_rss(keyword):
     return generate_rss_feed(get_json_from_dblp(keyword, NB_ENTRIES))
 
-
 if __name__ == '__main__':
     print(dblp_rss("stream:streams/journals/tdsc:"))
-    print(dblp_rss("stream%3Astreams%2Fjournals%2Ftdsc%3A"))
+    # print(dblp_rss("stream%3Astreams%2Fjournals%2Ftdsc%3A"))
