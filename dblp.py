@@ -3,9 +3,25 @@ import json
 import datetime
 from xml.etree import ElementTree as ET
 from urllib.parse import quote, unquote
+import os
+import pickle
 
 # How many articles must be pulled
-NB_ENTRIES = 500
+NB_ENTRIES = 200
+# Cache expiration time in hours
+CACHE_EXPIRATION_HOURS = 12
+
+CACHE_FILE = "dblp_cache.pkl"
+
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        with open(CACHE_FILE, "rb") as f:
+            return pickle.load(f)
+    return {}
+
+def save_cache(cache):
+    with open(CACHE_FILE, "wb") as f:
+        pickle.dump(cache, f)
 
 def get_json_from_dblp(keyword: str, nb_entries: int):
     BASE_URL = "https://dblp.org/search/publ/api"
@@ -29,7 +45,7 @@ def get_json_from_dblp(keyword: str, nb_entries: int):
     }
 
     res = requests.get(BASE_URL, headers=headers, params=parameters)
-    print(f"DEBUG: URL called: {res.url}")  # 输出实际调用的 URL
+    # print(f"DEBUG: URL called: {res.url}")  # 输出实际调用的 URL
     if res.status_code == 200:
         try:
             jd = json.loads(res.content)
@@ -39,7 +55,7 @@ def get_json_from_dblp(keyword: str, nb_entries: int):
     else:
         raise ValueError(f"Error {res.status_code} when fetching DBLP for keyword {keyword}")
 
-def sort_hits_by_volume_and_number(hits):
+def sort_hits_by_year_volume_and_number(hits):
     def parse_int(value, default=0):
         try:
             return int(value)
@@ -49,6 +65,7 @@ def sort_hits_by_volume_and_number(hits):
     # 使用稳定排序方法
     hits.sort(key=lambda x: parse_int(x['info'].get('number', 0)), reverse=True)
     hits.sort(key=lambda x: parse_int(x['info'].get('volume', 0)), reverse=True)
+    hits.sort(key=lambda x: parse_int(x['info'].get('year', 0)), reverse=True)
     return hits
 
 def generate_rss_feed(json_data):
@@ -81,14 +98,14 @@ def generate_rss_feed(json_data):
 
     # 获取返回数据中的 'hit' 列表
     hits = json_data['result']['hits'].get('hit', [])
-    print(f"DEBUG: Parsed hits: {hits}")  # 调试信息，输出 hits 内容
+    # print(f"DEBUG: Parsed hits: {hits}")  # 调试信息，输出 hits 内容
 
-    # 按 volume 和 number 排序
-    sorted_hits = sort_hits_by_volume_and_number(hits)
+    # 按 year, volume 和 number 排序
+    sorted_hits = sort_hits_by_year_volume_and_number(hits)
 
     # 遍历每个条目并生成 RSS item
     for entry in sorted_hits:
-        print(f"DEBUG: Processing entry: {entry}")  # 调试信息，输出当前条目内容
+        # print(f"DEBUG: Processing entry: {entry}")  # 调试信息，输出当前条目内容
         item = ET.SubElement(channel, 'item')
         title = ET.SubElement(item, 'title')
         title.text = entry['info']['title']
@@ -121,8 +138,23 @@ def generate_rss_feed(json_data):
     return ET.tostring(rss, method='xml', encoding="unicode")
 
 def dblp_rss(keyword):
-    return generate_rss_feed(get_json_from_dblp(keyword, NB_ENTRIES))
+    cache = load_cache()
+    now = datetime.datetime.now()
+
+    # 检查缓存
+    if keyword in cache:
+        cached_data, timestamp = cache[keyword]
+        if (now - timestamp).total_seconds() < CACHE_EXPIRATION_HOURS * 3600:
+            print("DEBUG: Returning cached result.")
+            return cached_data
+
+    # 缓存失效或不存在
+    print("DEBUG: Fetching new data from DBLP.")
+    result = generate_rss_feed(get_json_from_dblp(keyword, NB_ENTRIES))
+    cache[keyword] = (result, now)
+    save_cache(cache)
+    return result
 
 if __name__ == '__main__':
-    print(dblp_rss("stream:streams/journals/tdsc:"))
-    # print(dblp_rss("stream%3Astreams%2Fjournals%2Ftdsc%3A"))
+    dblp_rss("stream:streams/journals/tdsc:")
+    dblp_rss("stream%3Astreams%2Fjournals%2Ftdsc%3A")
