@@ -83,7 +83,7 @@ sudo firewall-cmd --reload
 
 1. 克隆项目代码
    ```
-   git clone https://github.com/Pantoofle/dblp-rss.git
+   git clone https://github.com/HPShark/dblp-rss.git
    ```
 
 2. 进入项目目录，构建 Docker 镜像
