@@ -69,12 +69,14 @@ sudo firewall-cmd --reload
 使用runoob教程的方案，地址：[Ubuntu Docker 安装 | 菜鸟教程](https://www.runoob.com/docker/ubuntu-docker-install.html)
 
 1. 安装docker
+
    ```
    curl -fsSL https://test.docker.com -o test-docker.sh
    sudo sh test-docker.sh
    ```
 
 2. 测试Helloworld：
+
    ```
    docker run ubuntu:15.10 /bin/echo "Hello world"
    ```
@@ -82,17 +84,20 @@ sudo firewall-cmd --reload
 ### 安装dblp-rss
 
 1. 克隆项目代码
+
    ```
    git clone https://github.com/Pantoofle/dblp-rss.git
    ```
 
 2. 进入项目目录，构建 Docker 镜像
+
    ```
    cd dblp-rss
    docker build -t dblp-rss .
    ```
 
 3. 运行 Docker 容器
+
    ```
    docker run -d -p 8080:8080 --restart always --name dblp-rss dblp-rss
    ```
@@ -104,13 +109,14 @@ sudo firewall-cmd --reload
    > `--name dblp-rss`：将容器命名为 `dblp-rss`。
 
 4. 验证运行状态
+
    ```
    docker ps
    ```
 
    确认 `dblp-rss` 容器正在运行，并且 `PORTS` 列显示 `0.0.0.0:8080->80/tcp`。
 
-5. 访问：http://ip:8080/dblp/<keyword>
+5. 访问：`http://ip:8080/dblp/<keyword>`
 
    > keyword指q值的内容，比如这个网址：
    >
@@ -165,4 +171,4 @@ sudo firewall-cmd --reload
    - 选取设置：SSL
    - 选择 SSL/TLS 加密模式：灵活
    - 保存页面规则
-4. 访问：https://dblp.xxx.xxx/dblp/<keyword>
+4. 访问：`https://dblp.xxx.xxx/dblp/<keyword>`

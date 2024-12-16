@@ -110,7 +110,7 @@ sudo firewall-cmd --reload
 
    确认 `dblp-rss` 容器正在运行，并且 `PORTS` 列显示 `0.0.0.0:8080->80/tcp`。
 
-5. 访问：http://ip:8080/dblp/<keyword>
+5. 访问：`http://ip:8080/dblp/<keyword>`
 
    > keyword指q值的内容，比如这个网址：
    >
@@ -165,4 +165,4 @@ sudo firewall-cmd --reload
    - 选取设置：SSL
    - 选择 SSL/TLS 加密模式：灵活
    - 保存页面规则
-4. 访问：https://dblp.xxx.xxx/dblp/<keyword>
+4. 访问：`https://dblp.xxx.xxx/dblp/<keyword>`
