@@ -2,7 +2,13 @@
 
 dblp默认的前100条只有xml和json格式，zotero识别不了，github上有个开源项目可以将DBLP的api返回结果转换成RSS格式，方便zotero识别。
 
-项目地址：[Pantoofle/dblp-rss: A quick and dirty RSS server to translate DBLP API results to a standard RSS flux](https://github.com/Pantoofle/dblp-rss)
+项目参考自：[Pantoofle/dblp-rss: A quick and dirty RSS server to translate DBLP API results to a standard RSS flux](https://github.com/Pantoofle/dblp-rss)
+
+并做了以下修改，以便适应小范围部署，满足实验室成员获取论文的需求~：
+
+- 解决了部分bug问题。
+- 增加了排序，dblp的api返回的结果不是按时间排序，本代码使用了稳定排序按照time>Volume>Number优先级排序，并保证了相对顺序不改变。
+- 增加了缓存功能，24h内请求同一个keyword直接返回缓存结果，缓解服务器压力。
 
 ## 服务器配置过程
 
