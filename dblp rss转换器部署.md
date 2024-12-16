@@ -106,6 +106,12 @@ sudo firewall-cmd --reload
 
 5. 访问：http://ip:8080/dblp/<keyword>
 
+   > keyword指q值的内容，比如这个网址：
+   >
+   > `https://dblp.org/search/publ/api?q=stream%3Astreams%2Fjournals%2Ftdsc%3A&h=1000&format=json`
+   >
+   > 其中keyword对应的就是q的参数`stream%3Astreams%2Fjournals%2Ftdsc%3A`，故浏览器访问`http://ip:8080/dblp/stream%3Astreams%2Fjournals%2Ftdsc%3A `就可以访问tdsc这个期刊最近1000篇论文的rss转换结果，直接把这个域名添加进zotero等rss订阅链接里就能自动识别
+
 > 查看日志：docker logs dblp-rss
 >
 > 重启容器：docker start dblp-rss
