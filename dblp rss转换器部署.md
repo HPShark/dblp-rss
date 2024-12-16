@@ -91,7 +91,7 @@ sudo firewall-cmd --reload
    docker run -d -p 8080:8080 --restart always --name dblp-rss dblp-rss
    ```
 
-   > `-p 8080:8080`：将服务器的 2083 端口映射到容器的 80 端口。
+   > `-p 8080:8080`：将服务器的 8080端口映射到容器的 80 端口。
    >
    > `--restart always`：设置容器在意外退出时自动重启。
    >
@@ -102,7 +102,7 @@ sudo firewall-cmd --reload
    docker ps
    ```
 
-   确认 `dblp-rss` 容器正在运行，并且 `PORTS` 列显示 `0.0.0.0:2083->80/tcp`。
+   确认 `dblp-rss` 容器正在运行，并且 `PORTS` 列显示 `0.0.0.0:8080->80/tcp`。
 
 5. 访问：http://ip:8080/dblp/<keyword>
 
