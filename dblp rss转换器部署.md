@@ -14,7 +14,7 @@ dblp默认的前100条只有xml和json格式，zotero识别不了，github上有
 
 ### 开启防火墙
 
-如果是走cloudflarecdn的话只能是以下几个端口，这里使用2083：
+如果是走cloudflarecdn的话只能是以下几个端口，这里使用8080：
 
 **Cloudflare 支持的 HTTP 端口：**
 
