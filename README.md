@@ -118,6 +118,14 @@ sudo firewall-cmd --reload
    >
    > 其中keyword对应的就是q的参数`stream%3Astreams%2Fjournals%2Ftdsc%3A`，故浏览器访问`http://ip:8080/dblp/stream%3Astreams%2Fjournals%2Ftdsc%3A `就可以访问tdsc这个期刊最近1000篇论文的rss转换结果，直接把这个域名添加进zotero等rss订阅链接里就能自动识别
 
+6. 设置docker自动重启，当前docker运行时间长会崩溃，原因未知。
+
+   ```
+   crontab -e
+   添加以下任务，每天凌晨3点重启容器：
+   0 3 * * * docker restart dblp-rss
+   ```
+
 > 查看日志：docker logs dblp-rss
 >
 > 重启容器：docker start dblp-rss
@@ -133,6 +141,7 @@ sudo firewall-cmd --reload
 > 一键启动：
 >
 > ```
+> cd dblp-rss/
 > docker build -t dblp-rss .
 > docker run -d -p 8080:8080 --restart always --name dblp-rss dblp-rss
 > ```
