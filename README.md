@@ -2,6 +2,8 @@
 
 dblp默认的前100条只有xml和json格式，zotero识别不了，github上有个开源项目可以将DBLP的api返回结果转换成RSS格式，方便zotero识别。
 
+
+
 项目参考自：[Pantoofle/dblp-rss: A quick and dirty RSS server to translate DBLP API results to a standard RSS flux](https://github.com/Pantoofle/dblp-rss)
 
 并做了以下修改，以便适应小范围部署，满足实验室成员获取论文的需求~：
@@ -94,7 +96,7 @@ sudo firewall-cmd --reload
 
 3. 运行 Docker 容器
    ```
-   docker run -d -p 8080:8080 --restart always --name dblp-rss dblp-rss
+   docker run -d -p 8080:8080 -v $(pwd)/cache:/app/cache --restart always --name dblp-rss dblp-rss
    ```
 
    > `-p 8080:8080`：将服务器的 8080端口映射到容器的 8080端口。
@@ -143,7 +145,7 @@ sudo firewall-cmd --reload
 > ```
 > cd dblp-rss/
 > docker build -t dblp-rss .
-> docker run -d -p 8080:8080 --restart always --name dblp-rss dblp-rss
+> docker run -d -p 8080:8080 -v $(pwd)/cache:/app/cache --restart always --name dblp-rss dblp-rss
 > ```
 >
 > 一键删除：

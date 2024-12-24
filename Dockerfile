@@ -6,5 +6,6 @@ RUN pip3 install -r requirements.txt
 COPY . .
 
 EXPOSE 8080
+VOLUME [ "/app/cache" ]
 
-CMD ["python3", "server.py"]
+CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8080"]

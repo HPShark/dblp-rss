@@ -11,7 +11,7 @@ NB_ENTRIES = 200
 # Cache expiration time in hours
 CACHE_EXPIRATION_HOURS = 12
 
-CACHE_FILE = "dblp_cache.pkl"
+CACHE_FILE = "cache/dblp_cache.pkl"
 
 def load_cache():
     if os.path.exists(CACHE_FILE):
@@ -48,12 +48,12 @@ def get_json_from_dblp(keyword: str, nb_entries: int):
     # print(f"DEBUG: URL called: {res.url}")  # 输出实际调用的 URL
     if res.status_code == 200:
         try:
-            jd = json.loads(res.content)
-            return jd
-        except json.decoder.JSONDecodeError as e:
+            return json.loads(res.content)
+        except json.JSONDecodeError as e:
             raise ValueError(f"Error {e} when parsing the JSON entry from DBLP")
     else:
         raise ValueError(f"Error {res.status_code} when fetching DBLP for keyword {keyword}")
+
 
 def sort_hits_by_year_volume_and_number(hits):
     def parse_int(value, default=0):
