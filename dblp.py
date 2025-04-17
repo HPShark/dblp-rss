@@ -7,7 +7,7 @@ import os
 import pickle
 
 # How many articles must be pulled
-NB_ENTRIES = 200
+NB_ENTRIES = 300
 # Cache expiration time in hours
 CACHE_EXPIRATION_HOURS = 12
 
@@ -95,7 +95,7 @@ def generate_rss_feed(json_data):
     description.text = "Custom DBLP extraction from XML"
     language = ET.SubElement(channel, 'language')
     language.text = 'en'
-
+    
     # 获取返回数据中的 'hit' 列表
     hits = json_data['result']['hits'].get('hit', [])
     # print(f"DEBUG: Parsed hits: {hits}")  # 调试信息，输出 hits 内容
@@ -122,11 +122,21 @@ def generate_rss_feed(json_data):
         date = ET.SubElement(item, 'pubDate')
         year = entry['info'].get('year', "2000")  # 默认年份为 2000
         d = datetime.datetime(int(year), 1, 1)
-        date.text = d.strftime("%a, %d %b %Y %H:%M:%S %z")
+        date.text = d.strftime("%a, %d %b %Y %H:%M:%S +0000")
 
         # 添加链接
         link = ET.SubElement(item, 'link')
         link.text = entry['info']['url']
+        
+        # 添加唯一标识符（guid）
+        guid = ET.SubElement(item, 'guid')
+        guid.set('isPermaLink', 'false')
+        # 使用键值作为唯一标识符
+        if 'key' in entry['info']:
+            guid.text = entry['info']['key']
+        else:
+            # 如果没有key，使用URL作为唯一标识符
+            guid.text = entry['info']['url']
 
         # 添加描述
         description = ET.SubElement(item, 'description')

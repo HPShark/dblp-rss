@@ -1,0 +1,1808 @@
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" version="2.0">
+  <channel>
+    <title>DBLP</title>
+    <link>https://dblp.org/</link>
+    <description>Custom DBLP extraction from XML</description>
+    <language>en</language>
+    <item>
+      <title>Detecting Smart Home Device Activities Using Packet-Level Signatures From Encrypted Traffic.</title>
+      <dc:creator>Mohammad Shamim Ahsan | Md. Shariful Islam | Md. Shohrab Hossain | Anupam Das 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AhsanIHD25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3424299</description>
+    </item>
+    <item>
+      <title>xr-droid: A Benchmark Dataset for AR/VR and Security Applications.</title>
+      <dc:creator>Abdulaziz Alghamdi | Ali Al Kinoon | Ahod Alghuried | David Mohaisen</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AlghamdiKAM25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3440662</description>
+    </item>
+    <item>
+      <title>Robust Encrypted Inference in Deep Learning: A Pathway to Secure Misinformation Detection.</title>
+      <dc:creator>Hassan Ali 0001 | Rana Tallal Javed | Adnan Qayyum | Amer AlGhadhban | Meshari Alazmi | Ahmad Alzamil | Khaled Al-Utaibi | Junaid Qadir 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AliJQAAAAQ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3447629</description>
+    </item>
+    <item>
+      <title>Real-Time, Evidence-Based Alerts for Protection From Phishing Attacks.</title>
+      <dc:creator>Shahryar Baki | Fatima Zahra Qachfar | Rakesh M. Verma | Ryan Kennedy | Daniel Jones 0003</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BakiQVKJ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3425908</description>
+    </item>
+    <item>
+      <title>Carbon: Scaling Trusted Payments With Untrusted machines.</title>
+      <dc:creator>Martina Camaioni | Rachid Guerraoui | Jovan Komatovic | Matteo Monti | Pierre-Louis Roman | Manuel Vidigueira | Gauthier Voron</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CamaioniGKMRVV25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3428617</description>
+    </item>
+    <item>
+      <title>AXI Hardware Accelerator for McEliece on FPGA Embedded Systems.</title>
+      <dc:creator>Enrique F. Cantó-Navarro | Mariano López-García</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CantoNavarroL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3445181</description>
+    </item>
+    <item>
+      <title>Enabling Passive User Authentication via Heart Sounds on In-Ear Microphones.</title>
+      <dc:creator>Yetong Cao | Chao Cai 0001 | Fan Li 0001 | Zhe Chen 0015 | Jun Luo 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CaoCLCL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3429574</description>
+    </item>
+    <item>
+      <title>On the Interoperability of Encrypted Databases.</title>
+      <dc:creator>Xinle Cao | Jian Liu 0012 | Hao Lu | Yan Liu | Weixin Liu | Tao Wei | Kui Ren 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CaoLLLLWR25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3424455</description>
+    </item>
+    <item>
+      <title>Log Sequence Anomaly Detection Based on Template and Parameter Parsing via BERT.</title>
+      <dc:creator>Xiaolin Chai | Hang Zhang | Jue Zhang | Yan Sun 0004 | Sajal K. Das 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChaiZZSD25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3428538</description>
+    </item>
+    <item>
+      <title>Fight Perturbations With Perturbations: Defending Adversarial Attacks via Neuron Influence.</title>
+      <dc:creator>Ruoxi Chen | Haibo Jin | Haibin Zheng | Jinyin Chen | Zhenguang Liu</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenJZCL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3445914</description>
+    </item>
+    <item>
+      <title>FairReward: Towards Fair Reward Distribution Using Equity Theory in Blockchain-Based Federated Learning.</title>
+      <dc:creator>Guorong Chen | Chao Li 0023 | Wei Wang 0012 | Li Duan | Bin Wang 0062 | Zhen Han 0001 | Xiangliang Zhang 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenLWDWHZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3446864</description>
+    </item>
+    <item>
+      <title>Batch Inference on Deep Convolutional Neural Networks With Fully Homomorphic Encryption Using Channel-By-Channel Convolutions.</title>
+      <dc:creator>Jung Hee Cheon | Minsik Kang | Taeseong Kim | Junyoung Jung | Yongdong Yeo</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CheonKKJY25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3448406</description>
+    </item>
+    <item>
+      <title>Multiparty Delegated Private Set Union With Efficient Updates on Outsourced Datasets.</title>
+      <dc:creator>HeeWon Chung | Myungsun Kim | Patrick Chulsoon Yang</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChungKY25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3419576</description>
+    </item>
+    <item>
+      <title>Anomaly Detection in Event-Triggered Traffic Time Series via Similarity Learning.</title>
+      <dc:creator>Shaoyu Dou | Kai Yang 0001 | Yang Jiao | Chengbo Qiu | Kui Ren 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DouYJQR25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3418906</description>
+    </item>
+    <item>
+      <title>Top-k Discovery Under Local Differential Privacy: An Adaptive Sampling Approach.</title>
+      <dc:creator>Rong Du | Qingqing Ye 0001 | Yue Fu | Haibo Hu 0001 | Kai Huang 0011</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DuYFHH25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3471923</description>
+    </item>
+    <item>
+      <title>Truthful and Dual-Direction Combinatorial Multi-Armed Bandit Scheme to Maximize Profit for Mobile Crowd Sensing.</title>
+      <dc:creator>Xiangwan Fu | Saiqin Long | Anfeng Liu | Ju Ren 0001 | Bin Guo 0001 | Zhetao Li</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FuLLRGL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3428405</description>
+    </item>
+    <item>
+      <title>An Attack Exploiting Cyber-Arm Industry.</title>
+      <dc:creator>Jie Gan | Chaochao Luo | Wei Shi 0001 | Yuan Liu 0002 | Ximeng Liu | Zhihong Tian</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GanLSLLT25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3451129</description>
+    </item>
+    <item>
+      <title>Shaduf++: Non-Cycle and Privacy-Preserving Payment Channel Rebalancing.</title>
+      <dc:creator>Zhonghui Ge | Chenke Wang | Yu Long 0001 | Dawu Gu</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GeWLG25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3424212</description>
+    </item>
+    <item>
+      <title>MFGSCOPE: A Lightweight Framework for Efficient Graph-Based Analysis on Blockchain.</title>
+      <dc:creator>Yufeng Hu | Yingshi Sun | Yuan Chen | Zhuo Chen | Bowen He | Lei Wu 0012 | Yajin Zhou | Rui Chang</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/HuSCCHWZC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3431011</description>
+    </item>
+    <item>
+      <title>VAE-Based Membership Cleanser Against Membership Inference Attacks.</title>
+      <dc:creator>Li Hu | Hongyang Yan | Yun Peng 0002 | Haibo Hu 0001 | Shaowei Wang 0003 | Jin Li 0002</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/HuYPHWL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3429203</description>
+    </item>
+    <item>
+      <title>A Proactive Trust Evaluation System for Secure Data Collection Based on Sequence Extraction.</title>
+      <dc:creator>Mingfeng Huang | Zhetao Li | Anfeng Liu | Xinglin Zhang | Zhemin Yang | Min Yang 0002</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/HuangLLZYY25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3424448</description>
+    </item>
+    <item>
+      <title>FedPA: Generator-Based Heterogeneous Federated Prototype Adversarial Learning.</title>
+      <dc:creator>Lei Jiang | Xiaoding Wang 0001 | Xu Yang 0002 | Jiwu Shu | Hui Lin 0007 | Xun Yi</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/JiangWYSLY25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3419211</description>
+    </item>
+    <item>
+      <title>PerfSPEC: Performance Profiling-Based Proactive Security Policy Enforcement for Containers.</title>
+      <dc:creator>Hugo Kermabon-Bobinnec | Sima Bagheri | Mahmood Gholipourchoubeh | Suryadipta Majumdar | Yosr Jarraya | Lingyu Wang 0001 | Makan Pourzandi</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/KermabonBobinnecBGMJWP25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3420712</description>
+    </item>
+    <item>
+      <title>$S{3}$S3Voting: A Blockchain Sharding Based E-Voting Approach With Security and Scalability.</title>
+      <dc:creator>Meiqi Li | Kaiping Xue | Xinyi Luo | Wentuo Sun | David S. L. Wei | Qibin Sun | Jun Lu 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LiXLSWSL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3446392</description>
+    </item>
+    <item>
+      <title>Graph Privacy Funnel: A Variational Approach for Privacy-Preserving Representation Learning on Graphs.</title>
+      <dc:creator>Wanyu Lin | Hao Lan | Jiannong Cao 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LinLC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3417513</description>
+    </item>
+    <item>
+      <title>A CycleGAN Watermarking Method for Ownership Verification.</title>
+      <dc:creator>Dongdong Lin | Benedetta Tondi | Bin Li 0011 | Mauro Barni</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LinTLB25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3424900</description>
+    </item>
+    <item>
+      <title>CrossNet: A Low-Latency MLaaS Framework for Privacy-Preserving Neural Network Inference on Resource-Limited Devices.</title>
+      <dc:creator>Yu Lin | Tianling Zhang | Yunlong Mao | Sheng Zhong 0002</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LinZMZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3431590</description>
+    </item>
+    <item>
+      <title>MaTEE: Efficiently Bridging the Semantic Gap in TrustZone via Arm Pointer Authentication.</title>
+      <dc:creator>Shiqi Liu | Xiang Li | Jie Wang | Yongpeng Gao | Jiajin Hu</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LiuLWGH25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3445296</description>
+    </item>
+    <item>
+      <title>EPFFL: Enhancing Privacy and Fairness in Federated Learning for Distributed E-Healthcare Data Sharing Services.</title>
+      <dc:creator>Jingwei Liu | Yating Li | Mengjiao Zhao | Lei Liu 0031 | Neeraj Kumar 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LiuLZLK25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3431542</description>
+    </item>
+    <item>
+      <title>Fast Game Verification for Safety- and Security-Critical Distributed Applications.</title>
+      <dc:creator>Wei Luo | Guoqi Xie | Yao Liu | Xiongren Xiao | Renfa Li</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LuoXLXL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3417022</description>
+    </item>
+    <item>
+      <title>CoBA: Collusive Backdoor Attacks With Optimized Trigger to Federated Learning.</title>
+      <dc:creator>Xiaoting Lyu | Yufei Han | Wei Wang 0012 | Jingkai Liu | Bin Wang 0062 | Kai Chen 0012 | Yidong Li | Jiqiang Liu | Xiangliang Zhang 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LyuHWLWCLLZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3445637</description>
+    </item>
+    <item>
+      <title>NeuroYara: Learning to Rank for Yara Rules Generation Through Deep Language Modeling and Discriminative N-Gram Encoding.</title>
+      <dc:creator>Ziad Mansour | Weihan Ou | Steven H. H. Ding | Mohammad Zulkernine | Philippe Charland</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/MansourODZC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3449641</description>
+    </item>
+    <item>
+      <title>Malcoda: Practical and Stochastic Security Risk Assessment for Enterprise Networks.</title>
+      <dc:creator>Ryohei Sato | Hidetoshi Kawaguchi | Yuichi Nakatani</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/SatoKN25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3434748</description>
+    </item>
+    <item>
+      <title>SHIELD - Secure Aggregation Against Poisoning in Hierarchical Federated Learning.</title>
+      <dc:creator>Yushan Siriwardhana | Pawani Porambage | Madhusanka Liyanage | Samuel Marchal | Mika Ylianttila</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/SiriwardhanaPLMY25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3472869</description>
+    </item>
+    <item>
+      <title>Privacy-Preserving Fine-Grained Data Sharing With Dynamic Service for the Cloud-Edge IoT.</title>
+      <dc:creator>Jianfei Sun | Yangyang Bao | Weidong Qiu | Rongxing Lu | Songnian Zhang | Yunguo Guan | Xiaochun Cheng</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/SunBQLZGC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3432650</description>
+    </item>
+    <item>
+      <title>$MGAP{3}$MGAP3: Malware Group Attribution Based on PerceiverIO and Polytype Pre-Training.</title>
+      <dc:creator>Yuxia Sun | Shiqi Chen | Song Lin | Aoxiang Sun | Saiqin Long | Zhetao Li</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/SunCLSLL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3418958</description>
+    </item>
+    <item>
+      <title>How to Securely Delegate and Revoke Partial Authorization Credentials.</title>
+      <dc:creator>Meng Sun | Junzuo Lai | Wei Wu 0001 | Ye Yang | Cheng-Kang Chu | Robert H. Deng</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/SunLWYCD25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3424520</description>
+    </item>
+    <item>
+      <title>Robust and Large-Payload DNN Watermarking via Fixed, Distribution-Optimized, Weights.</title>
+      <dc:creator>Benedetta Tondi | Andrea Costanzo | Mauro Barni</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/TondiCB25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3426957</description>
+    </item>
+    <item>
+      <title>Internet-Wide Analysis, Characterization, and Family Attribution of IoT Malware: A Comprehensive Longitudinal Study.</title>
+      <dc:creator>Sadegh Torabi | Dorde Klisura | Joseph Khoury | Elias Bou-Harb | Chadi Assi | Mourad Debbabi</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/TorabiKKBAD25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3454573</description>
+    </item>
+    <item>
+      <title>An Efficient and Zero-Knowledge Classical Machine Learning Inference Pipeline.</title>
+      <dc:creator>Haodi Wang | Rongfang Bie | Thang Hoang</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WangBH25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3435010</description>
+    </item>
+    <item>
+      <title>MVOC: A Lighter Multi-Client Verifiable Outsourced Computation for Malicious Lightweight Clients.</title>
+      <dc:creator>Xingkai Wang | Zhenfu Cao | Zhen Liu 0008 | Kaitai Liang</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WangCLL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3449770</description>
+    </item>
+    <item>
+      <title>RAFLS: RDP-Based Adaptive Federated Learning With Shuffle Model.</title>
+      <dc:creator>Shuo Wang | Keke Gai | Jing Yu 0007 | Liehuang Zhu | Hanghang Wu | Changzheng Wei | Ying Yan 0002 | Hui Zhang 0002 | Kim-Kwang Raymond Choo</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WangGYZWWYZC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3429503</description>
+    </item>
+    <item>
+      <title>Iterative Window Mean Filter: Thwarting Diffusion-Based Adversarial Purification.</title>
+      <dc:creator>Hanrui Wang 0005 | Ruoxi Sun 0001 | Cunjian Chen | Minhui Xue 0001 | Lay-Ki Soon | Shuo Wang 0012 | Zhe Jin</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WangSCXSWJ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3472569</description>
+    </item>
+    <item>
+      <title>Private Reachability Queries on Structured Encrypted Temporal Bipartite Graphs.</title>
+      <dc:creator>Yulin Wu | Lanxiang Chen | Gaolin Chen | Yi Mu 0001 | Robert H. Deng</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WuCCMD25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3473808</description>
+    </item>
+    <item>
+      <title>Multi-Modal Spoofing Attacks on 3D Face Liveness Detection via a Single 2D Photo.</title>
+      <dc:creator>Zhihao Wu | Yushi Cheng | Xiaoyu Ji 0001 | Wenyuan Xu 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WuCJX25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3445570</description>
+    </item>
+    <item>
+      <title>WAFBooster: Automatic Boosting of WAF Security Against Mutated Malicious Payloads.</title>
+      <dc:creator>Cong Wu 0003 | Jing Chen 0003 | Simeng Zhu | Wenqi Feng | Kun He 0008 | Ruiying Du | Yang Xiang 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WuCZFHDX25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3429271</description>
+    </item>
+    <item>
+      <title>Certificateless Signature Scheme With Batch Verification for Secure and Privacy-Preserving V2V Communications in VANETs.</title>
+      <dc:creator>Qian Wu | Lei Zhang 0009 | Yafang Yang | Kim-Kwang Raymond Choo</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WuZYC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3445164</description>
+    </item>
+    <item>
+      <title>GNNDroid: Graph-Learning Based Malware Detection for Android Apps With Native Code.</title>
+      <dc:creator>Ning Xi 0002 | Yuchen Zhang | Pengbin Feng | Siqi Ma | Jianfeng Ma 0001 | Yulong Shen | Yale Yang</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/XiZFMMSY25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3444913</description>
+    </item>
+    <item>
+      <title>Finding the PISTE: Towards Understanding Privacy Leaks in Vertical Federated Learning Systems.</title>
+      <dc:creator>Xiangrui Xu 0001 | Wei Wang 0012 | Zheng Chen | Bin Wang 0062 | Chao Li 0023 | Li Duan | Zhen Han 0001 | Yufei Han</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/XuWCWLDHH25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3445600</description>
+    </item>
+    <item>
+      <title>Towards Payment Channel Watchtowers With Collateral-Free Security and Robustness.</title>
+      <dc:creator>Minze Xu | Yuan Zhang 0004 | Sheng Zhong 0002</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/XuZZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3445429</description>
+    </item>
+    <item>
+      <title>Don&amp;apos;t Forget Too Much: Towards Machine Unlearning on Feature Level.</title>
+      <dc:creator>Heng Xu | Tianqing Zhu | Wanlei Zhou 0001 | Wei Zhao 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/XuZZZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3432169</description>
+    </item>
+    <item>
+      <title>Artemis: Defending Against Backdoor Attacks via Distribution Shift.</title>
+      <dc:creator>Meng Xue | Zhixian Wang | Qian Zhang 0001 | Xueluan Gong | Zhihang Liu | Yanjiao Chen</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/XueWZGLC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3472117</description>
+    </item>
+    <item>
+      <title>Unveiling Physical Semantics of PLC Variables Using Control Invariants.</title>
+      <dc:creator>Zeyu Yang 0001 | Liang He 0002 | Yucheng Ruan | Peng Cheng 0001 | Jiming Chen 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YangHRCC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3434622</description>
+    </item>
+    <item>
+      <title>PM-ABE: Puncturable Bilateral Fine-Grained Access Control From Lattices for Secret Sharing.</title>
+      <dc:creator>Mengxue Yang | Huaqun Wang | Debiao He</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YangWH25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3431035</description>
+    </item>
+    <item>
+      <title>Sharing Can be Threatening: Uncovering Security Flaws of RBAC Model on Smart Home Platforms.</title>
+      <dc:creator>Yiyu Yang | Jiayu Zhao | Yilian Li | Xiaowei Li 0001 | Peng Liu 0005 | Yuqing Zhang 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YangZLLLZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3421969</description>
+    </item>
+    <item>
+      <title>Precise Discovery of More Taint-Style Vulnerabilities in Embedded Firmware.</title>
+      <dc:creator>Xiaokang Yin 0001 | Ruijie Cai | Xiaoya Zhu | Qichao Yang | Enzhou Song | Shengli Liu 0003</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YinCZYSL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3434667</description>
+    </item>
+    <item>
+      <title>PulseAnomaly: Unsupervised Anomaly Detection on Avionic Platforms With Seasonality and Trend Modeling in Transformer Networks.</title>
+      <dc:creator>Hanbo Yu | Sudipta Acharya | Steven H. H. Ding | Mohammad Zulkernine</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YuADZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3446587</description>
+    </item>
+    <item>
+      <title>Manipulated Transaction Collision Attack on Execute-Order-Validate Blockchain.</title>
+      <dc:creator>Ming Zhang | Wenhai Sun | Hui Li 0006 | Xiaofeng Wang | Zihao Yang | Chao Qu | Xiaoguang Li</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhangSLWYQL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3428549</description>
+    </item>
+    <item>
+      <title>An Automated Monitoring and Repairing System for DNN Training.</title>
+      <dc:creator>Xiaoyu Zhang 0013 | Chao Shen 0001 | Shiqing Ma | Juan Zhai | Chenhao Lin</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhangSMZL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3450951</description>
+    </item>
+    <item>
+      <title>Deepfake Detection and Localization Using Multi-View Inconsistency Measurement.</title>
+      <dc:creator>Bolin Zhang | Qilin Yin | Wei Lu 0001 | Xiangyang Luo</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhangYLL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3472064</description>
+    </item>
+    <item>
+      <title>Efficient Attribute-Based Searchable Encryption With Policy Hiding Over Personal Health Records.</title>
+      <dc:creator>Boyu Zhang | Wenjie Yang 0001 | Futai Zhang | Jianting Ning</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhangYZN25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3432769</description>
+    </item>
+    <item>
+      <title>DuplexGuard: Safeguarding Deletion Right in Machine Unlearning via Duplex Watermarking.</title>
+      <dc:creator>Xiaoyu Zhang 0010 | Chenyang Zhang | Jian Lou 0001 | Kai Wu 0003 | Zilong Wang 0001 | Xiaofeng Chen 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhangZLWWC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3456811</description>
+    </item>
+    <item>
+      <title>uBOX: A Lightweight and Hardware-Assisted Sandbox for Multicore Embedded Systems.</title>
+      <dc:creator>Xia Zhou | Yujie Bu | Meng Xu 0025 | Yajin Zhou | Lei Wu 0012</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhouBXZW25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3454421</description>
+    </item>
+    <item>
+      <title>Nip in the Bud: Forecasting and Interpreting Post- Exploitation Attacks in Real-Time Through Cyber Threat Intelligence Reports.</title>
+      <dc:creator>Tiantian Zhu | Jie Ying | Tieming Chen | Chunlin Xiong | Wenrui Cheng | Qixuan Yuan | Aohan Zheng | Mingqi Lv | Yan Chen 0004</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhuYCXCYZLC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3444781</description>
+    </item>
+    <item>
+      <title>Evading Detection Actively: Toward Anti-Forensics Against Forgery Localization.</title>
+      <dc:creator>Long Zhuo | Shenghai Luo | Shunquan Tan | Han Chen | Bin Li 0011 | Jiwu Huang</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhuoLTCLH25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2025.3528062</description>
+    </item>
+    <item>
+      <title>Trading-Off Privacy, Utility, and Explainability in Deep Learning-Based Image Data Analysis.</title>
+      <dc:creator>Wisam Abbasi | Paolo Mori | Andrea Saracino</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AbbasiMS25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3400608</description>
+    </item>
+    <item>
+      <title>Privacy-Preserving User Recruitment With Sensing Quality Evaluation in Mobile Crowdsensing.</title>
+      <dc:creator>Jieying An | Yanbing Ren | Xinghua Li 0001 | Man Zhang 0010 | Bin Luo 0006 | Yinbin Miao | Ximeng Liu | Robert H. Deng</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AnRLZLMLD25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3418869</description>
+    </item>
+    <item>
+      <title>BinBert: Binary Code Understanding With a Fine-Tunable and Execution-Aware Transformer.</title>
+      <dc:creator>Fiorella Artuso | Marco Mormando | Giuseppe Antonio Di Luna | Leonardo Querzoni</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ArtusoMLQ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3397660</description>
+    </item>
+    <item>
+      <title>Automating VPN Configuration in Computer Networks.</title>
+      <dc:creator>Daniele Bringhenti | Riccardo Sisto | Fulvio Valenza</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BringhentiSV25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3409073</description>
+    </item>
+    <item>
+      <title>Vanilla Feature Distillation for Improving the Accuracy-Robustness Trade-Off in Adversarial Training.</title>
+      <dc:creator>Guodong Cao | Zhibo Wang 0001 | Xiaowei Dong | Zhifei Zhang | Hengchang Guo | Zhan Qin | Kui Ren 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CaoWDZGQR25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3411302</description>
+    </item>
+    <item>
+      <title>LPbT-SSO: Password-Based Threshold Single-Sign-On Authentication From LWE.</title>
+      <dc:creator>Chenchen Cao | Chunxiang Xu | Changsong Jiang | Zhao Zhang 0026 | Xinfeng Dong | Kefei Chen</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CaoXJZDC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3404045</description>
+    </item>
+    <item>
+      <title>Combating Voice Spoofing Attacks on Wearables via Speech Movement Sequences.</title>
+      <dc:creator>Shan Chang | Luo Zhou | Wei Liu 0138 | Hongzi Zhu | Xinggang Hu | Lei Yang 0025</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChangZLZHY25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3418908</description>
+    </item>
+    <item>
+      <title>Detecting Errors in NGAC Policies via Fault-Based Testing.</title>
+      <dc:creator>Erzhuo Chen | Vladislav Dubrovenski | Dianxiang Xu</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenDX25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3395187</description>
+    </item>
+    <item>
+      <title>R2E: A Decentralized Scheme for Rewarding Tor Relays With Cryptocurrencies.</title>
+      <dc:creator>Xiaopeng Dai | Qianhong Wu | Bingyu Li | Bo Qin | Jialiang Fan | Fuyang Deng | Mingzhe Zhai</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DaiWLQFDZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3391345</description>
+    </item>
+    <item>
+      <title>DNSGuard: In-Network Defense Against DNS Attacks.</title>
+      <dc:creator>Guanglin Duan | Qing Li 0006 | Zhengxin Zhang | Dan Zhao 0003 | Guorui Xie | Yuan Yang 0001 | Zhenhui Yuan | Yong Jiang 0001 | Mingwei Xu</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DuanLZZXYYJX25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3409545</description>
+    </item>
+    <item>
+      <title>DCAFixer: An Automatic Tool for Bug Detection and Repair for Database Java Client Applications.</title>
+      <dc:creator>Daren Fadolalkarim | Elisa Bertino</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FadolalkarimB25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3396667</description>
+    </item>
+    <item>
+      <title>InvisiGuard: Data Integrity for Microcontroller-Based Devices via Hardware-Triggered Write Monitoring.</title>
+      <dc:creator>Dongliang Fang | Anni Peng | Le Guan | Erik van der Kouwe | Klaus von Gleissenthall | Wenwen Wang 0001 | Yuqing Zhang 0001 | Limin Sun 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FangPGKGWZS25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3399068</description>
+    </item>
+    <item>
+      <title>Secure Fault Localization in Path Aware Networking.</title>
+      <dc:creator>Songtao Fu | Qi Li 0002 | Xiaoliang Wang 0004 | Su Yao | Xuewei Feng | Ziqiang Wang | Xinle Du | Kao Wan | Ke Xu 0002</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FuLWYFWDWX25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3392486</description>
+    </item>
+    <item>
+      <title>Analyzing the Benefits of Optical Topology Programming for Mitigating Link-Flood DDoS Attacks.</title>
+      <dc:creator>Matthew Nance Hall | Zaoxing Liu | Vyas Sekar | Ramakrishnan Durairajan</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/HallLSD25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3391188</description>
+    </item>
+    <item>
+      <title>CSCAD: An Adaptive LightGBM Algorithm to Detect Cache Side-Channel Attacks.</title>
+      <dc:creator>Sirui Hao | Junjiang He | Wenshan Li | Tao Li 0016 | Geying Yang | Wenbo Fang | Wanying Chen</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/HaoHLLYFC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3415376</description>
+    </item>
+    <item>
+      <title>MaskCrypt: Federated Learning With Selective Homomorphic Encryption.</title>
+      <dc:creator>Chenghao Hu | Baochun Li</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/HuL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3392424</description>
+    </item>
+    <item>
+      <title>FALL: Prior Failure Detection in Large Scale System Based on Language Model.</title>
+      <dc:creator>Jaeyoon Jeong | Insung Baek | Byungwoo Bang | Jun-Yeon Lee | Uiseok Song | Seoung Bum Kim</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/JeongBBLSK25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3396166</description>
+    </item>
+    <item>
+      <title>Key-and-Signature Compact Multi-Signatures for Blockchain: A Compiler With Realizations.</title>
+      <dc:creator>Shaoquan Jiang | Dima Alhadidi | Hamid Fazli Khojir</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/JiangAK25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3410695</description>
+    </item>
+    <item>
+      <title>Blockchain-Based Authenticated Stego-Channels and Application to Ethereum.</title>
+      <dc:creator>Vikram Kanth | Britta Hale</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/KanthH25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3399696</description>
+    </item>
+    <item>
+      <title>SUNDEW: A Case-Sensitive Detection Engine to Counter Malware Diversity.</title>
+      <dc:creator>Sareena Karapoola | Nikhilesh Singh | Chester Rebeiro | Kamakoti Veezhinathan</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/KarapoolaSRV25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3406699</description>
+    </item>
+    <item>
+      <title>$\mathsf {AVeCQ}$AVeCQ: Anonymous Verifiable Crowdsourcing With Worker Qualities.</title>
+      <dc:creator>Vlasis Koutsos | Sankarshan Damle | Dimitrios Papadopoulos 0001 | Sujit Gujar | Dimitris Chatzopoulos</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/KoutsosDPGC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3396342</description>
+    </item>
+    <item>
+      <title>StealthPath: Privacy-Preserving Path Validation in the Data Plane of Path-Aware Networks.</title>
+      <dc:creator>Jiliang Li | Yuan Su | Rongxing Lu | Zhou Su | Weizhi Meng 0001 | Meng Shen 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LiSLSMS25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3392299</description>
+    </item>
+    <item>
+      <title>Distributed and Parallel Blockchain: Towards a Multi-Chain System With Enhanced Security.</title>
+      <dc:creator>Weikang Liu | Bin Cao 0002 | Mugen Peng | Bo Li 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LiuCPL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3417531</description>
+    </item>
+    <item>
+      <title>${\sf GoCrowd}$GoCrowd: Obliviously Aggregating Crowd Wisdom With Quality Awareness in Crowdsourcing.</title>
+      <dc:creator>Xiaoning Liu 0002 | Yifeng Zheng | Xingliang Yuan | Xun Yi</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LiuZYY25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3415003</description>
+    </item>
+    <item>
+      <title>Few-Shot Website Fingerprinting With Distribution Calibration.</title>
+      <dc:creator>Chenxiang Luo | Wenyi Tang | Qixu Wang | Danyang Zheng</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LuoTWZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3411014</description>
+    </item>
+    <item>
+      <title>CrossChannel: Efficient and Scalable Cross-Chain Transactions Through Cross-and-Off-Blockchain Micropayment Channel.</title>
+      <dc:creator>Xinyi Luo | Kaiping Xue | Qibin Sun | Jun Lu 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LuoXSL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3411820</description>
+    </item>
+    <item>
+      <title>EtherCloak: Enabling Multi-Level and Customized Privacy on Account-Model Blockchains.</title>
+      <dc:creator>Xinyi Luo | Kaiping Xue | Zhuo Xu | Mingrui Ai | Jianan Hong | Xianchao Zhang 0002 | Qibin Sun | Jun Lu 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/LuoXXAHZSL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3418617</description>
+    </item>
+    <item>
+      <title>Repairing Backdoor Model With Dynamic Gradient Clipping for Intelligent Vehicles.</title>
+      <dc:creator>Xindi Ma | Xinfu Li | Junying Zhang | Zhuo Ma 0001 | Qi Jiang 0001 | Ximeng Liu | Jianfeng Ma 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/MaLZMJLM25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3419040</description>
+    </item>
+    <item>
+      <title>IMS: Towards Computability and Dynamicity for Intent-Driven Micro-Segmentation.</title>
+      <dc:creator>Zixuan Ma | Chen Li | Yuqi Zhang | Ruibang You | Bibo Tu</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/MaLZYT25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3413752</description>
+    </item>
+    <item>
+      <title>A Privacy-Preserving Graph Neural Network for Network Intrusion Detection.</title>
+      <dc:creator>Xinjun Pei | Xiaoheng Deng | Shengwei Tian | Ping Jiang 0001 | Yunlong Zhao 0003 | Kaiping Xue</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/PeiDTJZX25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3417853</description>
+    </item>
+    <item>
+      <title>WASTON: Inferring Critical Information to Enable Spoofing Attacks Using COTS mmWave Radar.</title>
+      <dc:creator>Yanlong Qiu | Jiaxi Zhang 0005 | Tao Sun | Yanjiao Chen | Jin Zhang 0001 | Bo Ji 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/QiuZSCZJ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3418038</description>
+    </item>
+    <item>
+      <title>Sliver: A Scalable Slicing-Based Verification for Information Flow Security.</title>
+      <dc:creator>Xue Rao | Cong Sun 0001 | Dongrui Zeng | Yongzhe Huang | Gang Tan</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/RaoSZHT25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3403653</description>
+    </item>
+    <item>
+      <title>PUF-Based Authentication-Oriented Architecture for Identification Tags.</title>
+      <dc:creator>Antonino Rullo | Carmelo Felicetti | Massimo Vatalaro | Raffaele De Rose | Marco Lanuzza | Felice Crupi | Domenico Saccà</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/RulloFVRLCS25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3387568</description>
+    </item>
+    <item>
+      <title>A Novel Approach to Construct a Good Dataset for Differential-Neural Cryptanalysis.</title>
+      <dc:creator>Byoungjin Seok | Changhoon Lee</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/SeokL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3387662</description>
+    </item>
+    <item>
+      <title>FedTracker: Furnishing Ownership Verification and Traceability for Federated Learning Model.</title>
+      <dc:creator>Shuo Shao 0002 | Wenyuan Yang | Hanlin Gu | Zhan Qin | Lixin Fan | Qiang Yang 0001 | Kui Ren 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ShaoYGQFYR25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3390761</description>
+    </item>
+    <item>
+      <title>Towards Understanding and Defeating Abstract Resource Attacks for Container Platforms.</title>
+      <dc:creator>Wenbo Shen | Yifei Wu | Yutian Yang | Qirui Liu | Nanzi Yang | Jinku Li | Kangjie Lu | Jianfeng Ma 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ShenWYLYLLM25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3403920</description>
+    </item>
+    <item>
+      <title>RZDD: Risk Zone-Diversified Network Design for Disaster Resilience.</title>
+      <dc:creator>Yongshuo Wan | Cuiying Feng | Kui Wu 0001 | Jianping Wang 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WanFWW25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3406703</description>
+    </item>
+    <item>
+      <title>A Differentially Private Approach for Budgeted Combinatorial Multi-Armed Bandits.</title>
+      <dc:creator>Hengzhi Wang | Laizhong Cui | En Wang | Jiangchuan Liu</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WangCWL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3401836</description>
+    </item>
+    <item>
+      <title>Post-Quantum Secure Identity-Based Matchmaking Encryption.</title>
+      <dc:creator>Huige Wang | Kefei Chen | Qi Xie | Qian Meng</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WangCXM25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3418984</description>
+    </item>
+    <item>
+      <title>An Efficient Fuzzy Certificateless Signature-Based Authentication Scheme Using Anonymous Biometric Identities for VANETs.</title>
+      <dc:creator>Liangliang Wang | Jiangwei Xu | Baodong Qin | Mi Wen | Kefei Chen</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WangXQWC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3392470</description>
+    </item>
+    <item>
+      <title>Differentially Private Numerical Vector Analyses in the Local and Shuffle Model.</title>
+      <dc:creator>Shaowei Wang 0003 | Shiyu Yu | Xiaojun Ren | Jin Li 0002 | Yuntong Li | Wei Yang 0011 | Hongyang Yan | Jin Li 0002</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WangYRLLYYL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2023.3340178</description>
+    </item>
+    <item>
+      <title>DYST (Did You See That?): An Amplified Covert Channel That Points To Previously Seen Data.</title>
+      <dc:creator>Steffen Wendzel | Tobias Schmidbauer | Sebastian Zillien | Jörg Keller 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/WendzelSZK25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3410679</description>
+    </item>
+    <item>
+      <title>Intelligent In-Network Attack Detection on Programmable Switches With Soterv2.</title>
+      <dc:creator>Guorui Xie | Qing Li 0006 | Chupeng Cui | Ruoyu Li 0003 | Lianbo Ma | Zhuyun Qi | Yong Jiang 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/XieLCLMQJ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3402955</description>
+    </item>
+    <item>
+      <title>A Secure Authentication Protocol for IoT-WLAN Using EAP Framework.</title>
+      <dc:creator>Awaneesh Kumar Yadav | Manoj Misra | Pradumn Kumar Pandey | Pasika Ranaweera | Madhusanka Liyanage | Neeraj Kumar 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YadavMPRLK25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3388467</description>
+    </item>
+    <item>
+      <title>Mismatched Control and Monitoring Frequencies: Vulnerability, Attack, and Mitigation.</title>
+      <dc:creator>Zeyu Yang 0001 | Liang He 0002 | Peng Cheng 0001 | Jiming Chen 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YangHCC25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3384146</description>
+    </item>
+    <item>
+      <title>Fast Generation-Based Gradient Leakage Attacks: An Approach to Generate Training Data Directly From the Gradient.</title>
+      <dc:creator>Haomiao Yang | Dongyun Xue | Mengyu Ge | Jingwei Li 0001 | Guowen Xu | Hongwei Li 0001 | Rongxing Lu</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YangXGLXLL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3387570</description>
+    </item>
+    <item>
+      <title>Secure Reputation-Based Authentication With Malicious Detection in VANETs.</title>
+      <dc:creator>Xu Yang 0002 | Fei Zhu | Xuechao Yang | Junwei Luo | Xun Yi | Jianting Ning | Xinyi Huang 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YangZYLYNH25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3399550</description>
+    </item>
+    <item>
+      <title>BazzAFL: Moving Fuzzing Campaigns Towards Bugs via Grouping Bug-Oriented Seeds.</title>
+      <dc:creator>Kai Ye | Xiaogang Zhu 0001 | Xi Xiao | Sheng Wen | Minhui Xue 0001 | Yang Xiang 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YeZXWXX25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3391795</description>
+    </item>
+    <item>
+      <title>Highly Efficient and Scalable Access Control Mechanism for IoT Devices in Pervasive Environments.</title>
+      <dc:creator>Alian Yu | Jian Kang | Wei Jiang 0024 | Dan Lin 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YuKJL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3392262</description>
+    </item>
+    <item>
+      <title>Delta Counter: Bandwidth-Efficient Encryption Counter Representation for Secure GPU Memory.</title>
+      <dc:creator>Shougang Yuan | Amro Awad | Huiyang Zhou</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/YuanAZ25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3389560</description>
+    </item>
+    <item>
+      <title>Semantics-Preserving Node Injection Attacks Against GNN-Based ACFG Malware Classifiers.</title>
+      <dc:creator>Dylan Zapzalka | Saeed Salem | David Mohaisen</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZapzalkaSM25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3409410</description>
+    </item>
+    <item>
+      <title>Functionality and Data Stealing by Pseudo-Client Attack and Target Defenses in Split Learning.</title>
+      <dc:creator>Lan Zhang 0002 | Xinben Gao | Yaliang Li | Yunhao Liu 0001</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhangGLL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3387396</description>
+    </item>
+    <item>
+      <title>Understanding and Characterizing the Adoption of Internationalized Domain Names in Practice.</title>
+      <dc:creator>Yunyi Zhang | Chengxi Xu | Fan Shi | Miao Hu | Min Zhang | Yuwei Li | Zhijie Xie</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhangXSHZLX25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3386905</description>
+    </item>
+    <item>
+      <title>Efficient and Privacy-Preserving Weighted Range Set Sampling in Cloud.</title>
+      <dc:creator>Yandong Zheng | Hui Zhu 0001 | Rongxing Lu | Songnian Zhang | Fengwei Wang | Jun Shao 0001 | Hui Li 0006</dc:creator>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ZhengZLZWSL25</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2025
+ee: https://doi.org/10.1109/TDSC.2024.3408816</description>
+    </item>
+    <item>
+      <title>Privacy-Preserving Collaborative Learning for Genome Analysis via Secure XGBoost.</title>
+      <dc:creator>Mohammed Shujaa Aldeen | Chuan Zhao | Zhenxiang Chen | Liming Fang 0001 | Zhe Liu 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AldeenZCFL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3384244</description>
+    </item>
+    <item>
+      <title>Refereed Delegation of Computation Using Smart Contracts.</title>
+      <dc:creator>Sepideh Avizheh | Mahmudun Nabi | Reihaneh Safavi-Naini</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AvizhehNS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3372848</description>
+    </item>
+    <item>
+      <title>Parallel Byzantine Consensus Based on Hierarchical Architecture and Trusted Hardware.</title>
+      <dc:creator>Xiao Chen 0003 | Tiejun Ma | Btissam Er-Rahmadi | Jane Hillston | Guanxu Yuan</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenMEHY24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3375925</description>
+    </item>
+    <item>
+      <title>Constructing Immune-Cover for Improving Holistic Security of Spatial Adaptive Steganography.</title>
+      <dc:creator>Yijing Chen | Hongxia Wang 0001 | Wanjie Li</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenWL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3376815</description>
+    </item>
+    <item>
+      <title>Multi-Agent Reinforcement Learning-Based Passenger Spoofing Attack on Mobility-as-a-Service.</title>
+      <dc:creator>Kai-Fung Chu | Weisi Guo</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChuG24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3379283</description>
+    </item>
+    <item>
+      <title>Towards Benchmarking and Evaluating Deepfake Detection.</title>
+      <dc:creator>Jingyi Deng | Chenhao Lin | Pengbin Hu | Chao Shen 0001 | Qian Wang 0002 | Qi Li 0002 | Qiming Li</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DengLHSWLL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3369711</description>
+    </item>
+    <item>
+      <title>ValidCNN: A Large-Scale CNN Predictive Integrity Verification Scheme Based on zk-SNARK.</title>
+      <dc:creator>Yongkai Fan | Kaile Ma | Linlin Zhang | Xia Lei | Guangquan Xu | Gang Tan</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FanMZLXT24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3371643</description>
+    </item>
+    <item>
+      <title>Online Social Network User Home Location Inference Based on Heterogeneous Networks.</title>
+      <dc:creator>Gaolei Fei | Yang Liu | Guangmin Hu | Sheng Wen | Yang Xiang 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FeiLHWX24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3376372</description>
+    </item>
+    <item>
+      <title>An IoT Device Identification Method Using Extracted Fingerprint From Sequence of Traffic Grayscale Images.</title>
+      <dc:creator>Yuming Feng | Yu Zhang 0036 | Hui He | Weizhe Zhang | Desheng Wang 0002</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FengZHZW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3383159</description>
+    </item>
+    <item>
+      <title>PPA-DBSCAN: Privacy-Preserving $\rho$ρ-Approximate Density-Based Clustering.</title>
+      <dc:creator>Jiaxuan Fu | Ke Cheng 0001 | Zhao Chang | Yulong Shen</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FuCCS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3375347</description>
+    </item>
+    <item>
+      <title>${\sf FakeDB}$FakeDB: Generating Fake Synthetic Databases.</title>
+      <dc:creator>Chongyang Gao | Sushil Jajodia | Andrea Pugliese 0001 | V. S. Subrahmanian</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GaoJPS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3379434</description>
+    </item>
+    <item>
+      <title>VeriFi: Towards Verifiable Federated Unlearning.</title>
+      <dc:creator>Xiangshan Gao | Xingjun Ma | Jingyi Wang 0004 | Youcheng Sun | Bo Li 0026 | Shouling Ji | Peng Cheng 0001 | Jiming Chen 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GaoMWSLJCC24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3382321</description>
+    </item>
+    <item>
+      <title>Blockchain Based Auditable Access Control for Business Processes With Event Driven Policies.</title>
+      <dc:creator>Ahmed Akhtar | Masoud Barati | Basit Shafiq | Omer F. Rana | Ayesha Afzal | Jaideep Vaidya | Shafay Shamail</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AkhtarBSRAVS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3356811</description>
+    </item>
+    <item>
+      <title>Improving Logic Bomb Identification in Android Apps via Context-Aware Anomaly Detection.</title>
+      <dc:creator>Marco Alecci | Jordan Samhi | Li Li 0029 | Tegawendé F. Bissyandé | Jacques Klein</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AlecciSLBK24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3358979</description>
+    </item>
+    <item>
+      <title>A Semantic, Syntactic, and Context-Aware Natural Language Adversarial Example Generator.</title>
+      <dc:creator>Javad Rafiei Asl | Mohammad Hossein Rafiei | Manar Alohaly | Daniel Takabi</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AslRAT24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3359817</description>
+    </item>
+    <item>
+      <title>Poison-Tolerant Collaborative Filtering Against Poisoning Attacks on Recommender Systems.</title>
+      <dc:creator>Thar Baker | Tong Li 0011 | Jingyu Jia | Baolei Zhang | Chang Tan | Albert Y. Zomaya</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BakerLJZTZ24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3354462</description>
+    </item>
+    <item>
+      <title>MQTT-I: Achieving End-to-End Data Flow Integrity in MQTT.</title>
+      <dc:creator>Francesco Buccafurri | Vincenzo De Angelis | Sara Lazzaro</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BuccafurriAL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3358630</description>
+    </item>
+    <item>
+      <title>A Federated Learning Framework Based on Differentially Private Continuous Data Release.</title>
+      <dc:creator>Jianping Cai | Ximeng Liu | Qingqing Ye 0001 | Yang Liu 0165 | Yuyang Wang</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CaiLYLW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3364060</description>
+    </item>
+    <item>
+      <title>MicroFI: Non-Intrusive and Prioritized Request-Level Fault Injection for Microservice Applications.</title>
+      <dc:creator>Hongyang Chen | Pengfei Chen 0002 | Guangba Yu | Xiaoyun Li | Zilong He</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenCYLH24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3363902</description>
+    </item>
+    <item>
+      <title>Privacy-Preserving Anomaly Detection of Encrypted Smart Contract for Blockchain-Based Data Trading.</title>
+      <dc:creator>Dajiang Chen | Zeyu Liao | Ruidong Chen | Hao Wang 0003 | Chong Yu | Kuan Zhang 0001 | Ning Zhang 0007 | Xuemin Shen</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenLCWYZZS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3353827</description>
+    </item>
+    <item>
+      <title>EdgePro: Edge Deep Learning Model Protection via Neuron Authorization.</title>
+      <dc:creator>Jinyin Chen | Haibin Zheng | Tao Liu | Jiawei Liu | Yao Cheng | Xuhong Zhang 0002 | Shouling Ji</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenZLLCZJ24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3365730</description>
+    </item>
+    <item>
+      <title>Fair${2}$2Trade: Digital Trading Platform Ensuring Exchange and Distribution Fairness.</title>
+      <dc:creator>Changhao Chenli | Wenyi Tang | Hyeonbum Lee | Taeho Jung</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenliTLJ24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3362196</description>
+    </item>
+    <item>
+      <title>Meta Security Metric Learning for Secure Deep Image Hiding.</title>
+      <dc:creator>Qi Cui | Weixuan Tang | Zhili Zhou | Ruohan Meng | Guoshun Nan | Yun-Qing Shi 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CuiTZMNS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3363692</description>
+    </item>
+    <item>
+      <title>A Verifiable and Privacy-Preserving Federated Learning Training Framework.</title>
+      <dc:creator>Haohua Duan | Zedong Peng | Liyao Xiang | Yuncong Hu | Bo Li 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DuanPXHL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3369658</description>
+    </item>
+    <item>
+      <title>Concise RingCT Protocol Based on Linkable Threshold Ring Signature.</title>
+      <dc:creator>Junke Duan | Shihui Zheng | Wei Wang 0294 | Licheng Wang | Xiaoya Hu | Lize Gu</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DuanZWWHG24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3367888</description>
+    </item>
+    <item>
+      <title>Batch-Aggregate: Efficient Aggregation for Private Federated Learning in VANETs.</title>
+      <dc:creator>Xia Feng | Haiyang Liu | Haowei Yang | Qingqing Xie | Liangmin Wang 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FengLYXW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2024.3364371</description>
+    </item>
+    <item>
+      <title>AIM: Automatic Interrupt Modeling for Dynamic Firmware Analysis.</title>
+      <dc:creator>Bo Feng 0002 | Meng Luo 0002 | Changming Liu | Long Lu | Engin Kirda</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/00020LLK24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3339569</description>
+    </item>
+    <item>
+      <title>TextCheater: A Query-Efficient Textual Adversarial Attack in the Hard-Label Setting.</title>
+      <dc:creator>Hao Peng 0002 | Shixin Guo | Dandan Zhao | Xuhong Zhang 0002 | Jianmin Han | Shouling Ji | Xing Yang | Ming Zhong 0009</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/0002GZ0HJY024</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3339802</description>
+    </item>
+    <item>
+      <title>DSChain: A Blockchain System for Complete Lifecycle Security of Data in Internet of Things.</title>
+      <dc:creator>Jie Cui 0004 | Yatao Li | Qingyang Zhang | Hong Zhong 0001 | Chengjie Gu | Debiao He</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/0004LZ0GH24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3337093</description>
+    </item>
+    <item>
+      <title>SG-Audit: An Efficient and Robust Cloud Auditing Scheme for Smart Grid.</title>
+      <dc:creator>Ning Lu 0005 | Mingxi Liu | Wenbo Shi | Ximeng Liu | Kim-Kwang Raymond Choo</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/0005LSLC24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3347001</description>
+    </item>
+    <item>
+      <title>Effective DDoS Mitigation via ML-Driven In-Network Traffic Shaping.</title>
+      <dc:creator>Ziming Zhao 0008 | Zhuotao Liu | Huan Chen | Fan Zhang 0010 | Zhuoxue Song | Zhaoxuan Li</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/0008LC0SL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3349180</description>
+    </item>
+    <item>
+      <title>MODA: Model Ownership Deprivation Attack in Asynchronous Federated Learning.</title>
+      <dc:creator>Xiaoyu Zhang 0010 | Shen Lin 0006 | Chao Chen 0015 | Xiaofeng Chen 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/001000024</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3348204</description>
+    </item>
+    <item>
+      <title>Privacy-Preserving Transformation Used in Verifiable (Outsourced) Computation, Revisited.</title>
+      <dc:creator>Liang Zhao 0020 | Liqun Chen 0002</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/0020024</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3334890</description>
+    </item>
+    <item>
+      <title>DUDE: Decryption, Unpacking, Deobfuscation, and Endian Conversion Framework for Embedded Devices Firmware.</title>
+      <dc:creator>Haider Abbas | Muhammad Shahzad | Maliha Safdar | Ahmed Hemani</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AbbasSSH24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3320675</description>
+    </item>
+    <item>
+      <title>Hardening Interpretable Deep Learning Systems: Investigating Adversarial Threats and Defenses.</title>
+      <dc:creator>Eldor Abdukhamidov | Mohammed Abuhamad | Simon S. Woo | Eric Chan-Tin | Tamer Abuhmed</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AbdukhamidovAWC24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3341090</description>
+    </item>
+    <item>
+      <title>Privacy-Preserving and Energy-Saving Random Forest-Based Disease Detection Framework for Green Internet of Things in Mobile Healthcare Networks.</title>
+      <dc:creator>Sona Alex | Dhanaraj Kakkanattu Jagalchandran | Deepthi P. Pattathil</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AlexJP24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3347342</description>
+    </item>
+    <item>
+      <title>Towards End-to-End Verifiable Online Voting: Adding Verifiability to Established Voting Systems.</title>
+      <dc:creator>Mohammed Alsadi 0001 | Matthew Casey 0001 | Constantin Catalin Dragan | François Dupressoir | Luke Riley | Muntadher Sallal | Steve Schneider | Helen Treharne | Joe Wadsworth | Phil Wright</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AlsadiCDDRSSTWW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3327859</description>
+    </item>
+    <item>
+      <title>SecureC2Edit: A Framework for Secure Collaborative and Concurrent Document Editing.</title>
+      <dc:creator>Shashank Arora | Pradeep K. Atrey</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/AroraA24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3302810</description>
+    </item>
+    <item>
+      <title>A Provably Secure and Efficient Cryptographic-Key Update Protocol for Connected Vehicles.</title>
+      <dc:creator>Mir Ali Rezazadeh Baee | Leonie Simpson | Xavier Boyen | Ernest Foo | Josef Pieprzyk</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BaeeSBFP24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3345406</description>
+    </item>
+    <item>
+      <title>Testing Error Handling Code With Software Fault Injection and Error-Coverage-Guided Fuzzing.</title>
+      <dc:creator>Jia-Ju Bai | Zi-Xuan Fu | Kai-Tao Xie | Zu-Ming Jiang</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BaiFXJ24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3288876</description>
+    </item>
+    <item>
+      <title>FortisEDoS: A Deep Transfer Learning-Empowered Economical Denial of Sustainability Detection Framework for Cloud-Native Network Slicing.</title>
+      <dc:creator>Chafika Benzaïd | Tarik Taleb | Ashkan Sami | Othmane Hireche</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BenzaidTSH24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3318606</description>
+    </item>
+    <item>
+      <title>Errorless Robust JPEG Steganography Using Outputs of JPEG Coders.</title>
+      <dc:creator>Jan Butora | Pauline Puteaux | Patrick Bas</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ButoraPB24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3306379</description>
+    </item>
+    <item>
+      <title>SecFed: A Secure and Efficient Federated Learning Based on Multi-Key Homomorphic Encryption.</title>
+      <dc:creator>Yuxuan Cai | Wenxiu Ding | Yuxuan Xiao | Zheng Yan 0002 | Ximeng Liu | Zhiguo Wan</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CaiDX0LW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3336977</description>
+    </item>
+    <item>
+      <title>Corrections to &amp;quot;Efficient Provably-Secure Dynamic ID-Based Authenticated Key Agreement Scheme With Enhanced Security Provision&amp;quot;.</title>
+      <dc:creator>Zhengjun Cao</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/Cao24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3302300</description>
+    </item>
+    <item>
+      <title>Task-Free Fairness-Aware Bias Mitigation for Black-Box Deployed Models.</title>
+      <dc:creator>Guodong Cao | Zhibo Wang 0001 | Yunhe Feng | Xiaowei Dong | Zhifei Zhang | Zhan Qin | Kui Ren 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CaoWFDZQR24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3328663</description>
+    </item>
+    <item>
+      <title>Which Attacks Lead to Hazards? Combining Safety and Security Analysis for Cyber-Physical Systems.</title>
+      <dc:creator>Luca Maria Castiglione | Emil C. Lupu</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CastiglioneL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3309778</description>
+    </item>
+    <item>
+      <title>Lifting the Grey Curtain: Analyzing the Ecosystem of Android Scam Apps.</title>
+      <dc:creator>Zhuo Chen | Lei Wu 0012 | Yubo Hu | Jing Cheng | Yufeng Hu | Yajin Zhou | Zhushou Tang | Yexuan Chen | Jinku Li | Kui Ren 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenWHCHZTCLR24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3329205</description>
+    </item>
+    <item>
+      <title>SaTC: Shared-Keyword Aware Taint Checking for Detecting Bugs in Embedded Systems.</title>
+      <dc:creator>Libo Chen 0001 | Yanhao Wang | Jiaqi Linghu | Qinsheng Hou | Quanpu Cai | Shanqing Guo | Zhi Xue</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChenWLHCGX24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3307430</description>
+    </item>
+    <item>
+      <title>Adversarial Computer Vision via Acoustic Manipulation of Camera Sensors.</title>
+      <dc:creator>Yushi Cheng | Xiaoyu Ji 0001 | Wenjun Zhu | Shibo Zhang | Kevin Fu | Wenyuan Xu 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChengJZZFX24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3334618</description>
+    </item>
+    <item>
+      <title>Outsourced Privately Verifiable Proofs of Retrievability via Blockchain.</title>
+      <dc:creator>Hui Cui 0001 | Zhiguo Wan | Rui Gao | Huaqun Wang</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CuiWGW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3285218</description>
+    </item>
+    <item>
+      <title>An Anonymity Retaining Framework for Multi-party Skyline Queries Based on Unique Tags.</title>
+      <dc:creator>Dola Das | Kazi Md. Rokibul Alam | Yasuhiko Morimoto</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DasAM24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3323961</description>
+    </item>
+    <item>
+      <title>Vulnerabilities in SDN Topology Discovery Mechanism: Novel Attacks and Countermeasures.</title>
+      <dc:creator>Shuhua Deng | Wenjie Dai | Xian Qing | Xieping Gao</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DengDQG24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3314111</description>
+    </item>
+    <item>
+      <title>Identity-Based Data Auditing Scheme With Provable Security in the Standard Model Suitable for Cloud Storage.</title>
+      <dc:creator>Lunzhi Deng | Shuai Feng | Tao Wang | Zhenyu Hu | Siwei Li</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DengFWHL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3336994</description>
+    </item>
+    <item>
+      <title>On the Security of Multi-Receiver Certificateless Generalized Signcryption Scheme for WBANs.</title>
+      <dc:creator>Chenghe Dong | Jianhong Zhang</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DongZ24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3318296</description>
+    </item>
+    <item>
+      <title>IoTa: Fine-Grained Traffic Monitoring for IoT Devices via Fully Packet-Level Models.</title>
+      <dc:creator>Chenxin Duan | Sainan Li | Hai Lin | Wenqi Chen | Guanglei Song | Chenglong Li 0006 | Jiahai Yang 0001 | Zhiliang Wang</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DuanLLCS00W24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3340563</description>
+    </item>
+    <item>
+      <title>A Privacy-Aware Provably Secure Smart Card Authentication Protocol Based on Physically Unclonable Functions.</title>
+      <dc:creator>Chun-I Fan | Arijit Karati | Shou-Li Wu</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FanKW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3317675</description>
+    </item>
+    <item>
+      <title>Security-Minded Verification of Cooperative Awareness Messages.</title>
+      <dc:creator>Marie Farrell | Matthew Bradbury | Rafael C. Cardoso 0001 | Michael Fisher 0001 | Louise A. Dennis | Clare Dixon | Al Tariq Sheik | Hu Yuan 0001 | Carsten Maple</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FarrellB00DDS0M24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3345543</description>
+    </item>
+    <item>
+      <title>On Explainable and Adaptable Detection of Distributed Denial-of-Service Traffic.</title>
+      <dc:creator>Yebo Feng | Jun Li 0001 | Devkishen Sisodia | Peter L. Reiher</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FengLSR24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3301293</description>
+    </item>
+    <item>
+      <title>Disentangled Orchestration on Cyber Ranges.</title>
+      <dc:creator>Yongquan Fu | Weihong Han | Dong Yuan 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FuHY24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3303888</description>
+    </item>
+    <item>
+      <title>A Framework of High-Speed Network Protocol Fuzzing Based on Shared Memory.</title>
+      <dc:creator>Junsong Fu 0001 | Shuai Xiong | Na Wang 0003 | Ruiping Ren | Ang Zhou | Bharat K. Bhargava</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FuXWRZB24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3318571</description>
+    </item>
+    <item>
+      <title>Mules and Permission Laundering in Android: Dissecting Custom Permissions in the Wild.</title>
+      <dc:creator>Julien Gamba | Álvaro Feal | Eduardo Blázquez | Vinuri Bandara | Abbas Razaghpanah | Juan Tapiador | Narseo Vallina-Rodriguez</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GambaFBBRTV24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3288981</description>
+    </item>
+    <item>
+      <title>Similarity-Based Secure Deduplication for IIoT Cloud Management System.</title>
+      <dc:creator>Yuan Gao | Liquan Chen | Jinguang Han | Shui Yu 0001 | Huiyu Fang</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GaoCHYF24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3302891</description>
+    </item>
+    <item>
+      <title>Practical EMI Attacks on Smartphones With Users&amp;apos; Commands Cancelled.</title>
+      <dc:creator>Ming Gao | Fu Xiao 0001 | Wentao Guo | Zixin Lin | Weiran Liu | Jinsong Han</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GaoXGLLH24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3303503</description>
+    </item>
+    <item>
+      <title>Revisiting Privacy-Preserving Min and k-th Min Protocols for Mobile Sensing.</title>
+      <dc:creator>Jiacheng Gao | Yuan Zhang 0004 | Sheng Zhong 0002</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GaoZZ24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3324802</description>
+    </item>
+    <item>
+      <title>Mix&amp;amp;Slice for Efficient Access Revocation on Outsourced Data.</title>
+      <dc:creator>Enrico Bacis | Sabrina De Capitani di Vimercati | Sara Foresti | Stefano Paraboschi | Marco Rosa | Pierangela Samarati</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BacisVFPRS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3280590</description>
+    </item>
+    <item>
+      <title>Defeating Data Plane Attacks With Program Obfuscation.</title>
+      <dc:creator>Conor Black | Sandra Scott-Hayward</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BlackS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3277939</description>
+    </item>
+    <item>
+      <title>A Lightweight and Secure Communication Protocol for the IoT Environment.</title>
+      <dc:creator>Zikang Ding | Daojing He | Qi Qiao | Xuru Li | Yun Gao | Sammy Chan | Kim-Kwang Raymond Choo</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DingHQLGCC24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3267979</description>
+    </item>
+    <item>
+      <title>PellucidAttachment: Protecting Users From Attacks via E-Mail Attachments.</title>
+      <dc:creator>Sevtap Duman | Matthias Büchler | Manuel Egele | Engin Kirda</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DumanBEK24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3279032</description>
+    </item>
+    <item>
+      <title>Crash-Resilient Decentralized Synchronous Runtime Verification.</title>
+      <dc:creator>Ritam Ganguly | Shokufeh Kazemloo | Borzoo Bonakdarpour</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GangulyKB24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3265566</description>
+    </item>
+    <item>
+      <title>How About Bug-Triggering Paths? - Understanding and Characterizing Learning-Based Vulnerability Detectors.</title>
+      <dc:creator>Xiao Cheng 0002 | Xu Nie | Ningke Li | Haoyu Wang 0001 | Zheng Zheng 0001 | Yulei Sui</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChengNLWZS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2022.3192419</description>
+    </item>
+    <item>
+      <title>Privacy-Preserving and Byzantine-Robust Federated Learning.</title>
+      <dc:creator>Caiqin Dong | Jian Weng 0001 | Ming Li 0049 | Jia-Nan Liu | Zhiquan Liu | Yudan Cheng | Shui Yu 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DongWLLLCY24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3264697</description>
+    </item>
+    <item>
+      <title>DP2Dataset Protection by Data Poisoning.</title>
+      <dc:creator>Han Fang | Yupeng Qiu | Guorui Qin | Jiyi Zhang | Kejiang Chen | Weiming Zhang 0001 | Ee-Chien Chang</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FangQQZCZC24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2022.3227945</description>
+    </item>
+    <item>
+      <title>Banknote Identification Through Unique Fluorescent Properties.</title>
+      <dc:creator>Renato Ferrero | Bartolomeo Montrucchio</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/FerreroM24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3267166</description>
+    </item>
+    <item>
+      <title>Attribute-Based Encryption With Reliable Outsourced Decryption in Cloud Computing Using Smart Contract.</title>
+      <dc:creator>Chunpeng Ge 0001 | Zhe Liu 0001 | Willy Susilo | Liming Fang 0001 | Hao Wang 0189</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/GeLSFW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3265932</description>
+    </item>
+    <item>
+      <title>Quantitative Evaluation of Extensive Vulnerability Set Using Cost Benefit Analysis.</title>
+      <dc:creator>Urvashi Bansal | Geeta Sikka | Lalit Kumar Awasthi | Bharat K. Bhargava</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/BansalSAB24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3253121</description>
+    </item>
+    <item>
+      <title>Differentially Private Non-Negative Consistent Release for Large-Scale Hierarchical Trees.</title>
+      <dc:creator>Jianping Cai | Ximeng Liu | Jiayin Li | Kim-Kwang Raymond Choo</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CaiLLC24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3253520</description>
+    </item>
+    <item>
+      <title>Gotham Testbed: A Reproducible IoT Testbed for Security Experiments and Dataset Generation.</title>
+      <dc:creator>Xabier Sáez de Cámara | Jose Luis Flores 0001 | Cristóbal Arellano | Aitor Urbieta | Urko Zurutuza</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CamaraFAUZ24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3247166</description>
+    </item>
+    <item>
+      <title>CyberSpec: Behavioral Fingerprinting for Intelligent Attacks Detection on Crowdsensing Spectrum Sensors.</title>
+      <dc:creator>Alberto Huertas Celdrán | Pedro Miguel Sánchez Sánchez | Gérôme Bovet | Gregorio Martínez Pérez | Burkhard Stiller</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/CeldranSBPS24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3252918</description>
+    </item>
+    <item>
+      <title>UniAP: Protecting Speech Privacy With Non-Targeted Universal Adversarial Perturbations.</title>
+      <dc:creator>Peng Cheng 0007 | Yuexin Wu | Yuan Hong 0001 | Zhongjie Ba | Feng Lin 0004 | Li Lu 0008 | Kui Ren 0001</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/ChengWHBLLR24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3242292</description>
+    </item>
+    <item>
+      <title>Generic Soft Error Data and Control Flow Error Detection by Instruction Duplication.</title>
+      <dc:creator>Moslem Didehban | Hwisoo So | Prudhvi Gali | Aviral Shrivastava | Kyoungwoo Lee</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DidehbanSGSL24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3245842</description>
+    </item>
+    <item>
+      <title>SodsBC: A Post-Quantum by Design Asynchronous Blockchain Framework.</title>
+      <dc:creator>Shlomi Dolev | Bingyong Guo | Jianyu Niu | Ziyu Wang 0009</dc:creator>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 </pubDate>
+      <link>https://dblp.org/rec/journals/tdsc/DolevGNW24</link>
+      <description>venue: IEEE Trans. Dependable Secur. Comput.
+year: 2024
+ee: https://doi.org/10.1109/TDSC.2023.3243588</description>
+    </item>
+  </channel>
+</rss>
