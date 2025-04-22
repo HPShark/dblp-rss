@@ -13,15 +13,18 @@ CACHE_EXPIRATION_HOURS = 12
 
 CACHE_FILE = "cache/dblp_cache.pkl"
 
+
 def load_cache():
     if os.path.exists(CACHE_FILE):
         with open(CACHE_FILE, "rb") as f:
             return pickle.load(f)
     return {}
 
+
 def save_cache(cache):
     with open(CACHE_FILE, "wb") as f:
         pickle.dump(cache, f)
+
 
 def get_json_from_dblp(keyword: str, nb_entries: int):
     BASE_URL = "https://dblp.org/search/publ/api"
@@ -68,6 +71,7 @@ def sort_hits_by_year_volume_and_number(hits):
     hits.sort(key=lambda x: parse_int(x['info'].get('year', 0)), reverse=True)
     return hits
 
+
 def generate_rss_feed(json_data):
     """Formats the json result from DBLP to a valid RSS file."""
 
@@ -95,7 +99,7 @@ def generate_rss_feed(json_data):
     description.text = "Custom DBLP extraction from XML"
     language = ET.SubElement(channel, 'language')
     language.text = 'en'
-    
+
     # 获取返回数据中的 'hit' 列表
     hits = json_data['result']['hits'].get('hit', [])
     # print(f"DEBUG: Parsed hits: {hits}")  # 调试信息，输出 hits 内容
@@ -127,7 +131,7 @@ def generate_rss_feed(json_data):
         # 添加链接
         link = ET.SubElement(item, 'link')
         link.text = entry['info']['url']
-        
+
         # 添加唯一标识符（guid）
         guid = ET.SubElement(item, 'guid')
         guid.set('isPermaLink', 'false')
@@ -147,6 +151,7 @@ def generate_rss_feed(json_data):
     ET.indent(rss)
     return ET.tostring(rss, method='xml', encoding="unicode")
 
+
 def dblp_rss(keyword):
     cache = load_cache()
     now = datetime.datetime.now()
@@ -164,6 +169,7 @@ def dblp_rss(keyword):
     cache[keyword] = (result, now)
     save_cache(cache)
     return result
+
 
 if __name__ == '__main__':
     dblp_rss("stream:streams/journals/tdsc:")
