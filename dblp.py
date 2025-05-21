@@ -8,10 +8,13 @@ import pickle
 
 # How many articles must be pulled
 NB_ENTRIES = 300
+# How many articles to fetch from DBLP API
+FETCH_ENTRIES = 1000
 # Cache expiration time in hours
 CACHE_EXPIRATION_HOURS = 12
 
 CACHE_FILE = "cache/dblp_cache.pkl"
+
 
 def load_cache():
     if os.path.exists(CACHE_FILE):
@@ -19,9 +22,11 @@ def load_cache():
             return pickle.load(f)
     return {}
 
+
 def save_cache(cache):
     with open(CACHE_FILE, "wb") as f:
         pickle.dump(cache, f)
+
 
 def get_json_from_dblp(keyword: str, nb_entries: int):
     BASE_URL = "https://dblp.org/search/publ/api"
@@ -35,7 +40,7 @@ def get_json_from_dblp(keyword: str, nb_entries: int):
 
     parameters = {
         "q": final_keyword,
-        "h": nb_entries,
+        "h": FETCH_ENTRIES,  # 使用FETCH_ENTRIES来获取更多结果
         "format": "json",
         "c": 0
     }
@@ -68,11 +73,9 @@ def sort_hits_by_year_volume_and_number(hits):
     hits.sort(key=lambda x: parse_int(x['info'].get('year', 0)), reverse=True)
     return hits
 
+
 def generate_rss_feed(json_data):
     """Formats the json result from DBLP to a valid RSS file."""
-    
-    # 创建 XML 声明
-    xml_declaration = '<?xml version="1.0" encoding="UTF-8"?>\n'
 
     # 创建 RSS 根元素
     rss = ET.Element('rss',
@@ -98,11 +101,10 @@ def generate_rss_feed(json_data):
     description.text = "Custom DBLP extraction from XML"
     language = ET.SubElement(channel, 'language')
     language.text = 'en'
-    
+
     # 获取返回数据中的 'hit' 列表
     hits = json_data['result']['hits'].get('hit', [])
-    # print(f"DEBUG: Parsed hits: {hits}")  # 调试信息，输出 hits 内容
-
+    
     # 按 year, volume 和 number 排序
     sorted_hits = sort_hits_by_year_volume_and_number(hits)
     
@@ -111,7 +113,6 @@ def generate_rss_feed(json_data):
 
     # 遍历每个条目并生成 RSS item
     for entry in sorted_hits:
-        # print(f"DEBUG: Processing entry: {entry}")  # 调试信息，输出当前条目内容
         item = ET.SubElement(channel, 'item')
         title = ET.SubElement(item, 'title')
         title.text = entry['info']['title']
@@ -133,7 +134,7 @@ def generate_rss_feed(json_data):
         # 添加链接
         link = ET.SubElement(item, 'link')
         link.text = entry['info']['url']
-        
+
         # 添加唯一标识符（guid）
         guid = ET.SubElement(item, 'guid')
         guid.set('isPermaLink', 'false')
@@ -144,15 +145,30 @@ def generate_rss_feed(json_data):
             # 如果没有key，使用URL作为唯一标识符
             guid.text = entry['info']['url']
 
-        # 添加描述
+        # 添加描述 - 增强版，包含更多元数据
+        description_parts = []
+        
+        # 添加期刊信息 (volume, number, doi, ee)
+        if 'venue' in entry['info']:
+            description_parts.append(f"venue: {entry['info']['venue']}")
+        if 'year' in entry['info']:
+            description_parts.append(f"year: {entry['info']['year']}")
+        if 'volume' in entry['info']:
+            description_parts.append(f"volume: {entry['info']['volume']}")
+        if 'number' in entry['info']:
+            description_parts.append(f"number: {entry['info']['number']}")
+        if 'doi' in entry['info']:
+            description_parts.append(f"doi: {entry['info']['doi']}")
+        if 'ee' in entry['info']:
+            description_parts.append(f"ee: {entry['info']['ee']}")
+            
         description = ET.SubElement(item, 'description')
-        description.text = '\n'.join(
-            f"{key}: {val}" for key, val in entry['info'].items() if key in ['venue', 'year', 'ee'])
+        description.text = '\n'.join(description_parts)
 
     # 格式化 RSS 输出
     ET.indent(rss)
-    # 组合 XML 声明和 RSS 内容
-    return xml_declaration + ET.tostring(rss, method='xml', encoding="unicode")
+    return ET.tostring(rss, method='xml', encoding="unicode")
+
 
 def dblp_rss(keyword):
     cache = load_cache()
@@ -171,6 +187,7 @@ def dblp_rss(keyword):
     cache[keyword] = (result, now)
     save_cache(cache)
     return result
+
 
 if __name__ == '__main__':
     dblp_rss("stream:streams/journals/tdsc:")
