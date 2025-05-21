@@ -74,6 +74,9 @@ def sort_hits_by_year_volume_and_number(hits):
 
 def generate_rss_feed(json_data):
     """Formats the json result from DBLP to a valid RSS file."""
+    
+    # 创建 XML 声明
+    xml_declaration = '<?xml version="1.0" encoding="UTF-8"?>\n'
 
     # 创建 RSS 根元素
     rss = ET.Element('rss',
@@ -99,13 +102,16 @@ def generate_rss_feed(json_data):
     description.text = "Custom DBLP extraction from XML"
     language = ET.SubElement(channel, 'language')
     language.text = 'en'
-
+    
     # 获取返回数据中的 'hit' 列表
     hits = json_data['result']['hits'].get('hit', [])
     # print(f"DEBUG: Parsed hits: {hits}")  # 调试信息，输出 hits 内容
 
     # 按 year, volume 和 number 排序
     sorted_hits = sort_hits_by_year_volume_and_number(hits)
+    
+    # 只取前 NB_ENTRIES 个条目
+    sorted_hits = sorted_hits[:NB_ENTRIES]
 
     # 遍历每个条目并生成 RSS item
     for entry in sorted_hits:
@@ -131,7 +137,7 @@ def generate_rss_feed(json_data):
         # 添加链接
         link = ET.SubElement(item, 'link')
         link.text = entry['info']['url']
-
+        
         # 添加唯一标识符（guid）
         guid = ET.SubElement(item, 'guid')
         guid.set('isPermaLink', 'false')
@@ -149,7 +155,8 @@ def generate_rss_feed(json_data):
 
     # 格式化 RSS 输出
     ET.indent(rss)
-    return ET.tostring(rss, method='xml', encoding="unicode")
+    # 组合 XML 声明和 RSS 内容
+    return xml_declaration + ET.tostring(rss, method='xml', encoding="unicode")
 
 
 def dblp_rss(keyword):
