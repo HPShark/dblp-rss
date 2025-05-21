@@ -1,6 +1,7 @@
 import requests
 import json
 import datetime
+import random
 from xml.etree import ElementTree as ET
 from urllib.parse import quote, unquote
 import os
@@ -14,6 +15,53 @@ FETCH_ENTRIES = 1000
 CACHE_EXPIRATION_HOURS = 12
 
 CACHE_FILE = "cache/dblp_cache.pkl"
+
+# 多个User-Agent列表
+USER_AGENTS = [
+  "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.3",
+  "Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-A326B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/115.0.0.0 Mobile Safari/537.3",
+  "Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-G780G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/115.0.0.0 Mobile Safari/537.3",
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 17_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/121.0.6167.171 Mobile/15E148 Safari/604",
+  "Mozilla/5.0 (Linux; Android 11; moto e20 Build/RONS31.267-94-14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.178 Mobile Safari/537.3",
+  "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Mobile Safari/537.3",
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Mobile/15E148 Safari/604.",
+  "Mozilla/5.0 (Linux; Android 12; SM-S906N Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.119 Mobile Safari/537.36",
+  "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.94 Chrome/37.0.2062.94 Safari/537.36",
+  "Mozilla/5.0 (Linux; Android 10; SM-G996U Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36",
+  "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36",
+  "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko",
+  "Mozilla/5.0 (Linux; Android 10; SM-G980F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.96 Mobile Safari/537.36",
+  "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/600.8.9 (KHTML, like Gecko) Version/8.0.8 Safari/600.8.9",
+  "Mozilla/5.0 (iPad; CPU OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H321 Safari/600.1.4",
+  "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36",
+  "Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14",
+  "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36",
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240",
+  "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0",
+  "Mozilla/5.0 (iPhone14,6; U; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/19E241 Safari/602.1",
+  "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko",
+  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36",
+  "Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko",
+  "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0",
+  "Mozilla/5.0 (Linux; Android 9; SM-G973U Build/PPR1.180610.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.8.9 (KHTML, like Gecko) Version/7.1.8 Safari/537.85.17",
+  "Mozilla/5.0 (iPad; CPU OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H143 Safari/600.1.4",
+  "Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36",
+  "Mozilla/5.0 (iPad; CPU OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F69 Safari/600.1.4",
+  "Mozilla/5.0 (Windows NT 6.1; rv:40.0) Gecko/20100101 Firefox/40.0",
+  "Mozilla/5.0 (Linux; Android 7.0; SM-G930VC Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/58.0.3029.83 Mobile Safari/537.36",
+  "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)",
+  "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
+  "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko",
+  "Mozilla/5.0 (Windows NT 5.1; rv:40.0) Gecko/20100101 Firefox/40.0",
+  "Mozilla/5.0 (Linux; Android 6.0.1; SM-G935S Build/MMB29K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/55.0.2883.91 Mobile Safari/537.36",
+  "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36",
+  "Mozilla/5.0 (Linux; Android 5.1.1; SM-G928X Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36"
+]
 
 
 def load_cache():
@@ -42,12 +90,15 @@ def get_json_from_dblp(keyword: str, nb_entries: int):
         "q": final_keyword,
         "h": FETCH_ENTRIES,  # 使用FETCH_ENTRIES来获取更多结果
         "format": "json",
-        "c": 0
     }
 
+    # 随机选择一个User-Agent
+    random_ua = random.choice(USER_AGENTS)
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+        "User-Agent": random_ua
     }
+    
+    # print(f"DEBUG: Using User-Agent: {random_ua}")
 
     res = requests.get(BASE_URL, headers=headers, params=parameters)
     # print(f"DEBUG: URL called: {res.url}")  # 输出实际调用的 URL
@@ -76,6 +127,16 @@ def sort_hits_by_year_volume_and_number(hits):
 
 def generate_rss_feed(json_data):
     """Formats the json result from DBLP to a valid RSS file."""
+    
+    # 添加辅助函数确保值是字符串类型
+    def ensure_string(value):
+        """确保值是字符串类型"""
+        if value is None:
+            return ""
+        elif isinstance(value, list):
+            return ", ".join(str(x) for x in value)
+        else:
+            return str(value)
 
     # 创建 RSS 根元素
     rss = ET.Element('rss', 
@@ -120,29 +181,29 @@ def generate_rss_feed(json_data):
         
         # 添加rdf:about属性
         if 'url' in entry['info']:
-            item.set('rdf:about', entry['info']['url'])
+            item.set('rdf:about', ensure_string(entry['info']['url']))
             
         # 添加标题
         title = ET.SubElement(item, 'title')
-        title.text = entry['info']['title']
+        title.text = ensure_string(entry['info']['title'])
         
         # 添加dc:title
         dc_title = ET.SubElement(item, 'dc:title')
-        dc_title.text = entry['info']['title']
+        dc_title.text = ensure_string(entry['info']['title'])
 
         # 处理作者信息 - 每位作者单独一个dc:creator标签
         authors_list = entry['info'].get('authors', {}).get('author', [])
         if isinstance(authors_list, list):
             for author_info in authors_list:
                 author = ET.SubElement(item, 'dc:creator')
-                author.text = author_info['text']
+                author.text = ensure_string(author_info.get('text', ''))
         elif isinstance(authors_list, dict):
             author = ET.SubElement(item, 'dc:creator')
-            author.text = authors_list['text']
+            author.text = ensure_string(authors_list.get('text', ''))
 
         # 添加出版日期
         date = ET.SubElement(item, 'pubDate')
-        year = entry['info'].get('year', "2000")  # 默认年份为 2000
+        year = ensure_string(entry['info'].get('year', "2000"))  # 默认年份为 2000
         d = datetime.datetime(int(year), 1, 1)
         date.text = d.strftime("%a, %d %b %Y %H:%M:%S +0000")
         
@@ -156,14 +217,14 @@ def generate_rss_feed(json_data):
 
         # 添加链接
         link = ET.SubElement(item, 'link')
-        link.text = entry['info']['url']
+        link.text = ensure_string(entry['info']['url'])
 
         # 添加唯一标识符（guid）
         guid = ET.SubElement(item, 'guid')
         if 'key' in entry['info']:
-            guid_value = entry['info']['key']
+            guid_value = ensure_string(entry['info']['key'])
         else:
-            guid_value = entry['info']['url']
+            guid_value = ensure_string(entry['info']['url'])
             
         guid.text = guid_value
         guid.set('rdf:resource', guid_value)
@@ -179,27 +240,37 @@ def generate_rss_feed(json_data):
         if 'venue' in entry['info']:
             # prism:publicationName
             prism_pubname = ET.SubElement(item, 'prism:publicationName')
-            prism_pubname.text = entry['info']['venue']
+            prism_pubname.text = ensure_string(entry['info']['venue'])
             
             # dc:source (应该包含issn，但dblp没有这个信息，用venue代替)
             dc_source = ET.SubElement(item, 'dc:source')
-            dc_source.text = entry['info']['venue']
+            dc_source.text = ensure_string(entry['info']['venue'])
             
         if 'volume' in entry['info']:
             prism_volume = ET.SubElement(item, 'prism:volume')
-            prism_volume.text = entry['info']['volume']
+            prism_volume.text = ensure_string(entry['info']['volume'])
             
         if 'number' in entry['info']:
             prism_number = ET.SubElement(item, 'prism:number')
-            prism_number.text = entry['info']['number']
+            prism_number.text = ensure_string(entry['info']['number'])
             
         if 'doi' in entry['info']:
             dc_identifier = ET.SubElement(item, 'dc:identifier')
-            dc_identifier.text = f"doi:{entry['info']['doi']}"
+            dc_identifier.text = f"doi:{ensure_string(entry['info']['doi'])}"
             
         if 'ee' in entry['info']:
             dc_format = ET.SubElement(item, 'dc:format')
             dc_format.text = "text/html"
+            
+            # 处理ee字段，它可能是列表或字符串
+            ee_value = entry['info']['ee']
+            if isinstance(ee_value, list) and ee_value:
+                # 如果是列表，取第一个值
+                urls = ET.SubElement(item, 'dc:relation')
+                urls.text = ensure_string(ee_value[0])
+            else:
+                urls = ET.SubElement(item, 'dc:relation')
+                urls.text = ensure_string(ee_value)
             
         # 添加dc:type
         dc_type = ET.SubElement(item, 'dc:type')
@@ -230,5 +301,6 @@ def dblp_rss(keyword):
 
 
 if __name__ == '__main__':
-    dblp_rss("stream:streams/journals/tdsc:")
-    dblp_rss("stream%3Astreams%2Fjournals%2Ftdsc%3A")
+    # dblp_rss("stream:streams/journals/tdsc:")
+    # dblp_rss("stream%3Astreams%2Fjournals%2Ftdsc%3A")
+    dblp_rss("stream%3Astreams%2Fconf%2Feurocrypt%3A")
