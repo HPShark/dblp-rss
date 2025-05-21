@@ -78,7 +78,7 @@ def generate_rss_feed(json_data):
     """Formats the json result from DBLP to a valid RSS file."""
 
     # 创建 RSS 根元素
-    rss = ET.Element('rss',
+    rss = ET.Element('rss', 
                      attrib={
                          "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
                          "xmlns:wfw": "http://wellformedweb.org/CommentAPI/",
@@ -86,6 +86,9 @@ def generate_rss_feed(json_data):
                          "xmlns:atom": "http://www.w3.org/2005/Atom",
                          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/",
                          "xmlns:slash": "http://purl.org/rss/1.0/modules/slash/",
+                         "xmlns:prism": "http://prismstandard.org/namespaces/basic/2.0/",
+                         "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                         "xmlns:media": "http://search.yahoo.com/mrss/",
                          "version": "2.0"
                      })
 
@@ -114,15 +117,27 @@ def generate_rss_feed(json_data):
     # 遍历每个条目并生成 RSS item
     for entry in sorted_hits:
         item = ET.SubElement(channel, 'item')
+        
+        # 添加rdf:about属性
+        if 'url' in entry['info']:
+            item.set('rdf:about', entry['info']['url'])
+            
+        # 添加标题
         title = ET.SubElement(item, 'title')
         title.text = entry['info']['title']
+        
+        # 添加dc:title
+        dc_title = ET.SubElement(item, 'dc:title')
+        dc_title.text = entry['info']['title']
 
-        # 处理作者信息
-        author = ET.SubElement(item, 'dc:creator')
-        authors_list = entry['info'].get('authors', {}).get('author', "NULL")
+        # 处理作者信息 - 每位作者单独一个dc:creator标签
+        authors_list = entry['info'].get('authors', {}).get('author', [])
         if isinstance(authors_list, list):
-            author.text = ' | '.join(a['text'] for a in authors_list)
+            for author_info in authors_list:
+                author = ET.SubElement(item, 'dc:creator')
+                author.text = author_info['text']
         elif isinstance(authors_list, dict):
+            author = ET.SubElement(item, 'dc:creator')
             author.text = authors_list['text']
 
         # 添加出版日期
@@ -130,6 +145,14 @@ def generate_rss_feed(json_data):
         year = entry['info'].get('year', "2000")  # 默认年份为 2000
         d = datetime.datetime(int(year), 1, 1)
         date.text = d.strftime("%a, %d %b %Y %H:%M:%S +0000")
+        
+        # 添加dc:date
+        dc_date = ET.SubElement(item, 'dc:date')
+        dc_date.text = f"{year}-01-01"
+        
+        # 添加prism:publicationDate
+        prism_pubdate = ET.SubElement(item, 'prism:publicationDate')
+        prism_pubdate.text = f"{year}-01-01"
 
         # 添加链接
         link = ET.SubElement(item, 'link')
@@ -137,33 +160,50 @@ def generate_rss_feed(json_data):
 
         # 添加唯一标识符（guid）
         guid = ET.SubElement(item, 'guid')
-        guid.set('isPermaLink', 'false')
-        # 使用键值作为唯一标识符
         if 'key' in entry['info']:
-            guid.text = entry['info']['key']
+            guid_value = entry['info']['key']
         else:
-            # 如果没有key，使用URL作为唯一标识符
-            guid.text = entry['info']['url']
-
-        # 添加描述 - 增强版，包含更多元数据
-        description_parts = []
-        
-        # 添加期刊信息 (volume, number, doi, ee)
-        if 'venue' in entry['info']:
-            description_parts.append(f"venue: {entry['info']['venue']}")
-        if 'year' in entry['info']:
-            description_parts.append(f"year: {entry['info']['year']}")
-        if 'volume' in entry['info']:
-            description_parts.append(f"volume: {entry['info']['volume']}")
-        if 'number' in entry['info']:
-            description_parts.append(f"number: {entry['info']['number']}")
-        if 'doi' in entry['info']:
-            description_parts.append(f"doi: {entry['info']['doi']}")
-        if 'ee' in entry['info']:
-            description_parts.append(f"ee: {entry['info']['ee']}")
+            guid_value = entry['info']['url']
             
+        guid.text = guid_value
+        guid.set('rdf:resource', guid_value)
+        
+        # 添加空的description标签
         description = ET.SubElement(item, 'description')
-        description.text = '\n'.join(description_parts)
+        
+        # 添加dc:language
+        dc_language = ET.SubElement(item, 'dc:language')
+        dc_language.text = "EN"
+
+        # 添加期刊相关信息
+        if 'venue' in entry['info']:
+            # prism:publicationName
+            prism_pubname = ET.SubElement(item, 'prism:publicationName')
+            prism_pubname.text = entry['info']['venue']
+            
+            # dc:source (应该包含issn，但dblp没有这个信息，用venue代替)
+            dc_source = ET.SubElement(item, 'dc:source')
+            dc_source.text = entry['info']['venue']
+            
+        if 'volume' in entry['info']:
+            prism_volume = ET.SubElement(item, 'prism:volume')
+            prism_volume.text = entry['info']['volume']
+            
+        if 'number' in entry['info']:
+            prism_number = ET.SubElement(item, 'prism:number')
+            prism_number.text = entry['info']['number']
+            
+        if 'doi' in entry['info']:
+            dc_identifier = ET.SubElement(item, 'dc:identifier')
+            dc_identifier.text = f"doi:{entry['info']['doi']}"
+            
+        if 'ee' in entry['info']:
+            dc_format = ET.SubElement(item, 'dc:format')
+            dc_format.text = "text/html"
+            
+        # 添加dc:type
+        dc_type = ET.SubElement(item, 'dc:type')
+        dc_type.text = "text"
 
     # 格式化 RSS 输出
     ET.indent(rss)
