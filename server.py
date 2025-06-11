@@ -1,14 +1,52 @@
-from fastapi import FastAPI, HTTPException, Path
+from fastapi import FastAPI, HTTPException, Path, Request
 from fastapi.responses import Response, PlainTextResponse
-from dblp import dblp_rss
+from dblp import dblp_rss, init_cache_db
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
+import logging
+import os
+from datetime import datetime
+
+# --- Logging Setup ---
+LOG_DIR = "cache"
+LOG_FILE = os.path.join(LOG_DIR, "request.log")
+
+# Create a dedicated logger for requests
+request_logger = logging.getLogger("request_logger")
+request_logger.setLevel(logging.INFO)
+
+# Create a handler that writes to the log file, and a formatter
+file_handler = logging.FileHandler(LOG_FILE, mode='a')
+formatter = logging.Formatter('%(message)s')
+file_handler.setFormatter(formatter)
+
+# Add the handler to the logger
+request_logger.addHandler(file_handler)
+# --- End Logging Setup ---
 
 app = FastAPI()
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    """Logs incoming client IP, timestamp, and URL to a file."""
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    client_ip = request.client.host
+    url = str(request.url)
+    
+    request_logger.info(f"IP: {client_ip}, Time: {timestamp}, URL: {url}")
+    
+    response = await call_next(request)
+    return response
 
 # 优化队列配置，使用更高效的线程池
 executor = ThreadPoolExecutor(max_workers=2)  # 限制线程池大小为 2，控制资源使用
 active_requests = asyncio.Semaphore(2)  # 设置并发限制为 2
+
+@app.on_event("startup")
+async def startup_event():
+    """Initializes the cache database and log directory on application startup."""
+    os.makedirs(LOG_DIR, exist_ok=True)
+    init_cache_db()
 
 @app.get("/dblp/{keyword:path}", response_class=PlainTextResponse)
 async def get_dblp_rss(keyword: str = Path(..., regex=r".+")):

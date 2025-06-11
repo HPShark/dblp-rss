@@ -5,7 +5,7 @@ import random
 from xml.etree import ElementTree as ET
 from urllib.parse import quote, unquote
 import os
-import pickle
+import sqlite3
 
 # How many articles must be pulled
 NB_ENTRIES = 300
@@ -14,7 +14,7 @@ FETCH_ENTRIES = 1000
 # Cache expiration time in hours
 CACHE_EXPIRATION_HOURS = 12
 
-CACHE_FILE = "cache/dblp_cache.pkl"
+CACHE_DB_FILE = "cache/dblp_cache.db"
 
 # 多个User-Agent列表
 USER_AGENTS = [
@@ -63,17 +63,50 @@ USER_AGENTS = [
   "Mozilla/5.0 (Linux; Android 5.1.1; SM-G928X Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36"
 ]
 
+def init_cache_db():
+    """Initializes the SQLite cache database and table."""
+    # Ensure the cache directory exists
+    os.makedirs(os.path.dirname(CACHE_DB_FILE), exist_ok=True)
+    conn = sqlite3.connect(CACHE_DB_FILE, check_same_thread=False)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS cache (
+            keyword TEXT PRIMARY KEY,
+            timestamp INTEGER,
+            rss_data TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
-def load_cache():
-    if os.path.exists(CACHE_FILE):
-        with open(CACHE_FILE, "rb") as f:
-            return pickle.load(f)
-    return {}
+def load_from_cache_db(keyword: str):
+    """Loads a result from the SQLite cache if it exists and is not expired."""
+    conn = sqlite3.connect(CACHE_DB_FILE, check_same_thread=False)
+    cursor = conn.cursor()
+    cursor.execute("SELECT timestamp, rss_data FROM cache WHERE keyword = ?", (keyword,))
+    row = cursor.fetchone()
+    conn.close()
 
+    if row:
+        timestamp_int, rss_data = row
+        timestamp = datetime.datetime.fromtimestamp(timestamp_int)
+        now = datetime.datetime.now()
+        if (now - timestamp).total_seconds() < CACHE_EXPIRATION_HOURS * 3600:
+            print("DEBUG: Returning cached result from DB.")
+            return rss_data
+    return None
 
-def save_cache(cache):
-    with open(CACHE_FILE, "wb") as f:
-        pickle.dump(cache, f)
+def save_to_cache_db(keyword: str, rss_data: str):
+    """Saves a result to the SQLite cache."""
+    conn = sqlite3.connect(CACHE_DB_FILE, check_same_thread=False)
+    cursor = conn.cursor()
+    now_timestamp = int(datetime.datetime.now().timestamp())
+    cursor.execute('''
+        INSERT OR REPLACE INTO cache (keyword, timestamp, rss_data)
+        VALUES (?, ?, ?)
+    ''', (keyword, now_timestamp, rss_data))
+    conn.commit()
+    conn.close()
 
 
 def get_json_from_dblp(keyword: str, nb_entries: int):
@@ -166,8 +199,12 @@ def generate_rss_feed(json_data):
     language = ET.SubElement(channel, 'language')
     language.text = 'en'
 
-    # 获取返回数据中的 'hit' 列表
-    hits = json_data['result']['hits'].get('hit', [])
+    # 获取返回数据中的 'hit' 列表, 并确保其为列表
+    raw_hits = json_data['result']['hits'].get('hit', [])
+    if isinstance(raw_hits, dict):
+        hits = [raw_hits]
+    else:
+        hits = raw_hits
     
     # 按 year, volume 和 number 排序
     sorted_hits = sort_hits_by_year_volume_and_number(hits)
@@ -185,11 +222,11 @@ def generate_rss_feed(json_data):
             
         # 添加标题
         title = ET.SubElement(item, 'title')
-        title.text = ensure_string(entry['info']['title'])
+        title.text = ensure_string(entry['info'].get('title'))
         
         # 添加dc:title
         dc_title = ET.SubElement(item, 'dc:title')
-        dc_title.text = ensure_string(entry['info']['title'])
+        dc_title.text = ensure_string(entry['info'].get('title'))
 
         # 处理作者信息 - 每位作者单独一个dc:creator标签
         authors_list = entry['info'].get('authors', {}).get('author', [])
@@ -217,14 +254,14 @@ def generate_rss_feed(json_data):
 
         # 添加链接
         link = ET.SubElement(item, 'link')
-        link.text = ensure_string(entry['info']['url'])
+        link.text = ensure_string(entry['info'].get('url'))
 
         # 添加唯一标识符（guid）
         guid = ET.SubElement(item, 'guid')
         if 'key' in entry['info']:
             guid_value = ensure_string(entry['info']['key'])
         else:
-            guid_value = ensure_string(entry['info']['url'])
+            guid_value = ensure_string(entry['info'].get('url'))
             
         guid.text = guid_value
         guid.set('rdf:resource', guid_value)
@@ -282,25 +319,29 @@ def generate_rss_feed(json_data):
 
 
 def dblp_rss(keyword):
-    cache = load_cache()
-    now = datetime.datetime.now()
-
     # 检查缓存
-    if keyword in cache:
-        cached_data, timestamp = cache[keyword]
-        if (now - timestamp).total_seconds() < CACHE_EXPIRATION_HOURS * 3600:
-            print("DEBUG: Returning cached result.")
-            return cached_data
+    cached_result = load_from_cache_db(keyword)
+    if cached_result:
+        return cached_result
 
     # 缓存失效或不存在
-    print("DEBUG: Fetching new data from DBLP.")
-    result = generate_rss_feed(get_json_from_dblp(keyword, NB_ENTRIES))
-    cache[keyword] = (result, now)
-    save_cache(cache)
+    print(f"DEBUG: Fetching new data for {keyword} from DBLP.")
+    json_data = get_json_from_dblp(keyword, NB_ENTRIES)
+
+    # 如果 DBLP 没有返回结果，则生成一个空的 RSS feed 以避免崩溃
+    if not json_data['result']['hits'].get('hit'):
+        json_data = {'result': {'hits': {'hit': []}}}
+    
+    result = generate_rss_feed(json_data)
+    
+    # 保存到缓存
+    save_to_cache_db(keyword, result)
+    
     return result
 
 
 if __name__ == '__main__':
+    init_cache_db()
     # dblp_rss("stream:streams/journals/tdsc:")
     # dblp_rss("stream%3Astreams%2Fjournals%2Ftdsc%3A")
     dblp_rss("stream%3Astreams%2Fconf%2Feurocrypt%3A")
