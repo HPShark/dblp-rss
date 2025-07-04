@@ -186,8 +186,8 @@ def load_from_cache_db(keyword):
         return rsstext
     
     # 兼容旧数据：如果没有缓存的RSS文本，从表中获取数据并生成
-    # 使用索引优化的查询
-    cursor.execute(f"SELECT * FROM {table_name} ORDER BY year DESC, publication_date DESC, id DESC")
+    # 修改排序逻辑: 年份降序，发布日期降序，ID升序
+    cursor.execute(f"SELECT * FROM {table_name} ORDER BY year DESC, publication_date DESC, id ASC")
     papers = cursor.fetchall()
     
     if not papers:
@@ -237,8 +237,8 @@ def save_to_cache_db(keyword, papers_data):
         
         # 如果没有新论文，直接返回
         if not new_papers and current_count > 0:
-            # 生成RSS数据 - 使用索引优化的查询
-            cursor.execute(f"SELECT * FROM {table_name} ORDER BY year DESC, publication_date DESC, id DESC")
+            # 生成RSS数据 - 修改排序逻辑: 年份降序，发布日期降序，ID升序
+            cursor.execute(f"SELECT * FROM {table_name} ORDER BY year DESC, publication_date DESC, id ASC")
             papers = cursor.fetchall()
             columns = [desc[0] for desc in cursor.description]
             existing_papers_data = [dict(zip(columns, paper)) for paper in papers]
@@ -262,12 +262,12 @@ def save_to_cache_db(keyword, papers_data):
                 if keep_count < 0:
                     keep_count = 0
                 
-                # 按照年份和发布日期排序，只保留最新的记录
+                # 修改排序逻辑：年份降序，发布日期降序，ID升序，保留最新的记录
                 cursor.execute(f'''
                     DELETE FROM {table_name} 
                     WHERE id NOT IN (
                         SELECT id FROM {table_name} 
-                        ORDER BY year DESC, publication_date DESC, id DESC
+                        ORDER BY year DESC, publication_date DESC, id ASC
                         LIMIT {keep_count}
                     )
                 ''')
@@ -321,19 +321,19 @@ def save_to_cache_db(keyword, papers_data):
         cursor.execute(f"SELECT COUNT(*) FROM {table_name}")
         final_count = cursor.fetchone()[0]
         if final_count > MAX_TABLE_RECORDS:
-            # 删除多余的旧记录
+            # 删除多余的旧记录，修改排序逻辑
             cursor.execute(f'''
                 DELETE FROM {table_name} 
                 WHERE id NOT IN (
                     SELECT id FROM {table_name} 
-                    ORDER BY year DESC, publication_date DESC, id DESC
+                    ORDER BY year DESC, publication_date DESC, id ASC
                     LIMIT {MAX_TABLE_RECORDS}
                 )
             ''')
             print(f"DEBUG: 最终清理，表 {table_name} 记录数限制为 {MAX_TABLE_RECORDS}")
         
-        # 获取最新的数据生成RSS - 使用索引优化的查询
-        cursor.execute(f"SELECT * FROM {table_name} ORDER BY year DESC, publication_date DESC, id DESC")
+        # 获取最新的数据生成RSS - 修改排序逻辑
+        cursor.execute(f"SELECT * FROM {table_name} ORDER BY year DESC, publication_date DESC, id ASC")
         papers = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
         updated_papers_data = [dict(zip(columns, paper)) for paper in papers]
