@@ -433,7 +433,7 @@ def process_papers_from_json(json_data):
             return str(value)
 
     # 获取当前时间作为publication_date
-    current_time = datetime.datetime.now().strftime("%Y-%m-%d")
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     # 获取返回数据中的 'hit' 列表, 并确保其为列表
     raw_hits = json_data['result']['hits'].get('hit', [])
@@ -468,7 +468,7 @@ def process_papers_from_json(json_data):
         # 年份和日期
         year = ensure_string(entry['info'].get('year', "2000"))
         paper['year'] = int(year)
-        paper['publication_date'] = current_time
+        paper['publication_date'] = current_time  # 使用完整的日期时间格式
         
         # URL和标识符
         paper['url'] = ensure_string(entry['info'].get('url'))
@@ -565,28 +565,46 @@ def generate_rss_from_papers(papers_data):
 
         # 添加出版日期 - 使用当前时间作为pubDate
         date = ET.SubElement(item, 'pubDate')
+        
         # 将数据库格式的时间转换为RSS格式
+        rfc822_date = None
         try:
+            # 尝试解析完整的日期时间格式 YYYY-MM-DD HH:MM:SS
             pub_datetime = datetime.datetime.strptime(paper.get('publication_date', ''), "%Y-%m-%d %H:%M:%S")
-            date.text = pub_datetime.strftime("%a, %d %b %Y %H:%M:%S +0000")
+            rfc822_date = pub_datetime.strftime("%a, %d %b %Y %H:%M:%S +0000")
         except ValueError:
             try:
                 # 尝试解析YYYY-MM-DD格式
                 pub_datetime = datetime.datetime.strptime(paper.get('publication_date', ''), "%Y-%m-%d")
-                date.text = pub_datetime.strftime("%a, %d %b %Y %H:%M:%S +0000")
+                # 添加时间部分，确保每次生成相同的时间
+                pub_datetime = pub_datetime.replace(hour=12, minute=0, second=0)
+                rfc822_date = pub_datetime.strftime("%a, %d %b %Y %H:%M:%S +0000")
             except ValueError:
                 # 如果转换失败，使用论文年份
                 year = str(paper.get('year', 2000))
-                d = datetime.datetime(int(year), 1, 1)
-                date.text = d.strftime("%a, %d %b %Y %H:%M:%S +0000")
+                d = datetime.datetime(int(year), 1, 1, 12, 0, 0)
+                rfc822_date = d.strftime("%a, %d %b %Y %H:%M:%S +0000")
         
-        # 添加dc:date
+        date.text = rfc822_date
+        
+        # 添加dc:date - 使用ISO 8601格式 (YYYY-MM-DD)
         dc_date = ET.SubElement(item, 'dc:date')
-        dc_date.text = paper.get('publication_date', '')
+        iso_date = None
+        try:
+            pub_datetime = datetime.datetime.strptime(paper.get('publication_date', ''), "%Y-%m-%d %H:%M:%S")
+            iso_date = pub_datetime.strftime("%Y-%m-%d")
+        except ValueError:
+            try:
+                pub_datetime = datetime.datetime.strptime(paper.get('publication_date', ''), "%Y-%m-%d")
+                iso_date = pub_datetime.strftime("%Y-%m-%d")
+            except ValueError:
+                iso_date = f"{paper.get('year', 2000)}-01-01"
         
-        # 添加prism:publicationDate
+        dc_date.text = iso_date
+        
+        # 添加prism:publicationDate - 使用相同的ISO格式
         prism_pubdate = ET.SubElement(item, 'prism:publicationDate')
-        prism_pubdate.text = paper.get('publication_date', '')
+        prism_pubdate.text = iso_date
 
         # 添加链接
         link = ET.SubElement(item, 'link')
@@ -598,8 +616,14 @@ def generate_rss_from_papers(papers_data):
         guid.text = guid_value
         guid.set('rdf:resource', guid_value)
         
-        # 添加空的description标签
+        # 添加description标签，包含摘要信息
         description = ET.SubElement(item, 'description')
+        description_text = f"<p>Year: {paper.get('year', '')}</p>"
+        if paper.get('venue'):
+            description_text += f"<p>Venue: {paper.get('venue', '')}</p>"
+        if paper.get('authors'):
+            description_text += f"<p>Authors: {paper.get('authors', '')}</p>"
+        description.text = description_text
         
         # 添加dc:language
         dc_language = ET.SubElement(item, 'dc:language')
