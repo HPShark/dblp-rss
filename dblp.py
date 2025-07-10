@@ -521,6 +521,11 @@ def generate_rss_from_papers(papers_data):
         link.text = "https://dblp.org/"
         description = ET.SubElement(channel, 'description')
         description.text = "No results found"
+        
+        # 添加频道更新时间
+        lastBuildDate = ET.SubElement(channel, 'lastBuildDate')
+        lastBuildDate.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")
+        
         ET.indent(rss)
         return ET.tostring(rss, method='xml', encoding="unicode")
     
@@ -552,9 +557,24 @@ def generate_rss_from_papers(papers_data):
     language = ET.SubElement(channel, 'language')
     language.text = 'en'
     
-    # 添加频道更新时间
-    lastBuildDate = ET.SubElement(channel, 'lastBuildDate')
-    lastBuildDate.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")
+    # 添加频道更新时间 - 使用最新一篇论文的publication_date
+    # 确保papers_data已按发布日期降序排序
+    if papers_data:
+        newest_paper = papers_data[0]  # 第一篇应该是最新的
+        lastBuildDate = ET.SubElement(channel, 'lastBuildDate')
+        
+        # 尝试解析论文的发布日期
+        try:
+            pub_datetime = datetime.datetime.strptime(newest_paper.get('publication_date', ''), "%Y-%m-%d %H:%M:%S")
+            lastBuildDate.text = pub_datetime.strftime("%a, %d %b %Y %H:%M:%S +0000")
+        except ValueError:
+            try:
+                pub_datetime = datetime.datetime.strptime(newest_paper.get('publication_date', ''), "%Y-%m-%d")
+                pub_datetime = pub_datetime.replace(hour=12, minute=0, second=0)
+                lastBuildDate.text = pub_datetime.strftime("%a, %d %b %Y %H:%M:%S +0000")
+            except ValueError:
+                # 如果解析失败，使用当前时间
+                lastBuildDate.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")
 
     # 为每篇论文创建RSS项
     for paper in papers_data:
