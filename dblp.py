@@ -225,10 +225,22 @@ def save_to_cache_db(keyword, papers_data):
     
     try:
         # 获取现有记录数量和标题，只查询一次数据库
-        cursor.execute(f"SELECT COUNT(*), GROUP_CONCAT(title, '|') FROM {table_name}")
-        result = cursor.fetchone()
-        current_count = result[0] if result[0] is not None else 0
-        existing_titles = set(result[1].split('|')) if result[1] else set()
+        try:
+            # 尝试使用GROUP_CONCAT (某些SQLite版本可能不支持)
+            cursor.execute(f"SELECT COUNT(*), GROUP_CONCAT(title, '|') FROM {table_name}")
+            result = cursor.fetchone()
+            current_count = result[0] if result[0] is not None else 0
+            existing_titles = set(result[1].split('|')) if result[1] and result[1] is not None else set()
+        except sqlite3.OperationalError:
+            # 如果GROUP_CONCAT不可用，回退到传统方法
+            cursor.execute(f"SELECT COUNT(*) FROM {table_name}")
+            current_count = cursor.fetchone()[0]
+            existing_titles = set()
+            if current_count > 0:
+                cursor.execute(f"SELECT title FROM {table_name}")
+                for row in cursor.fetchall():
+                    if row[0]:  # 确保标题不为None
+                        existing_titles.add(row[0])
         
         # 过滤出新论文，避免重复插入
         new_papers = [paper for paper in papers_data if paper['title'] not in existing_titles]
@@ -539,6 +551,10 @@ def generate_rss_from_papers(papers_data):
     description.text = "Custom DBLP extraction from XML"
     language = ET.SubElement(channel, 'language')
     language.text = 'en'
+    
+    # 添加频道更新时间
+    lastBuildDate = ET.SubElement(channel, 'lastBuildDate')
+    lastBuildDate.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")
 
     # 为每篇论文创建RSS项
     for paper in papers_data:
@@ -615,6 +631,8 @@ def generate_rss_from_papers(papers_data):
         guid_value = paper.get('guid', paper.get('url', ''))
         guid.text = guid_value
         guid.set('rdf:resource', guid_value)
+        # 设置为永久链接
+        guid.set('isPermaLink', 'true')
         
         # 添加description标签，包含摘要信息
         description = ET.SubElement(item, 'description')
