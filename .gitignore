@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Generated daily DBLP snapshot and local index (legacy tracked caches are untouched)
+cache/dblp_local.db*
+cache/dblp-stage.db*
+cache/dblp-*.xml.gz
+cache/*.part
+cache/dblp.dtd
+cache/dblp-sync.lock
+cache/dblp-emergency.reserve
+test/search-*.png

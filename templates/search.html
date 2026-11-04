@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>搜索期刊与会议 · DBLP RSS</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; color: #182230; background: #f6f8fb; }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; }
+    main { max-width: 960px; margin: 0 auto; padding: 40px 22px 60px; }
+    .brand { color: #315b9e; font-size: 14px; font-weight: 700; letter-spacing: .06em; }
+    h1 { margin: 12px 0; font-size: clamp(25px, 4vw, 34px); }
+    .intro, .note { color: #526174; line-height: 1.8; }
+    .intro { margin-bottom: 26px; }
+    form { background: white; border: 1px solid #dce3ed; border-radius: 12px; padding: 20px; }
+    label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .fields { display: grid; grid-template-columns: 1fr 150px auto; gap: 12px; align-items: end; }
+    input, select, button { font: inherit; }
+    input, select { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #b8c6d8; border-radius: 7px; background: white; color: inherit; }
+    input:focus, select:focus, button:focus-visible, a:focus-visible { outline: 3px solid #a8c9f6; outline-offset: 2px; }
+    button { min-height: 40px; padding: 9px 15px; border: 1px solid #c6d2e2; border-radius: 7px; background: white; color: #244d86; cursor: pointer; }
+    button.primary { min-height: 44px; color: white; background: #2858a0; border-color: #2858a0; }
+    button:disabled { opacity: .45; cursor: default; }
+    .summary { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; margin: 22px 0 14px; color: #526174; font-size: 14px; }
+    #status { margin: 16px 0; line-height: 1.7; }
+    .card { background: white; padding: 20px; margin: 12px 0; border: 1px solid #dce3ed; border-radius: 10px; }
+    .card-head { display: flex; gap: 10px; align-items: flex-start; }
+    h2 { font-size: 18px; line-height: 1.6; margin: 0; overflow-wrap: anywhere; }
+    .badge { flex-shrink: 0; font-size: 12px; padding: 4px 8px; border-radius: 5px; background: #edf3fc; color: #305b95; }
+    .identity { margin: 8px 0 12px; color: #526174; font-size: 13px; overflow-wrap: anywhere; }
+    .link-row { display: flex; gap: 8px; align-items: center; }
+    .link-row input { min-width: 0; font: 12px ui-monospace, Consolas, monospace; background: #f8faff; }
+    .link-row button, .link-row a { flex-shrink: 0; }
+    a { color: #2858a0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .availability { margin: 12px 0 0; font-size: 13px; color: #526174; }
+    .ready { color: #20744b; }
+    nav { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 24px 0; }
+    .note { font-size: 13px; margin-top: 26px; }
+    #notice { min-height: 24px; font-size: 13px; color: #20744b; }
+    @media (max-width: 620px) { main { padding: 25px 15px; } .fields { grid-template-columns: 1fr 110px; } .query-field { grid-column: 1 / -1; } .link-row { flex-wrap: wrap; } .link-row input { flex-basis: 100%; } }
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand">DBLP RSS</div>
+  <h1>搜索期刊与会议</h1>
+  <p class="intro">输入名称、简称或 DBLP 标识，查找订阅链接。目录覆盖本地总库中识别出的全部期刊与会议。</p>
+  <form id="search-form" action="/search" method="get">
+    <div class="fields">
+      <div class="query-field">
+        <label for="query">名称或简称</label>
+        <input id="query" name="q" type="search" maxlength="200" placeholder="例如 TDSC、CVPR、Eurocrypt、Security" autocomplete="off" autofocus>
+      </div>
+      <div>
+        <label for="kind">类型</label>
+        <select id="kind" name="kind"><option value="all">全部</option><option value="journals">期刊</option><option value="conf">会议</option></select>
+      </div>
+      <button class="primary" type="submit">搜索</button>
+    </div>
+  </form>
+  <div class="summary"><span id="count">正在读取本地目录…</span><span id="updated"></span></div>
+  <p id="status" role="status" aria-live="polite"></p>
+  <div id="results" aria-busy="false"></div>
+  <nav id="pagination" aria-label="搜索结果分页" hidden>
+    <button id="previous" type="button">上一页</button><span id="page"></span><button id="next" type="button">下一页</button>
+  </nav>
+  <p id="notice" role="status" aria-live="polite"></p>
+  <p class="note">每个来源保留最新 300 条，以及最近 30 天更新的全部记录。RSS 按 DBLP 记录修改日期排序。<br>
+    首次访问尚未准备的订阅时，后台会解析本地总库；期间返回 503，请稍后重试同一链接。<a href="/health" target="_blank" rel="noopener">查看同步状态</a></p>
+  <noscript><p>请启用 JavaScript 使用实时搜索，也可通过 <a href="/api/venues">目录 API</a> 查询。</p></noscript>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const query = $('query'), kind = $('kind'), results = $('results');
+  const size = 30;
+  let offset = 0, total = 0, controller = null, sequence = 0, timer = null;
+  const initial = new URLSearchParams(location.search);
+  query.value = (initial.get('q') || '').slice(0, 200);
+  if (['all', 'journals', 'conf'].includes(initial.get('kind'))) kind.value = initial.get('kind');
+
+  async function copyLink(value, input) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(value);
+      else {
+        input.focus(); input.select();
+        if (!document.execCommand('copy')) throw new Error('Copy unavailable');
+      }
+      $('notice').textContent = '订阅链接已复制。';
+    } catch (_) {
+      input.focus(); input.select();
+      $('notice').textContent = '链接已选中，请按 Ctrl+C（或 Command+C）复制。';
+    }
+  }
+
+  function card(item) {
+    const article = document.createElement('article'); article.className = 'card';
+    const head = document.createElement('div'); head.className = 'card-head';
+    const badge = document.createElement('span'); badge.className = 'badge'; badge.textContent = item.kind === 'journals' ? '期刊' : '会议';
+    const title = document.createElement('h2'); title.textContent = item.name;
+    head.append(badge, title);
+    const identity = document.createElement('p'); identity.className = 'identity';
+    identity.textContent = item.abbreviation + ' · ' + item.stream;
+    const row = document.createElement('div'); row.className = 'link-row';
+    const absolute = new URL(item.rss_path, location.href).href;
+    const input = document.createElement('input'); input.readOnly = true; input.value = absolute;
+    input.setAttribute('aria-label', item.abbreviation + ' RSS 订阅链接');
+    const copy = document.createElement('button'); copy.type = 'button'; copy.textContent = '复制链接';
+    copy.addEventListener('click', () => copyLink(absolute, input));
+    const open = document.createElement('a'); open.href = item.rss_path; open.target = '_blank'; open.rel = 'noopener'; open.textContent = '打开 RSS ↗';
+    row.append(input, copy, open);
+    const available = document.createElement('p'); available.className = 'availability' + (item.feed_ready ? ' ready' : '');
+    available.textContent = item.feed_ready ? 'RSS 已准备好' : '首次访问后后台解析，无需再次下载总库';
+    article.append(head, identity, row, available);
+    return article;
+  }
+
+  async function search() {
+    clearTimeout(timer);
+    if (controller) controller.abort();
+    controller = new AbortController();
+    const current = ++sequence;
+    results.setAttribute('aria-busy', 'true');
+    $('status').textContent = '正在搜索…';
+    $('notice').textContent = '';
+    const params = new URLSearchParams({q: query.value.trim(), kind: kind.value, limit: String(size), offset: String(offset)});
+    const address = new URL(location.href);
+    address.search = new URLSearchParams({q: query.value.trim(), kind: kind.value}).toString();
+    history.replaceState(null, '', address);
+    try {
+      const response = await fetch('/api/venues?' + params, {signal: controller.signal, cache: 'no-store'});
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const data = await response.json();
+      if (current !== sequence) return;
+      total = data.total;
+      results.replaceChildren(...data.results.map(card));
+      $('count').textContent = '目录共 ' + data.total_venues.toLocaleString() + ' 个来源 · 匹配 ' + total.toLocaleString() + ' 个';
+      $('updated').textContent = data.updated_at ? '目录更新：' + new Date(data.updated_at).toLocaleString() : '';
+      if (!data.ready) {
+        $('status').textContent = '正在首次建立完整目录，现有 RSS 仍可使用。目录准备好后会自动显示。';
+        timer = setTimeout(search, 5000);
+      } else $('status').textContent = total ? '' : '没有找到匹配的来源，请尝试简称、英文名称或 DBLP 标识。';
+      $('pagination').hidden = !data.ready || total <= size;
+      $('previous').disabled = offset === 0;
+      $('next').disabled = offset + size >= total;
+      $('page').textContent = (Math.floor(offset / size) + 1) + ' / ' + Math.max(1, Math.ceil(total / size));
+    } catch (error) {
+      if (error.name !== 'AbortError' && current === sequence) {
+        $('status').textContent = '暂时无法读取目录，请重新搜索或查看同步状态。';
+        $('pagination').hidden = true;
+      }
+    } finally {
+      if (current === sequence) results.setAttribute('aria-busy', 'false');
+    }
+  }
+  $('search-form').addEventListener('submit', event => {event.preventDefault(); offset = 0; search();});
+  query.addEventListener('input', () => {offset = 0; clearTimeout(timer); timer = setTimeout(search, 220);});
+  kind.addEventListener('change', () => {offset = 0; search();});
+  $('previous').addEventListener('click', () => {offset = Math.max(0, offset - size); search();});
+  $('next').addEventListener('click', () => {if (offset + size < total) {offset += size; search();}});
+  search();
+})();
+</script>
+</body>
+</html>

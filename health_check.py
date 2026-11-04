@@ -5,7 +5,8 @@ import requests
 import os
 import time
 
-CHECK_URL = "https://xxx.com/dblp/stream%3Astreams%2Fjournals%2Ftdsc%3A"
+# Use liveness, not a feed which returns 503 while its first import is pending.
+CHECK_URL = "https://xxx.com/health"
 DOCKER_CONTAINER = "dblp-rss"
 
 def health_check():

@@ -1,0 +1,14 @@
+.git
+.idea
+venv
+.venv
+env
+.env
+__pycache__
+**/__pycache__
+.pytest_cache
+cache
+test
+tests
+*.log
+Typora_Hook_Log.txt

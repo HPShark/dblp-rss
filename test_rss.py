@@ -1,12 +1,22 @@
-from dblp import dblp_rss
-import os
+"""Optional one-shot command. Importing this module never performs network I/O."""
 
-# 确保test目录存在
-os.makedirs('test', exist_ok=True)
+import argparse
+from pathlib import Path
 
-# 获取RSS内容并保存到文件
-rss_content = dblp_rss('stream:streams/journals/tdsc:')
-with open('test/sample.xml', 'w', encoding='utf-8') as f:
-    f.write(rss_content)
+from dblp import dblp_rss, normalize_stream
+from local_dblp import LocalDBLP
 
-print(f"已保存RSS样本到 test/sample.xml") 
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Sync if due and export one local RSS feed.")
+    parser.add_argument("keyword", nargs="?", default="stream:streams/journals/tdsc:")
+    parser.add_argument("--output", default="test/sample.xml")
+    args = parser.parse_args()
+    service = LocalDBLP()
+    service.store.initialize()
+    service.store.register(normalize_stream(args.keyword))
+    service.run_once()
+    output = Path(args.output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(dblp_rss(args.keyword, service), encoding="utf-8")
+    print(f"RSS saved to {output}")

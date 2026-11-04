@@ -1,72 +1,96 @@
-from fastapi import FastAPI, HTTPException, Path, Request
-from fastapi.responses import Response, PlainTextResponse
-from dblp import dblp_rss, init_cache_db
-import asyncio
-from concurrent.futures import ThreadPoolExecutor
+"""HTTP RSS service, compatible with the original Docker and reverse proxy setup."""
+
+from contextlib import asynccontextmanager
 import logging
-import os
-from datetime import datetime
+from logging.handlers import RotatingFileHandler
+from pathlib import Path
+from typing import Literal
 
-# --- Logging Setup ---
-LOG_DIR = "cache"
-LOG_FILE = os.path.join(LOG_DIR, "request.log")
+from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi.responses import FileResponse, RedirectResponse, Response
+from starlette.concurrency import run_in_threadpool
 
-# Create a dedicated logger for requests
-request_logger = logging.getLogger("request_logger")
-request_logger.setLevel(logging.INFO)
+from dblp import normalize_stream
+from local_dblp import FeedPending, LocalDBLP
 
-# Create a handler that writes to the log file, and a formatter
-file_handler = logging.FileHandler(LOG_FILE, mode='a')
-formatter = logging.Formatter('%(message)s')
-file_handler.setFormatter(formatter)
 
-# Add the handler to the logger
-request_logger.addHandler(file_handler)
-# --- End Logging Setup ---
+def create_app(service=None):
+    service = service or LocalDBLP()
 
-app = FastAPI()
+    @asynccontextmanager
+    async def lifespan(app):
+        logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
+        service.settings.cache_dir.mkdir(parents=True, exist_ok=True)
+        handler = RotatingFileHandler(
+            service.settings.cache_dir / "request.log", maxBytes=5_000_000,
+            backupCount=3, encoding="utf-8",
+        )
+        handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
+        request_logger = logging.getLogger("dblp.requests")
+        request_logger.setLevel(logging.INFO)
+        request_logger.propagate = False
+        request_logger.addHandler(handler)
+        service.start()
+        try:
+            yield
+        finally:
+            service.stop()
+            request_logger.removeHandler(handler)
+            handler.close()
 
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    """Logs incoming client IP, timestamp, and URL to a file."""
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    client_ip = request.client.host
-    url = str(request.url)
-    
-    request_logger.info(f"IP: {client_ip}, Time: {timestamp}, URL: {url}")
-    
-    response = await call_next(request)
-    return response
+    app = FastAPI(lifespan=lifespan)
+    app.state.dblp = service
 
-# 优化队列配置，使用更高效的线程池
-executor = ThreadPoolExecutor(max_workers=2)  # 限制线程池大小为 2，控制资源使用
-active_requests = asyncio.Semaphore(2)  # 设置并发限制为 2
+    @app.middleware("http")
+    async def log_requests(request: Request, call_next):
+        response = await call_next(request)
+        logging.getLogger("dblp.requests").info(
+            "IP=%s %s %s status=%s", request.client.host if request.client else "-",
+            request.method, request.url.path, response.status_code,
+        )
+        return response
 
-@app.on_event("startup")
-async def startup_event():
-    """Initializes the cache database and log directory on application startup."""
-    os.makedirs(LOG_DIR, exist_ok=True)
-    init_cache_db()
+    @app.get("/health")
+    def health():
+        return service.status()
 
-@app.get("/dblp/{keyword:path}", response_class=PlainTextResponse)
-async def get_dblp_rss(keyword: str = Path(..., regex=r".+")):
-    """
-    处理 GET 请求，接收 keyword 参数并返回生成的 RSS 数据。
-    """
-    print(f"Received keyword: {keyword}")  # 调试信息
+    @app.get("/", include_in_schema=False)
+    def home():
+        return RedirectResponse("/search")
 
-    loop = asyncio.get_event_loop()
-    try:
-        # 使用线程池执行耗时任务
-        async with active_requests:  # 超过 2 个并发将排队等待
-            result = await loop.run_in_executor(executor, dblp_rss, keyword)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    @app.get("/search", include_in_schema=False)
+    def search_page():
+        return FileResponse(Path(__file__).parent / "templates" / "search.html",
+                            media_type="text/html", headers={"Cache-Control": "no-cache"})
 
-    # 返回 RSS 数据，并指定正确的 Content-Type
-    return Response(result, media_type="application/rss+xml")
+    @app.get("/api/venues")
+    def search_venues(q: str = Query("", max_length=200),
+                      kind: Literal["all", "journals", "conf"] = "all",
+                      limit: int = Query(30, ge=1, le=100),
+                      offset: int = Query(0, ge=0)):
+        return service.store.search_venues(q, kind, limit, offset)
+
+    @app.get("/dblp/{keyword:path}")
+    async def get_dblp_rss(keyword: str):
+        try:
+            stream = normalize_stream(keyword)
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+        try:
+            rss = await run_in_threadpool(service.feed, stream)
+        except FeedPending as exc:
+            raise HTTPException(status_code=503, detail=str(exc),
+                                headers={"Retry-After": "60"}) from exc
+        return Response(rss, media_type="application/rss+xml",
+                        headers={"Cache-Control": "no-cache"})
+
+    return app
+
+
+app = create_app()
 
 if __name__ == "__main__":
     import uvicorn
-    # 启动 FastAPI 应用，监听 0.0.0.0 和端口 8080
-    uvicorn.run("server:app", host="0.0.0.0", port=8080, reload=True)
+
+    logging.basicConfig(level=logging.INFO)
+    uvicorn.run(app, host="0.0.0.0", port=8080, access_log=False)
