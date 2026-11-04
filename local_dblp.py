@@ -744,6 +744,7 @@ class LocalDBLP:
 
     def build_stage(self, snapshot, streams, today=None, dtd_path=None, build_catalog=True):
         """Keep recent records on disk and at most 300 older candidates per stream in RAM."""
+        started = time.monotonic()
         stage = self.settings.cache_dir / "dblp-stage.db"
         stage.unlink(missing_ok=True)
         cutoff = cutoff_date(today)
@@ -753,7 +754,10 @@ class LocalDBLP:
         batch = []
         scanned = 0
         catalog = VenueCatalog() if build_catalog else None
-        logger.info("Parsing snapshot for %d subscriptions", len(streams))
+        names = sorted(selected)
+        logger.info("Parsing snapshot for %d subscriptions (catalog=%s): %s%s",
+                    len(selected), build_catalog, ", ".join(names[:20]) or "(none)",
+                    f", ... ({len(names) - 20} more)" if len(names) > 20 else "")
         with closing(self.store.connect(stage)) as conn:
             conn.executescript(PAPER_SCHEMA + CATALOG_SCHEMA +
                                "CREATE TABLE stage_metadata (key TEXT PRIMARY KEY, value TEXT);")
@@ -879,7 +883,8 @@ class LocalDBLP:
                             ORDER BY mdate DESC, key DESC LIMIT 300
                         )
                     """, (stream, cutoff, stream))
-        logger.info("Completed snapshot scan: %d records", scanned)
+        logger.info("Completed snapshot scan: %d records in %.1fs for %d subscriptions",
+                    scanned, time.monotonic() - started, len(streams))
         return stage
 
     def _publish(self, stage, streams, metadata):
@@ -940,6 +945,60 @@ class LocalDBLP:
             self._pending_retry_at = time.time() + self.settings.pressure_retry_interval
             logger.exception("Latest snapshot retained; paper caches will retry independently")
 
+    def _register_queued_requests(self):
+        """Persist requests deferred by disk pressure, including mid-scan arrivals."""
+        with self._request_lock:
+            pending = sorted(self._request_queue)
+            self._request_queue.clear()
+        for index, stream in enumerate(pending):
+            try:
+                while True:
+                    try:
+                        self.store.register(stream)
+                        break
+                    except (sqlite3.Error, OSError) as exc:
+                        if not storage_error(exc) or not self._evict_one():
+                            raise
+            except (sqlite3.Error, OSError):
+                with self._request_lock:
+                    self._request_queue.update(pending[index:])
+                raise
+
+    def _import_pending_subscriptions(self):
+        """Freeze each scan's membership, then drain all new arrivals as one batch."""
+        attempted = set()
+        batch_number = 0
+        while not self.stop_event.is_set():
+            self._register_queued_requests()
+            current = self.store.metadata()
+            snapshot = self.snapshot_path()
+            if snapshot is None or time.time() < self._pending_retry_at:
+                return
+            # Registration is keyed by stream, not HTTP request. Never repeat a
+            # failed/evicted source within this tick if readers register it again.
+            pending = tuple(sorted(set(self.store.subscriptions(
+                pending_only=True, snapshot=current.get("snapshot")))
+                - attempted - self._evicted_streams))
+            needs_catalog = (current.get("catalog_version") != CATALOG_VERSION or
+                             current.get("catalog_snapshot") != current.get("snapshot"))
+            if not pending and not needs_catalog:
+                return
+            attempted.update(pending)
+            batch_number += 1
+            logger.info("Starting subscription batch %d: %d sources", batch_number, len(pending))
+            try:
+                stage = self.build_stage(snapshot, pending, build_catalog=needs_catalog)
+                self._publish(stage, pending, {"snapshot": current["snapshot"],
+                    "last_error": "", "last_feed_sync_at": utcnow()})
+            except SyncStopped:
+                raise
+            except Exception as exc:
+                logger.exception("Subscription batch %d failed; automatic retry deferred", batch_number)
+                self.store.set_metadata({"last_error": str(exc)})
+                self._pending_retry_at = time.time() + self.settings.retry_interval
+                return
+            logger.info("Completed subscription batch %d; collecting next pending batch", batch_number)
+
     def run_once(self):
         """One worker tick; synchronization state persists across server restarts."""
         self._initialize_storage()
@@ -950,19 +1009,7 @@ class LocalDBLP:
                 self._cleanup()
                 try:
                     self._maintenance()
-                    with self._request_lock:
-                        requests_pending = list(self._request_queue)
-                        self._request_queue.clear()
-                    for stream in requests_pending:
-                        while True:
-                            try:
-                                self.store.register(stream)
-                                break
-                            except (sqlite3.Error, OSError) as exc:
-                                if not storage_error(exc) or not self._evict_one():
-                                    with self._request_lock:
-                                        self._request_queue.add(stream)
-                                    raise
+                    self._register_queued_requests()
                     state = self.store.metadata()
                     missing_local = bool(state.get("snapshot_file")) and (
                         self.snapshot_path() is None or not (self.settings.cache_dir / "dblp.dtd").is_file())
@@ -975,22 +1022,7 @@ class LocalDBLP:
                             logger.exception("Snapshot sync failed; retaining existing feeds")
                             delay = self.settings.pressure_retry_interval if isinstance(exc, CapacityError) or storage_error(exc) else self.settings.retry_interval
                             self.store.set_metadata({"last_error": str(exc), "next_sync_at": time.time() + delay})
-                    pending = self.store.subscriptions(pending_only=True, snapshot=self.store.metadata().get("snapshot"))
-                    snapshot = self.snapshot_path()
-                    current = self.store.metadata()
-                    needs_catalog = (current.get("catalog_version") != CATALOG_VERSION or
-                                     current.get("catalog_snapshot") != current.get("snapshot"))
-                    if (pending or needs_catalog) and snapshot and time.time() >= self._pending_retry_at:
-                        try:
-                            stage = self.build_stage(snapshot, pending, build_catalog=needs_catalog)
-                            self._publish(stage, pending, {"snapshot": self.store.metadata()["snapshot"],
-                                                           "last_error": "", "last_feed_sync_at": utcnow()})
-                        except SyncStopped:
-                            raise
-                        except Exception as exc:
-                            logger.exception("New subscription import failed")
-                            self.store.set_metadata({"last_error": str(exc)})
-                            self._pending_retry_at = time.time() + self.settings.retry_interval
+                    self._import_pending_subscriptions()
                 finally:
                     self._reading_snapshot = None
                     self._protected_snapshot = None

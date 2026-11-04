@@ -1,4 +1,5 @@
 from contextlib import closing
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 import gzip
 import errno
@@ -237,6 +238,191 @@ class LocalDBLPTests(unittest.TestCase):
         self.assertEqual(len(ET.fromstring(self.service.feed("conf/nonexistent")).findall('channel/item')), 0)
         self.service.run_once()
         self.assertEqual(len(self.items("conf/nonexistent")), 0)
+
+    def test_arrivals_during_scan_form_one_next_batch_and_duplicate_requests_do_not_rescan(self):
+        first = "conf/first"
+        arrivals = [f"conf/batch{i}" for i in range(10)]
+        self.upstream.payload = dump([record(f"{s}/one", title=s) for s in
+                                      ["journals/tdsc", first] + arrivals])
+        self.service.run_once()  # Install a local snapshot and directory first.
+        downloads = self.upstream.downloads()
+        original_build = self.service.build_stage
+        batches = []
+        entered = [threading.Event(), threading.Event()]
+        release = [threading.Event(), threading.Event()]
+
+        def blocked_build(snapshot, streams, **kwargs):
+            index = len(batches)
+            batches.append(tuple(streams))
+            if index < 2:
+                entered[index].set()
+                if not release[index].wait(15):
+                    raise RuntimeError("Timed out waiting for concurrent test requests")
+            return original_build(snapshot, streams, **kwargs)
+
+        def path(stream):
+            return "/dblp/stream%3Astreams%2F" + stream.replace("/", "%2F") + "%3A"
+
+        with patch.object(self.service, "start"), patch.object(self.service, "stop"):
+            with TestClient(create_app(self.service), base_url="http://papers.example.org:8080") as client:
+                self.assertEqual(client.get(path(first)).status_code, 503)
+                with patch.object(self.service, "build_stage", side_effect=blocked_build):
+                    worker = threading.Thread(target=self.service.run_once, daemon=True)
+                    worker.start()
+                    try:
+                        self.assertTrue(entered[0].wait(5))
+                        # Twenty concurrent requests represent ten distinct sources.
+                        with ThreadPoolExecutor(max_workers=10) as pool:
+                            responses = list(pool.map(lambda s: client.get(path(s)), arrivals * 2))
+                        self.assertTrue(all(r.status_code == 503 for r in responses))
+                        self.assertEqual(client.get(path("journals/tdsc")).status_code, 200)
+                        self.assertEqual(batches, [(first,)])
+                        release[0].set()
+                        self.assertTrue(entered[1].wait(5))  # Same tick starts the next batch immediately.
+                        self.assertEqual(set(batches[1]), set(arrivals))
+                        self.assertEqual(len(batches[1]), 10)
+                        self.assertEqual(client.get(path(first)).status_code, 200)
+                        # Retries of the active second batch cannot add more work.
+                        for stream in arrivals:
+                            self.assertEqual(client.get(path(stream)).status_code, 503)
+                    finally:
+                        for event in release:
+                            event.set()
+                        worker.join(15)
+                    self.assertFalse(worker.is_alive())
+                    self.assertEqual([len(b) for b in batches], [1, 10])
+                    for stream in [first] + arrivals:
+                        response = client.get(path(stream))
+                        self.assertEqual(response.status_code, 200)
+                        self.assertEqual(ET.fromstring(response.content).findtext("channel/item/title"), stream)
+                    for _ in range(3):
+                        self.service.run_once()
+                    self.assertEqual([len(b) for b in batches], [1, 10])
+        self.assertEqual(self.service.status()["pending_subscriptions"], [])
+        self.assertEqual(self.upstream.downloads(), downloads)
+
+    def test_arrivals_in_each_batch_are_collected_only_by_the_following_scan(self):
+        streams = ["conf/first", "conf/second", "conf/third", "conf/fourth"]
+        self.upstream.payload = dump([record(f"{s}/one") for s in ["journals/tdsc"] + streams])
+        self.service.run_once()
+        with self.assertRaises(FeedPending):
+            self.service.feed(streams[0])
+        batches = []
+        original_build = self.service.build_stage
+
+        def arriving_build(snapshot, selected, **kwargs):
+            batches.append(tuple(selected))
+            arrivals = streams[1:3] if len(batches) == 1 else streams[3:] if len(batches) == 2 else []
+            for stream in arrivals:
+                with self.assertRaises(FeedPending):
+                    self.service.feed(stream)
+            return original_build(snapshot, selected, **kwargs)
+
+        with patch.object(self.service, "build_stage", side_effect=arriving_build):
+            self.service.run_once()
+            self.service.run_once()
+        self.assertEqual(batches, [(streams[0],), tuple(streams[1:3]), (streams[3],)])
+        self.assertEqual(self.service.status()["pending_subscriptions"], [])
+
+    def test_daily_snapshot_scan_collects_arrivals_in_one_following_import(self):
+        arrivals = [f"conf/new{i}" for i in range(10)]
+        self.upstream.payload = dump([record(f"{s}/one") for s in ["journals/tdsc"] + arrivals])
+        original_build = self.service.build_stage
+        batches = []
+
+        def arriving_build(snapshot, streams, **kwargs):
+            batches.append(tuple(streams))
+            if len(batches) == 1:
+                for stream in arrivals:
+                    with self.assertRaises(FeedPending):
+                        self.service.feed(stream)
+            return original_build(snapshot, streams, **kwargs)
+
+        with patch.object(self.service, "build_stage", side_effect=arriving_build):
+            self.service.run_once()
+            self.service.run_once()
+        self.assertEqual(batches, [("journals/tdsc",), tuple(arrivals)])
+        self.assertEqual(self.upstream.downloads(), 1)
+        self.assertEqual(self.service.status()["pending_subscriptions"], [])
+
+    def test_failed_batch_respects_retry_backoff_despite_new_requests(self):
+        self.upstream.payload = dump([record(f"{s}/one") for s in
+                                      ["journals/tdsc", "conf/first", "conf/next"]])
+        self.service.run_once()
+        with self.assertRaises(FeedPending):
+            self.service.feed("conf/first")
+        with patch.object(self.service, "build_stage", side_effect=ValueError("broken import")) as build:
+            self.service.run_once()
+            retry_at = self.service._pending_retry_at
+            for stream in ["conf/next", "conf/first"] * 3:
+                with self.assertRaises(FeedPending):
+                    self.service.feed(stream)
+                self.service.run_once()
+            self.assertEqual(build.call_count, 1)
+            self.assertEqual(self.service._pending_retry_at, retry_at)
+            self.assertGreater(retry_at, time.time())
+        self.service._pending_retry_at = 0
+        original_build = self.service.build_stage
+        with patch.object(self.service, "build_stage", wraps=original_build) as build:
+            self.service.run_once()
+            self.assertEqual(build.call_count, 1)
+            self.assertEqual(set(build.call_args.args[1]), {"conf/first", "conf/next"})
+        self.assertEqual(self.service.status()["pending_subscriptions"], [])
+
+    def test_evicted_source_requested_again_does_not_spin_within_batch_drain(self):
+        self.upstream.payload = dump([record("journals/tdsc/one"), record("conf/new/one")])
+        self.service.run_once()
+        with self.assertRaises(FeedPending):
+            self.service.feed("conf/new")
+        original_build = self.service.build_stage
+        original_publish = self.service._publish
+
+        def evict_and_request(stage, streams, metadata):
+            self.assertEqual(self.service._evict_one(), "journals/tdsc")
+            with self.assertRaises(FeedPending):
+                self.service.feed("journals/tdsc")
+            return original_publish(stage, streams, metadata)
+
+        with patch.object(self.service, "build_stage", wraps=original_build) as build:
+            with patch.object(self.service, "_publish", side_effect=evict_and_request):
+                self.service.run_once()
+            self.assertEqual(build.call_count, 1)
+            self.assertEqual(self.service.status()["pending_subscriptions"], ["journals/tdsc"])
+            self.service.run_once()  # Rebuild is allowed on a later tick.
+            self.assertEqual(build.call_count, 2)
+        self.assertEqual(self.service.status()["pending_subscriptions"], [])
+
+    def test_disk_full_deferred_arrivals_join_next_batch_without_losing_requests(self):
+        streams = ["conf/first", "conf/second", "conf/third"]
+        self.upstream.payload = dump([record(f"{s}/one") for s in ["journals/tdsc"] + streams])
+        self.service.run_once()
+        self.service.store.register(streams[0])
+        original_build = self.service.build_stage
+        batches = []
+
+        def arriving_build(snapshot, selected, **kwargs):
+            batches.append(tuple(selected))
+            if len(batches) == 1:
+                full = sqlite3.OperationalError("database or disk is full")
+                full.sqlite_errorcode = sqlite3.SQLITE_FULL
+                with patch.object(self.service.store, "register", side_effect=full):
+                    for stream in streams[1:]:
+                        with self.assertRaises(FeedPending):
+                            self.service.feed(stream)
+            return original_build(snapshot, selected, **kwargs)
+
+        with patch.object(self.service, "build_stage", side_effect=arriving_build):
+            self.service.run_once()
+        self.assertEqual(batches, [(streams[0],), tuple(streams[1:])])
+        self.assertEqual(self.service._request_queue, set())
+        self.assertEqual(self.service.status()["pending_subscriptions"], [])
+
+    def test_failed_deferred_registration_preserves_all_unprocessed_requests(self):
+        streams = {"conf/a", "conf/b", "conf/c"}
+        self.service._request_queue.update(streams)
+        with patch.object(self.service.store, "register", side_effect=OSError("write failed")):
+            self.service.run_once()
+        self.assertEqual(self.service._request_queue, streams)
 
     def test_restart_repairs_missing_snapshot_or_dtd_before_next_daily_check(self):
         self.service.run_once()
