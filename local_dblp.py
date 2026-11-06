@@ -54,6 +54,28 @@ CREATE TABLE IF NOT EXISTS venues (
 """
 
 
+def paper_order(stream):
+    """Use bibliographic chronology first, then DBLP's update order."""
+    year = "CAST(year AS INTEGER) DESC"
+    if stream.startswith("journals/"):
+        return year + ", CAST(volume AS INTEGER) DESC, mdate DESC, key DESC"
+    return year + ", mdate DESC, key DESC"
+
+
+def paper_rank(stream, paper):
+    try:
+        year_match = re.match(r"\s*([+-]?\d+)", str(paper[4]))
+        year = int(year_match.group(1)) if year_match else 0
+    except (TypeError, ValueError):
+        year = 0
+    try:
+        volume_match = re.match(r"\s*([+-]?\d+)", str(paper[6]))
+        volume = int(volume_match.group(1)) if stream.startswith("journals/") and volume_match else 0
+    except (TypeError, ValueError):
+        volume = 0
+    return year, volume, paper[1], paper[0]
+
+
 def search_words(value):
     """Normalize punctuation, accents, and common bibliographic abbreviations."""
     value = "".join(c for c in unicodedata.normalize("NFKD", value.casefold())
@@ -361,13 +383,14 @@ class Store:
             ).fetchone()
             if not subscription or not subscription[0]:
                 raise FeedPending("正在下载总库或解析新订阅，请稍后重试。")
-            papers = conn.execute("""
+            order = paper_order(stream)
+            papers = conn.execute(f"""
                 SELECT * FROM papers WHERE stream = ? AND (
                     mdate >= ? OR key IN (
                         SELECT key FROM papers WHERE stream = ?
-                        ORDER BY mdate DESC, key DESC LIMIT 300
+                        ORDER BY {order} LIMIT 300
                     )
-                ) ORDER BY mdate DESC, key DESC
+                ) ORDER BY {order}
             """, (stream, cutoff_date(), stream)).fetchall()
             return papers, subscription[0]
 
@@ -411,10 +434,11 @@ class Store:
         """Age out the 30-day overflow even if upstream has no new snapshot."""
         with closing(self.connect()) as conn, conn:
             for stream in self.subscriptions():
-                conn.execute("""
+                order = paper_order(stream)
+                conn.execute(f"""
                     DELETE FROM papers WHERE stream=? AND mdate < ? AND key NOT IN (
                         SELECT key FROM papers WHERE stream=?
-                        ORDER BY mdate DESC, key DESC LIMIT 300
+                        ORDER BY {order} LIMIT 300
                     )
                 """, (stream, cutoff_date(), stream))
 
@@ -789,8 +813,9 @@ class LocalDBLP:
                         with conn:
                             conn.executemany(INSERT_PAPER, batch)
                             for stream in {row[0] for row in batch}:
-                                conn.execute("""DELETE FROM papers WHERE stream=? AND mdate < ? AND key NOT IN
-                                    (SELECT key FROM papers WHERE stream=? ORDER BY mdate DESC, key DESC LIMIT 300)
+                                order = paper_order(stream)
+                                conn.execute(f"""DELETE FROM papers WHERE stream=? AND mdate < ? AND key NOT IN
+                                    (SELECT key FROM papers WHERE stream=? ORDER BY {order} LIMIT 300)
                                 """, (stream, cutoff, stream))
                         batch.clear()
                     except sqlite3.Error as exc:
@@ -803,7 +828,7 @@ class LocalDBLP:
                     heap = heaps.get(stream, [])
                     heaps[stream] = []
                     heap_count -= len(heap)
-                    for _, _, row in heap:
+                    for _, row in heap:
                         batch.append(row)
                         if len(batch) >= 500:
                             flush()
@@ -839,7 +864,7 @@ class LocalDBLP:
                                 if paper[1] >= cutoff:
                                     batch.append(row)
                                 else:
-                                    candidate = (paper[1], paper[0], row)
+                                    candidate = (paper_rank(stream, paper), row)
                                     heap = heaps[stream]
                                     if len(heap) < 300:
                                         heapq.heappush(heap, candidate)
@@ -877,12 +902,13 @@ class LocalDBLP:
                 logger.info("Indexed %d journal/conference streams", len(catalog.entries))
             with conn:
                 for stream in streams:
-                    conn.execute("""
+                    order = paper_order(stream)
+                    conn.execute(f"""
                         DELETE FROM papers WHERE stream=? AND mdate < ? AND key NOT IN (
                             SELECT key FROM papers WHERE stream=?
-                            ORDER BY mdate DESC, key DESC LIMIT 300
+                            ORDER BY {order} LIMIT 300
                         )
-                    """, (stream, cutoff, stream))
+                        """, (stream, cutoff, stream))
         logger.info("Completed snapshot scan: %d records in %.1fs for %d subscriptions",
                     scanned, time.monotonic() - started, len(streams))
         return stage

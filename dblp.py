@@ -34,7 +34,7 @@ def normalize_stream(keyword):
 
 
 def generate_rss_from_papers(papers_data, stream="", updated_at=None):
-    """Render every retained record; pubDate means DBLP modification date."""
+    """Render papers chronologically by publication year; mdate is a tie-breaker."""
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
     ET.SubElement(channel, "title").text = f"DBLP {stream}".strip()
@@ -42,8 +42,9 @@ def generate_rss_from_papers(papers_data, stream="", updated_at=None):
         f"https://dblp.org/db/{stream}/" if stream else "https://dblp.org/"
     )
     ET.SubElement(channel, "description").text = (
-        "DBLP updates: latest 300 records plus all records modified in the last 30 days. "
-        "pubDate is the DBLP record modification date, not the paper publication date."
+        "Papers are ordered by publication year, then journal volume when applicable, "
+        "then DBLP record modification date. The latest 300 by this order are retained "
+        "along with every record modified in the last 30 days."
     )
     ET.SubElement(channel, "language").text = "en"
     built = datetime.fromisoformat(updated_at) if updated_at else datetime.now(timezone.utc)
@@ -59,10 +60,20 @@ def generate_rss_from_papers(papers_data, stream="", updated_at=None):
         url = "https://dblp.org/rec/" + paper["key"]
         ET.SubElement(item, "link").text = url
         ET.SubElement(item, "guid", isPermaLink="true").text = url
-        if paper["mdate"]:
-            modified = datetime.fromisoformat(paper["mdate"]).replace(tzinfo=timezone.utc)
-            ET.SubElement(item, "pubDate").text = format_datetime(modified, usegmt=True)
-            metadata(item, "dc", "date", paper["mdate"])
+        publication_year = str(paper["year"]).strip()
+        match = re.match(r"^\s*(\d{4})", publication_year)
+        try:
+            year_number = int(match.group(1)) if match else 0
+            if not 1 <= year_number <= 9999:
+                raise ValueError
+        except (AttributeError, TypeError, ValueError):
+            publication_year = ""
+        if publication_year:
+            # DBLP usually provides a year but not a publication day; Jan 1 is
+            # the RSS sorting date, while dc:date retains the supplied precision.
+            published = datetime(year_number, 1, 1, tzinfo=timezone.utc)
+            ET.SubElement(item, "pubDate").text = format_datetime(published, usegmt=True)
+            metadata(item, "dc", "date", publication_year)
         authors = json.loads(paper["authors"])
         for author in authors:
             metadata(item, "dc", "creator", author)
@@ -76,9 +87,10 @@ def generate_rss_from_papers(papers_data, stream="", updated_at=None):
             metadata(item, "dc", "relation", link)
             if "doi.org/" in link:
                 metadata(item, "dc", "identifier", "doi:" + link.split("doi.org/", 1)[1])
-        # Do not mislabel mdate or a fabricated January 1 as the publication date.
+        # Keep the supplied publication year separate from the DBLP update date.
         details = {
-            "Year": paper["year"], "Venue": paper["venue"],
+            "Publication year": publication_year, "Volume": paper["volume"],
+            "Venue": paper["venue"],
             "Authors": ", ".join(authors), "DBLP updated": paper["mdate"],
         }
         ET.SubElement(item, "description").text = "".join(

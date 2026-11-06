@@ -168,7 +168,8 @@ class LocalDBLPTests(unittest.TestCase):
         self.assertEqual(len(items), 1)
         self.assertEqual(items[0].findtext("{http://purl.org/dc/elements/1.1/}creator"), "Jörg & Li")
         self.assertEqual(items[0].findtext("guid"), "https://dblp.org/rec/journals/tdsc/one")
-        self.assertEqual(items[0].findtext("pubDate"), "Wed, 01 Jan 2020 00:00:00 GMT")
+        self.assertEqual(items[0].findtext("pubDate"), "Thu, 01 Jan 2026 00:00:00 GMT")
+        self.assertEqual(items[0].findtext("{http://purl.org/dc/elements/1.1/}date"), "2026")
         self.assertEqual(self.upstream.downloads(), 1)
         state = self.service.store.metadata()
         self.assertAlmostEqual(float(state["next_sync_at"]) - time.time(), 86400, delta=10)
@@ -191,14 +192,81 @@ class LocalDBLPTests(unittest.TestCase):
         self.service.store.register("conf/eurocrypt")
         self.upstream.payload = dump(reversed(records))
         self.service.run_once()
-        self.assertEqual(len(self.items()), 1201)
+        self.assertEqual(len(self.items()), 1500)
         self.assertEqual(len(self.items("conf/eurocrypt")), 300)
         with closing(self.service.store.connect()) as conn:
-            self.assertEqual(conn.execute("SELECT COUNT(*) FROM papers WHERE stream='journals/tdsc'").fetchone()[0], 1201)
+            self.assertEqual(conn.execute("SELECT COUNT(*) FROM papers WHERE stream='journals/tdsc'").fetchone()[0], 1500)
             self.assertEqual(conn.execute("SELECT COUNT(*) FROM papers WHERE stream='conf/eurocrypt'").fetchone()[0], 300)
         dates = [item.findtext("pubDate") for item in self.items()]
-        self.assertEqual(dates[0], dates[1199])
+        self.assertEqual(dates[0], "Thu, 01 Jan 2026 00:00:00 GMT")
+        self.assertEqual(dates[300], "Mon, 01 Jan 2001 00:00:00 GMT")
         self.assertNotEqual(dates[0], dates[-1])
+
+    def test_publication_year_precedes_mdate_for_every_stream_and_volume_precedes_mdate_for_journals(self):
+        today = datetime.now(timezone.utc).date().isoformat()
+        records = [
+            record("journals/tdsc/old-revised", today,
+                   title="Trust-Based Service Management for Social Internet of Things Systems.",
+                   year="2016", extra="<volume>9</volume>"),
+            record("journals/tdsc/volume-9", "2020-01-01", title="2025 volume 9",
+                   year="2025", extra="<volume>9</volume>"),
+            record("journals/tdsc/volume-13", "2019-01-01", title="2025 volume 13",
+                   year="2025", extra="<volume>13</volume>"),
+            record("journals/tdsc/newer-year", today, title="2024 volume 20",
+                   year="2024", extra="<volume>20</volume>"),
+            record("conf/eurocrypt/older-update", "2020-01-01", title="2025 older update",
+                   tag="inproceedings", year="2025", extra="<volume>99</volume>"),
+            record("conf/eurocrypt/newer-update", today, title="2025 newer update",
+                   tag="inproceedings", year="2025"),
+            record("conf/eurocrypt/newer-year", "2019-01-01", title="2026 older DBLP update",
+                   tag="inproceedings", year="2026"),
+        ]
+        self.service.store.register("conf/eurocrypt")
+        self.upstream.payload = dump(records)
+        self.service.run_once()
+
+        journal_items = self.items()
+        self.assertEqual([item.findtext("title") for item in journal_items], [
+            "2025 volume 13", "2025 volume 9", "2024 volume 20",
+            "Trust-Based Service Management for Social Internet of Things Systems.",
+        ])
+        self.assertEqual(journal_items[0].findtext("pubDate"), "Wed, 01 Jan 2025 00:00:00 GMT")
+        self.assertEqual(journal_items[-1].findtext("pubDate"), "Fri, 01 Jan 2016 00:00:00 GMT")
+        self.assertIn("DBLP updated: " + today, journal_items[-1].findtext("description"))
+
+        conference_items = self.items("conf/eurocrypt")
+        self.assertEqual([item.findtext("title") for item in conference_items], [
+            "2026 older DBLP update", "2025 newer update", "2025 older update",
+        ])
+        self.assertEqual(conference_items[0].findtext("pubDate"), "Thu, 01 Jan 2026 00:00:00 GMT")
+
+    def test_latest_300_cap_uses_publication_order_for_journals_and_conferences(self):
+        old_date = "2020-01-01"
+        records = [record(f"journals/tdsc/base{i:03}", old_date, year="2024",
+                          extra="<volume>10</volume>") for i in range(301)]
+        records += [record("journals/tdsc/new-year", "2019-01-01", year="2025",
+                           title="New publication year", extra="<volume>1</volume>"),
+                    record("journals/tdsc/new-volume", "2018-01-01", year="2024",
+                           title="New publication volume", extra="<volume>99</volume>")]
+        records += [record(f"conf/eurocrypt/base{i:03}", old_date,
+                           tag="inproceedings", year="2024") for i in range(301)]
+        records.append(record("conf/eurocrypt/new-year", "2019-01-01", tag="inproceedings",
+                              year="2025", title="New conference publication year"))
+        self.service.store.register("conf/eurocrypt")
+        self.upstream.payload = dump(records)
+        self.service.run_once()
+
+        journal_items = self.items()
+        self.assertEqual(len(journal_items), 300)
+        journal_guids = {item.findtext("guid") for item in journal_items}
+        self.assertNotIn("https://dblp.org/rec/journals/tdsc/base000", journal_guids)
+        self.assertEqual(journal_items[0].findtext("title"), "New publication year")
+
+        conference_items = self.items("conf/eurocrypt")
+        self.assertEqual(len(conference_items), 300)
+        self.assertEqual(conference_items[0].findtext("title"), "New conference publication year")
+        conference_guids = {item.findtext("guid") for item in conference_items}
+        self.assertNotIn("https://dblp.org/rec/conf/eurocrypt/base000", conference_guids)
 
     def test_less_than_300_and_mixed_recent_old(self):
         today = datetime.now(timezone.utc).date().isoformat()
