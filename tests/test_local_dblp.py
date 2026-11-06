@@ -240,6 +240,29 @@ class LocalDBLPTests(unittest.TestCase):
         ])
         self.assertEqual(conference_items[0].findtext("pubDate"), "Thu, 01 Jan 2026 00:00:00 GMT")
 
+    def test_old_order_cache_is_refreshed_from_local_snapshot_without_blocking_reads_or_downloading(self):
+        today = datetime.now(timezone.utc).date().isoformat()
+        self.upstream.payload = dump([
+            record("journals/tdsc/revised-old-paper", today, title="Published 2016",
+                   year="2016", extra="<volume>13</volume>"),
+            record("journals/tdsc/missing-from-old-cache", "2019-01-01",
+                   title="Published 2025", year="2025", extra="<volume>22</volume>"),
+        ])
+        self.service.run_once()
+        downloads = self.upstream.downloads()
+        with closing(self.service.store.connect()) as conn, conn:
+            conn.execute("DELETE FROM papers WHERE key='journals/tdsc/missing-from-old-cache'")
+            conn.execute("UPDATE subscriptions SET paper_order_version=0 WHERE stream='journals/tdsc'")
+
+        self.assertEqual(self.service.status()["pending_subscriptions"], ["journals/tdsc"])
+        self.assertIn("Published 2016", self.service.feed("journals/tdsc"))
+        with patch.object(self.service, "build_stage", wraps=self.service.build_stage) as build:
+            self.service.run_once()
+            self.assertEqual(build.call_count, 1)
+        self.assertEqual(self.upstream.downloads(), downloads)
+        self.assertEqual(self.service.status()["pending_subscriptions"], [])
+        self.assertEqual(self.items()[0].findtext("title"), "Published 2025")
+
     def test_latest_300_cap_uses_publication_order_for_journals_and_conferences(self):
         old_date = "2020-01-01"
         records = [record(f"journals/tdsc/base{i:03}", old_date, year="2024",
@@ -1028,7 +1051,9 @@ class LocalDBLPTests(unittest.TestCase):
         migrated.store.initialize()
         migrated.store.migrate_vacuum()
         with closing(migrated.store.connect()) as conn:
-            self.assertGreaterEqual(conn.execute('SELECT last_access FROM subscriptions').fetchone()[0], before)
+            row = conn.execute('SELECT last_access, paper_order_version FROM subscriptions').fetchone()
+            self.assertGreaterEqual(row[0], before)
+            self.assertEqual(row[1], 0)
             self.assertEqual(conn.execute('PRAGMA auto_vacuum').fetchone()[0], 2)
 
     def test_registration_when_full_queues_request_and_serves_existing_rss(self):

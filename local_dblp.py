@@ -36,6 +36,7 @@ RECORD_TYPES = (
 PAPER_TYPES = {"article", "inproceedings", "incollection", "book", "data"}
 COLUMNS = "stream, key, mdate, title, authors, year, venue, volume, number, ee"
 INSERT_PAPER = f"INSERT OR REPLACE INTO papers ({COLUMNS}) VALUES ({','.join('?' * 10)})"
+PAPER_ORDER_VERSION = 1
 PAPER_SCHEMA = """
 CREATE TABLE IF NOT EXISTS papers (
     stream TEXT NOT NULL, key TEXT NOT NULL, mdate TEXT NOT NULL,
@@ -202,10 +203,11 @@ class Store:
     def initialize(self):
         self.settings.cache_dir.mkdir(parents=True, exist_ok=True)
         with closing(self.connect()) as conn, conn:
-            conn.executescript(PAPER_SCHEMA + CATALOG_SCHEMA + """
+            conn.executescript(PAPER_SCHEMA + CATALOG_SCHEMA + f"""
                 CREATE TABLE IF NOT EXISTS subscriptions (
                     stream TEXT PRIMARY KEY, refreshed_at TEXT, snapshot TEXT,
-                    last_access REAL NOT NULL DEFAULT 0
+                    last_access REAL NOT NULL DEFAULT 0,
+                    paper_order_version INTEGER NOT NULL DEFAULT {PAPER_ORDER_VERSION}
                 );
                 CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);
             """)
@@ -214,6 +216,9 @@ class Store:
                 conn.execute("ALTER TABLE subscriptions ADD COLUMN last_access REAL NOT NULL DEFAULT 0")
                 # Existing subscriptions get a grace period after upgrading.
                 conn.execute("UPDATE subscriptions SET last_access=?", (time.time(),))
+            if "paper_order_version" not in columns:
+                # Keep cached feeds readable, while scheduling one local-snapshot refresh.
+                conn.execute("ALTER TABLE subscriptions ADD COLUMN paper_order_version INTEGER NOT NULL DEFAULT 0")
             conn.execute("CREATE INDEX IF NOT EXISTS subscriptions_lru ON subscriptions(last_access, stream)")
 
     def metadata(self):
@@ -234,11 +239,15 @@ class Store:
     def subscriptions(self, pending_only=False, snapshot=None):
         with closing(self.connect()) as conn:
             query = "SELECT stream FROM subscriptions"
+            parameters = []
             if pending_only:
-                query += " WHERE refreshed_at IS NULL"
+                conditions = ["refreshed_at IS NULL", "paper_order_version != ?"]
+                parameters.append(PAPER_ORDER_VERSION)
                 if snapshot:
-                    query += " OR snapshot IS NULL OR snapshot != ?"
-            return [row[0] for row in conn.execute(query, (snapshot,) if pending_only and snapshot else ())]
+                    conditions.append("(snapshot IS NULL OR snapshot != ?)")
+                    parameters.append(snapshot)
+                query += " WHERE " + " OR ".join(conditions)
+            return [row[0] for row in conn.execute(query, parameters)]
 
     def venue_exists(self, stream):
         with closing(self.connect()) as conn:
@@ -424,8 +433,9 @@ class Store:
                             SELECT key FROM incoming.papers WHERE stream = ?
                         )
                     """, (stream, stream))
-                    conn.execute("UPDATE subscriptions SET refreshed_at=?, snapshot=? WHERE stream=?",
-                                 (refreshed, (metadata or {}).get("snapshot", ""), stream))
+                    conn.execute("""UPDATE subscriptions SET refreshed_at=?, snapshot=?,
+                        paper_order_version=? WHERE stream=?""",
+                        (refreshed, (metadata or {}).get("snapshot", ""), PAPER_ORDER_VERSION, stream))
                 if metadata:
                     conn.executemany("INSERT OR REPLACE INTO metadata VALUES (?, ?)",
                                      [(k, str(v)) for k, v in metadata.items()])
