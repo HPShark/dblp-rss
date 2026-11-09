@@ -25,7 +25,7 @@ from fastapi.testclient import TestClient
 from filelock import FileLock
 
 from dblp import normalize_stream
-from local_dblp import CapacityError, FeedPending, LocalDBLP, Settings, cutoff_date
+from local_dblp import CapacityError, FeedPending, LocalDBLP, Settings, cutoff_date, PAPER_ORDER_VERSION
 from server import create_app
 
 
@@ -290,6 +290,90 @@ class LocalDBLPTests(unittest.TestCase):
         self.assertEqual(conference_items[0].findtext("title"), "New conference publication year")
         conference_guids = {item.findtext("guid") for item in conference_items}
         self.assertNotIn("https://dblp.org/rec/conf/eurocrypt/base000", conference_guids)
+
+    def test_full_dump_selection_uses_issues_before_publication_and_keeps_recent_extras(self):
+        today = datetime.now(timezone.utc).date().isoformat()
+        self.service.settings.heap_record_limit = 25  # Exercise bounded scratch spills too.
+        records = [record(f"journals/tdsc/issue2-{i:04}", "2020-01-01", year="2026",
+                          extra="<volume>23</volume><number>2</number>") for i in range(600)]
+        # These arrive last in XML, with an older mdate, and must displace issue 2.
+        records += [record(f"journals/tdsc/issue4-{i:04}", "2019-01-01", year="2026",
+                           extra="<volume>23</volume><number>4</number>") for i in range(400)]
+        records += [record("journals/tdsc/old-revised", today, year="2016",
+                           extra="<volume>13</volume><number>6</number>")]
+        self.upstream.payload = dump(records)
+        original_publish = self.service.store.publish
+        captured = []
+
+        def checked_publish(stage_path, streams, metadata):
+            with closing(self.service.store.connect(stage_path)) as conn:
+                captured.append([r[0] for r in conn.execute("SELECT key FROM papers ORDER BY key")])
+            return original_publish(stage_path, streams, metadata)
+
+        with patch.object(self.service.store, "publish", side_effect=checked_publish):
+            self.service.run_once()
+        expected = [f"journals/tdsc/issue4-{i:04}" for i in range(100, 400)] + ["journals/tdsc/old-revised"]
+        # The complete retained set has already been selected before touching the live DB.
+        self.assertEqual(captured, [expected])
+        papers, _ = self.service.store.feed_data("journals/tdsc")
+        self.assertEqual([p["key"] for p in papers], sorted(expected[:-1], reverse=True) + expected[-1:])
+        self.service.store.prune()
+        self.assertEqual(len(self.items()), 301)
+
+    def test_sqlite_and_rss_share_natural_issue_order_for_ranges_and_supplements(self):
+        expected = ["10", "9", "4", "3-4", "3", "S10", "S2", ""]
+        self.upstream.payload = dump([record(f"journals/tdsc/n{i}", title=issue or "missing",
+            extra=f"<volume>23</volume><number>{issue}</number>")
+            for i, issue in enumerate(reversed(expected))])
+        self.service.run_once()
+        papers, _ = self.service.store.feed_data("journals/tdsc")
+        self.assertEqual([p["number"] for p in papers], expected)
+        self.assertEqual([i.findtext("title") for i in self.items()], [x or "missing" for x in expected])
+
+    def test_rss_date_precision_issue_description_and_unknown_dates(self):
+        self.upstream.payload = dump([
+            record("journals/tdsc/month", extra="<volume>23</volume><number>4</number><month>July</month>"),
+            record("journals/tdsc/day", extra="<volume>23</volume><number>4</number><month>July 12</month>"),
+            record("journals/tdsc/year", extra="<volume>23</volume><number>4</number>"),
+            record("journals/tdsc/unknown", year=""),
+        ])
+        self.service.run_once()
+        items = self.items()
+        self.assertEqual([i.findtext("guid").rsplit("/", 1)[-1] for i in items], ["day", "month", "year", "unknown"])
+        ns = "{https://github.com/HPShark/dblp-rss/ns/1.0/}"
+        dc = "{http://purl.org/dc/elements/1.1/}"
+        self.assertEqual([i.findtext(ns + "datePrecision") for i in items], ["day", "month", "year", "unknown"])
+        self.assertEqual([i.findtext(ns + "sortRank") for i in items], ["1", "2", "3", "4"])
+        self.assertEqual(items[0].findtext(dc + "date"), "2026-07-12")
+        self.assertEqual(items[1].findtext(dc + "date"), "2026-07")
+        self.assertEqual(items[1].findtext("pubDate"), "Wed, 01 Jul 2026 00:00:00 GMT")
+        self.assertIn("Issue: 4", items[0].findtext("description"))
+        self.assertIn("exact day is unknown", items[1].findtext("description"))
+        self.assertIn("only the publication year is known", items[2].findtext("description"))
+        self.assertIsNone(items[3].find("pubDate"))
+        self.assertEqual(items[1].findtext(ns + "dateSource"), "dblp:year/month")
+
+    def test_v1_database_upgrades_preserving_feeds_and_rebuilds_once_without_download(self):
+        self.upstream.payload = dump([record("journals/tdsc/month", extra="<number>4</number><month>July</month>")])
+        self.service.run_once()
+        downloads = self.upstream.downloads()
+        # Recreate the exact v1 paper/subscription layout in this temporary cache.
+        with closing(self.service.store.connect()) as conn, conn:
+            conn.execute("ALTER TABLE papers DROP COLUMN month")
+            conn.execute("UPDATE subscriptions SET paper_order_version=1")
+        restarted = LocalDBLP(self.service.settings)
+        restarted.store.initialize()
+        self.assertIn("journals/tdsc", restarted.status()["pending_subscriptions"])
+        self.assertIn("<item>", restarted.feed("journals/tdsc"))
+        with patch.object(restarted, "build_stage", wraps=restarted.build_stage) as build:
+            restarted.run_once()
+            restarted.run_once()
+            self.assertEqual(build.call_count, 1)
+        self.assertEqual(self.upstream.downloads(), downloads)
+        self.assertEqual(restarted.status()["pending_subscriptions"], [])
+        with closing(restarted.store.connect()) as conn:
+            self.assertEqual(conn.execute("SELECT month FROM papers").fetchone()[0], "July")
+            self.assertEqual(conn.execute("SELECT paper_order_version FROM subscriptions").fetchone()[0], PAPER_ORDER_VERSION)
 
     def test_less_than_300_and_mixed_recent_old(self):
         today = datetime.now(timezone.utc).date().isoformat()

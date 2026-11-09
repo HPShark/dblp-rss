@@ -86,10 +86,20 @@ def main():
                     assert not failures, failures
                     assert batches == [[first], sorted(arrivals)], batches
                     counts = {}
+                    tdsc_front = []
                     for stream in [first] + arrivals:
                         items = ET.fromstring(service.feed(stream)).findall("channel/item")
                         assert items, f"No records imported for {stream}"
                         counts[stream] = len(items)
+                        if stream == first:
+                            dc = "{http://purl.org/dc/elements/1.1/}"
+                            prism = "{http://prismstandard.org/namespaces/basic/2.0/}"
+                            chronology = [(int(item.findtext(dc + "date")[:4]),
+                                int(item.findtext(prism + "volume") or 0),
+                                int(item.findtext(prism + "number") or 0)) for item in items]
+                            assert chronology == sorted(chronology, reverse=True), "TDSC issue order regressed"
+                            tdsc_front = [{"title": item.findtext("title"), "year_volume_issue": key}
+                                          for item, key in zip(items[:3], chronology[:3])]
                     assert service.status()["pending_subscriptions"] == []
                     assert service.status()["last_error"] == ""
                     for _ in range(3):
@@ -99,6 +109,7 @@ def main():
                     print(json.dumps({"batch_sizes": list(map(len, batches)),
                         "scan_seconds": durations, "feed_item_counts": counts,
                         "venue_count": service.status()["venue_count"],
+                        "tdsc_front": tdsc_front,
                         "network_syncs": sync.call_count, "extra_idle_scans": len(batches) - 2},
                         ensure_ascii=False), flush=True)
                 finally:

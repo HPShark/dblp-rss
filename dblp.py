@@ -8,10 +8,13 @@ import re
 from urllib.parse import unquote
 from xml.etree import ElementTree as ET
 
+from publication import publication_date, row_publication_key, value_from_row
+
 
 NAMESPACES = {
     "dc": "http://purl.org/dc/elements/1.1/",
     "prism": "http://prismstandard.org/namespaces/basic/2.0/",
+    "rssmeta": "https://github.com/HPShark/dblp-rss/ns/1.0/",
 }
 for prefix, namespace in NAMESPACES.items():
     ET.register_namespace(prefix, namespace)
@@ -34,7 +37,7 @@ def normalize_stream(keyword):
 
 
 def generate_rss_from_papers(papers_data, stream="", updated_at=None):
-    """Render papers chronologically by publication year; mdate is a tie-breaker."""
+    """Render the same chronology used to select records from the full dump."""
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
     ET.SubElement(channel, "title").text = f"DBLP {stream}".strip()
@@ -42,9 +45,11 @@ def generate_rss_from_papers(papers_data, stream="", updated_at=None):
         f"https://dblp.org/db/{stream}/" if stream else "https://dblp.org/"
     )
     ET.SubElement(channel, "description").text = (
-        "Papers are ordered by publication year, then journal volume when applicable, "
-        "then DBLP record modification date. The latest 300 by this order are retained "
-        "along with every record modified in the last 30 days."
+        "Papers are ordered by publication year, journal volume/issue when applicable, "
+        "available publication month/day, then DBLP modification date and key. "
+        "The top 300 plus all records modified in the last 30 days are retained. "
+        "Partial publication dates use their period start for RSS pubDate; "
+        "date precision and source are provided per item."
     )
     ET.SubElement(channel, "language").text = "en"
     built = datetime.fromisoformat(updated_at) if updated_at else datetime.now(timezone.utc)
@@ -54,26 +59,22 @@ def generate_rss_from_papers(papers_data, stream="", updated_at=None):
         if value:
             ET.SubElement(item, f"{{{NAMESPACES[prefix]}}}{name}").text = str(value)
 
-    for paper in papers_data:
+    for rank, paper in enumerate(sorted(papers_data,
+            key=lambda row: row_publication_key(stream, row), reverse=True), 1):
         item = ET.SubElement(channel, "item")
         ET.SubElement(item, "title").text = paper["title"]
         url = "https://dblp.org/rec/" + paper["key"]
         ET.SubElement(item, "link").text = url
         ET.SubElement(item, "guid", isPermaLink="true").text = url
-        publication_year = str(paper["year"]).strip()
-        match = re.match(r"^\s*(\d{4})", publication_year)
-        try:
-            year_number = int(match.group(1)) if match else 0
-            if not 1 <= year_number <= 9999:
-                raise ValueError
-        except (AttributeError, TypeError, ValueError):
-            publication_year = ""
-        if publication_year:
-            # DBLP usually provides a year but not a publication day; Jan 1 is
-            # the RSS sorting date, while dc:date retains the supplied precision.
-            published = datetime(year_number, 1, 1, tzinfo=timezone.utc)
+        raw_month = value_from_row(paper, "month")
+        published_date = publication_date(str(paper["year"] or ""), str(raw_month or ""))
+        if published_date.lower_bound:
+            published = datetime.combine(published_date.lower_bound, datetime.min.time(), timezone.utc)
             ET.SubElement(item, "pubDate").text = format_datetime(published, usegmt=True)
-            metadata(item, "dc", "date", publication_year)
+            metadata(item, "dc", "date", published_date.value)
+        metadata(item, "rssmeta", "datePrecision", published_date.precision)
+        metadata(item, "rssmeta", "dateSource", published_date.source)
+        metadata(item, "rssmeta", "sortRank", rank)
         authors = json.loads(paper["authors"])
         for author in authors:
             metadata(item, "dc", "creator", author)
@@ -89,7 +90,14 @@ def generate_rss_from_papers(papers_data, stream="", updated_at=None):
                 metadata(item, "dc", "identifier", "doi:" + link.split("doi.org/", 1)[1])
         # Keep the supplied publication year separate from the DBLP update date.
         details = {
-            "Publication year": publication_year, "Volume": paper["volume"],
+            "Publication date": published_date.value,
+            "Date precision": published_date.precision,
+            "RSS date approximation": {
+                "year": "January 1; only the publication year is known",
+                "month": "First day of the publication month; exact day is unknown",
+            }.get(published_date.precision, ""),
+            "Publication month (DBLP)": raw_month,
+            "Volume": paper["volume"], "Issue": paper["number"],
             "Venue": paper["venue"],
             "Authors": ", ".join(authors), "DBLP updated": paper["mdate"],
         }

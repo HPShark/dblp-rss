@@ -25,6 +25,7 @@ from lxml import etree
 import requests
 
 from dblp import generate_rss_from_papers
+from publication import publication_key
 from urllib.parse import quote
 
 
@@ -34,14 +35,15 @@ RECORD_TYPES = (
     "phdthesis", "mastersthesis", "www", "person", "data",
 )
 PAPER_TYPES = {"article", "inproceedings", "incollection", "book", "data"}
-COLUMNS = "stream, key, mdate, title, authors, year, venue, volume, number, ee"
-INSERT_PAPER = f"INSERT OR REPLACE INTO papers ({COLUMNS}) VALUES ({','.join('?' * 10)})"
-PAPER_ORDER_VERSION = 1
+COLUMNS = "stream, key, mdate, title, authors, year, venue, volume, number, ee, month"
+INSERT_PAPER = f"INSERT OR REPLACE INTO papers ({COLUMNS}) VALUES ({','.join('?' * 11)})"
+PAPER_ORDER_VERSION = 2
 PAPER_SCHEMA = """
 CREATE TABLE IF NOT EXISTS papers (
     stream TEXT NOT NULL, key TEXT NOT NULL, mdate TEXT NOT NULL,
     title TEXT NOT NULL, authors TEXT NOT NULL, year TEXT NOT NULL,
     venue TEXT NOT NULL, volume TEXT NOT NULL, number TEXT NOT NULL, ee TEXT NOT NULL,
+    month TEXT NOT NULL DEFAULT '',
     PRIMARY KEY (stream, key)
 );
 CREATE INDEX IF NOT EXISTS papers_order ON papers(stream, mdate DESC, key DESC);
@@ -56,25 +58,12 @@ CREATE TABLE IF NOT EXISTS venues (
 
 
 def paper_order(stream):
-    """Use bibliographic chronology first, then DBLP's update order."""
-    year = "CAST(year AS INTEGER) DESC"
-    if stream.startswith("journals/"):
-        return year + ", CAST(volume AS INTEGER) DESC, mdate DESC, key DESC"
-    return year + ", mdate DESC, key DESC"
+    """Use the exact same key as the full-dump candidate selector."""
+    return "publication_key(stream, year, volume, number, month, mdate, key) DESC"
 
 
 def paper_rank(stream, paper):
-    try:
-        year_match = re.match(r"\s*([+-]?\d+)", str(paper[4]))
-        year = int(year_match.group(1)) if year_match else 0
-    except (TypeError, ValueError):
-        year = 0
-    try:
-        volume_match = re.match(r"\s*([+-]?\d+)", str(paper[6]))
-        volume = int(volume_match.group(1)) if stream.startswith("journals/") and volume_match else 0
-    except (TypeError, ValueError):
-        volume = 0
-    return year, volume, paper[1], paper[0]
+    return publication_key(stream, paper[4], paper[6], paper[7], paper[9], paper[1], paper[0])
 
 
 def search_words(value):
@@ -193,6 +182,7 @@ class Store:
     def connect(self, path=None):
         conn = sqlite3.connect(path or self.path, timeout=30)
         conn.row_factory = sqlite3.Row
+        conn.create_function("publication_key", 7, publication_key, deterministic=True)
         conn.execute("PRAGMA auto_vacuum = INCREMENTAL")
         conn.execute("PRAGMA foreign_keys = ON")
         conn.execute("PRAGMA temp_store = MEMORY")
@@ -211,6 +201,9 @@ class Store:
                 );
                 CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);
             """)
+            paper_columns = {row[1] for row in conn.execute("PRAGMA table_info(papers)")}
+            if "month" not in paper_columns:
+                conn.execute("ALTER TABLE papers ADD COLUMN month TEXT NOT NULL DEFAULT ''")
             columns = {row[1] for row in conn.execute("PRAGMA table_info(subscriptions)")}
             if "last_access" not in columns:
                 conn.execute("ALTER TABLE subscriptions ADD COLUMN last_access REAL NOT NULL DEFAULT 0")
@@ -426,7 +419,7 @@ class Store:
                         ON CONFLICT(stream, key) DO UPDATE SET
                             mdate=excluded.mdate, title=excluded.title, authors=excluded.authors,
                             year=excluded.year, venue=excluded.venue, volume=excluded.volume,
-                            number=excluded.number, ee=excluded.ee
+                            number=excluded.number, ee=excluded.ee, month=excluded.month
                     """, (stream,))
                     conn.execute("""
                         DELETE FROM papers WHERE stream = ? AND key NOT IN (
@@ -500,6 +493,7 @@ def paper_values(element):
         json.dumps(["".join(node.itertext()) for node in element.findall("author")], ensure_ascii=False),
         text("year"), text("journal") or text("booktitle"), text("volume"), text("number"),
         json.dumps(["".join(node.itertext()) for node in element.findall("ee")], ensure_ascii=False),
+        text("month"),
     )
 
 
